@@ -1,6 +1,6 @@
 ;;  -*- lexical-binding: t -*-
 
-(setopt borg-compile-function #'borg-byte+native-compile-async)
+(setopt borg-compile-function #'borg-byte+native-compile)
 
 (setopt native-comp-compiler-options '("-flto" "-O2"))
 
