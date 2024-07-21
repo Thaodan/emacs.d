@@ -1,0 +1,25 @@
+** TODO [[JB:%^{Bug}]] [#%^{Priority|B|A|C}] %^{Description|%:description} %^g
+   SCHEDULED: %^T
+   :PROPERTIES:
+   :ID:       %(org-id-new)
+   :PRODUCT:  %^{Product|External|Internal|AppSupport|Services}
+   :COMPONENT: %^{Component|Backlog}
+   :HARDWARE: %^{Hardware|any}
+   :Severity: %^{Severity|normal|minor|major|critical|blocker}
+   :Assignee: %^{Assignee|%n|None}
+   :DEPENDSON:
+   :BLOCKS:
+   :TYPE:     %^{Type|Task|Bug}
+   :Area:     %^{Area|.}
+   :Pool:
+   :TARGET:
+   :Link:     %a
+   :SeeAlso:
+   :SailfishForum:
+   :CREATED:  %U
+   :END:
+
+   # Bug Description
+   %i
+
+   %?

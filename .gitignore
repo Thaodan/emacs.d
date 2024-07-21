@@ -1,0 +1,31 @@
+# local emacs directories or files that belong to each specific client
+session*
+emacs.desktop
+elpa*
+request*
+emojis*
+backup*
+url*
+auto-save-list*
+desktop*
+tramp
+saved-places
+smex-items
+savehist
+recentf
+# backups
+\#*\#
+*~
+
+*.elc
+*.eln
+*:tangle
+.yas-compiled-snippets.el
+/.cask
+/.hive-maint
+/early-init.el
+/elpa
+/init.el
+var/
+/epkgs/
+/eln-cache/

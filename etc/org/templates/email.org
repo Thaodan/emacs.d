@@ -1,0 +1,13 @@
+** RPLY %^{Description} :Email:%^g
+   SCHEDULED: %^T
+   :PROPERTIES:
+   :ID: %(org-id-new)
+   :CREATED: %U
+   :Group: %:group
+   :EmailDate: %:date-timestamp-inactive
+   :Email:    %a
+   :END:
+
+   %i
+
+   %?

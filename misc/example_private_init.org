@@ -1,0 +1,181 @@
+* Private-Userdata
+  :PROPERTIES:
+  :CREATED:  [2024-07-20 Sat 22:03]
+  :header-args: :tangle no
+  :END:
+
+  It's important that all code blocks while are used as noweb referenced are grouped here so they
+  are not tangled twice inside ~init.org~, once literally and once as reference.
+
+** Userdata
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 21:18]
+   :END:
+
+   #+NAME: userdata_private
+   #+begin_src emacs-lisp :tangle no
+   (setq user-full-name "Alice Bob"
+         user-mail-address "alice.bob@example.de")
+   #+end_src
+** SSH-Agent
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 21:18]
+   :END:
+   #+begin_src emacs-lisp :noweb-ref ssh_agent_private
+   (setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/d.n74fqagsknsej3pgum7zfpmo/S.gpg-agent.ssh")
+   #+end_src
+** Markup Languages
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 21:19]
+   :END:
+*** Org-Packages
+    :PROPERTIES:
+    :CREATED:  [2024-07-20 Sat 21:20]
+    :END:
+**** Org
+     :PROPERTIES:
+     :CREATED:  [2024-07-20 Sat 21:20]
+     :END:
+     #+begin_src emacs-lisp :noweb-ref org_private
+     (setq org-link-abbrev-alist-private
+           '("BZ"        . "https://bz.company.com/show_bug.cgi?id=%s"))
+
+     #+end_src
+**** Org-Agenda
+     :PROPERTIES:
+     :CREATED:  [2024-07-20 Sat 21:20]
+     :END:
+     #+begin_src emacs-lisp :noweb-ref org_agenda_private
+     (setq org-agenda-custom-commands-private
+           `(("d" "Company Agenda and TODOs" ,@(org-agenda-custom-command-for-work "company"))))
+
+     #+end_src
+**** Org-Caldav
+     :PROPERTIES:
+     :CREATED:  [2024-07-20 Sat 21:20]
+     :END:
+     #+begin_src emacs-lisp :noweb-ref org_caldav_private
+     (setopt org-caldav-calendars )
+
+     (setopt org-caldav-url
+             "example.com")
+     #+end_src
+** Chat/Socialmedia
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 21:20]
+   :END:
+*** Circe
+    :PROPERTIES:
+    :CREATED:  [2024-07-20 Sat 21:21]
+    :END:
+**** Base
+     :PROPERTIES:
+     :CREATED:  [2024-07-20 Sat 22:21]
+     :END:
+     #+begin_src emacs-lisp :noweb-ref circe_base_private
+     (setopt circe-network-options)
+
+     #+end_src
+*** Mastodon
+    :PROPERTIES:
+    :CREATED:  [2024-07-20 Sat 21:21]
+    :END:
+    #+begin_src emacs-lisp :noweb-ref mastodon_private
+    (setopt mastodon-instance-url "https://mastodon.social"
+            mastodon-active-user "thaodan")
+    #+end_src
+** Email/PIM
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 21:21]
+   :END:
+*** Gnus
+    :PROPERTIES:
+    :CREATED:  [2024-07-20 Sat 21:21]
+    :END:
+
+    #+begin_src emacs-lisp :noweb-ref gnus_private
+    (setq gnus-secondary-select-methods
+          '((nnimap "example.de"
+                    (nnimap-address "imap.example.de")
+                    (nnimap-inbox "INBOX")
+                    (nnimap-user "alice.bob")
+                    (nnimap-server-port 993)
+                    (nnimap-stream ssl)
+                    ;;  (nnimap-split-methods default)
+                    (nnimap-expunge nil)
+                    (nnimap-use-namespaces t)
+                    (nnir-search-engine imap)
+                    (nnmail-expiry-target "nnimap+example.de:Trash"))
+            ;; Moved imap server
+            ;; (nnimap "Company"
+            ;;         (nnimap-address "example.de")
+            ;;         (nnimap-inbox "INBOX")
+            ;;         (nnimap-user "alice.bob@company.com")
+            ;;         (nnimap-server-port 2143)
+            ;;         (nnimap-stream ssl)
+            ;;         ;;  (nnimap-split-methods default)
+            ;;         (nnimap-expunge nil)
+            ;;         (nnimap-use-namespaces t)
+            ;;         (nnir-search-engine imap)
+            ;;         ()
+            ;;         (nnmail-expiry-target "nnimap+Company:Trash"))
+            (nntp "Gmane"
+                  (nntp-address "news.gmane.io"))))
+    (setq gnus-message-archive-group "nnimap+example.de:Sent") ;; Fixme for multiple emails
+
+    #+end_src
+
+    #+begin_src emacs-lisp :noweb-ref smtpmail_private
+    (setopt smtpmail-default-smtp-server "smtp.example.de"
+            smtpmail-smtp-server "smtp.example.de"
+            smtpmail-smtp-service "465"
+            smtpmail-stream-type 'ssl
+            smtpmail-servers-requiring-authorization ".*")
+
+    #+end_src
+
+    #+begin_src emacs-lisp :noweb-ref gnus_alias_private
+    (setq gnus-alias-unknown-identity-rule 'default)
+    (setq gnus-alias-default-identity "alice.bob@example.de")
+    (setq gnus-alias-identity-rules '(("Company/Work"
+                                       ("to" ".+@.*company.com" previous)
+                                       "alice.bob@company.com")
+                                      ("Personal"
+                                       ("to" ".+@example.de" previous)
+                                       "alice.bob@example.de")))
+    (setq gnus-alias-identity-alist '(("alice.bob@example.de" ;; Alias
+                                       "" ;; Refers-To:
+                                       "Alice Bob <alice.bob@example.de>" ;; To:
+                                       "" ;; Organization
+                                       (("Gcc" . "nnimap+example.de:Sent")
+                                        ("X-Message-SMTP-Method" .
+                                         "smtp smtp.example.de 465 alice.bob"))
+                                       "";; Body Text
+                                       "")))
+    #+end_src
+
+    #+begin_src emacs-lisp :noweb-ref autocrypt_private
+    (setopt autocrypt-accounts)
+    #+end_src
+
+** Elfeed
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 22:29]
+   :END:
+   #+begin_src emacs-lisp :noweb-ref elfeed_protocol_private
+   (setopt elfeed-feeds '(("owncloud+https://alice.bob@cloud.example.de"
+                           :use-authinfo t
+                           )))
+   #+end_src
+** Bug-Mode
+   :PROPERTIES:
+   :CREATED:  [2024-07-20 Sat 21:21]
+   :END:
+   #+begin_src emacs-lisp :noweb-ref bug_mode_private
+   (setq bug-instance-plist '(:work
+                              (:url "https://bz.company.com" :type bz-rpc
+                                    :login "user"
+                                    :authinfo 'password-store)))
+
+   (setq bug-default-instance :work)
+   #+end_src
