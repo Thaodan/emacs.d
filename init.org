@@ -252,7 +252,8 @@
     #+begin_src emacs-lisp
     (use-package epkg
       :init
-      (setq epkg-database-connector 'sqlite-builtin))
+      (setq epkg-database-connector 'sqlite-builtin)
+      (advice-add #'describe-package :override #'epkg-describe-package))
     #+end_src
 
 * Don't litter configs
