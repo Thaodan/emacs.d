@@ -5448,10 +5448,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     #+begin_src emacs-lisp
     (use-package circe-color-nicks
       :after circe
-      :ensure nil
       :config
-      (enable-circe-color-nicks)
-      (enable-lui-irc-colors))
+      (setopt circe-color-nicks-everywhere t)
+      (enable-circe-color-nicks))
     #+end_src
 
 
@@ -5509,6 +5508,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        lui-time-stamp-position 'right-margin
        lui-time-stamp-format "%H:%M"
        lui-fill-type nil)
+      (enable-lui-irc-colors)
       (unless (fboundp 'jinx-mode)
         (setopt lui-flyspell-p t))
       (setq lui-formatting-list
