@@ -1084,7 +1084,6 @@
 ** Cursor-cgh
    #+begin_src emacs-lisp
    (use-package cursor-chg
-     :ensure nil
      :config
      (toggle-cursor-type-when-idle 1) ; Turn on cursor change when Emacs is idle
      (change-cursor-mode 1)) ; Turn on change for overwrite, read-only, and input mode
@@ -1254,15 +1253,14 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 *** Helm-Bookmark
     #+begin_src emacs-lisp
     (use-package helm-bookmark
-      :ensure nil
       :after helm
       :config
       ;; Show bookmarks (and create bookmarks) in helm-mini
       (setq helm-mini-default-sources '(helm-source-buffers-list
-					helm-source-recentf
-					helm-source-bookmarks
-					helm-source-bookmark-set
-					helm-source-buffer-not-found)))
+    				                    helm-source-recentf
+    				                    helm-source-bookmarks
+    				                    helm-source-bookmark-set
+    				                    helm-source-buffer-not-found)))
     #+end_src
 
 *** Helm-Ag
@@ -1798,17 +1796,16 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 ** Grep-Context: Get more context for compilation/grep buffers by pressing +/-
    #+begin_src emacs-lisp
    (use-package grep-context
-     :ensure nil
      :after helm
      :bind (:map compilation-mode-map
-		 ("+" . grep-context-more-around-point)
-		 ("-" . grep-context-less-around-point)
-		 :map grep-mode-map
-		 ("+" . grep-context-more-around-point)
-		 ("-" . grep-context-less-around-point)
-		 :map ivy-occur-grep-mode-map
-		 ("+" . grep-context-more-around-point)
-		 ("-" . grep-context-less-around-point)))
+    	          ("+" . grep-context-more-around-point)
+    	          ("-" . grep-context-less-around-point)
+    	          :map grep-mode-map
+    	          ("+" . grep-context-more-around-point)
+    	          ("-" . grep-context-less-around-point)
+    	          :map ivy-occur-grep-mode-map
+    	          ("+" . grep-context-more-around-point)
+    	          ("-" . grep-context-less-around-point)))
    #+end_src
 
 ** Which-Key: Display available keybindings in popup
@@ -1829,13 +1826,11 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 ** Uniquify: Nicer buffer name for buffers with same name
    #+begin_src emacs-lisp
    (use-package uniquify
-     :ensure nil
      :config
      (setq uniquify-buffer-name-style 'forward)
      (setq uniquify-separator "/")
      (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-     (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
-     )
+     (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers)
    #+end_src
 
 ** Eldoc: Display help
@@ -3424,7 +3419,6 @@ Smart region guesses what you want to select by one command:
 ** Generic-x: Basic syntax highlighting for many modes (fstab, sudoers, passwd, etc)
    #+begin_src emacs-lisp
    (use-package generic-x
-     :ensure nil
      :if (daemonp)
      :defer 30)
    #+end_src
@@ -3731,7 +3725,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Perl
    #+begin_src emacs-lisp
    (use-package perl-completion
-     :ensure nil
      :config
      (perl-completion-mode t))
 
@@ -3751,11 +3744,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
      (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
      (setq cperl-indent-level 3
-	   cperl-set-style "C++"
-	   cperl-auto-newline-after-colon t
-	   cperl-continued-statement-offset 4
-	   cperl-extra-newline-before-brace t
-	   cperl-highlight-variables-indiscriminately t))
+           cperl-set-style "C++"
+           cperl-auto-newline-after-colon t
+           cperl-continued-statement-offset 4
+           cperl-extra-newline-before-brace t
+           cperl-highlight-variables-indiscriminately t))
    #+end_src
 
 ** Python
@@ -3773,13 +3766,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Shell-Script
    #+begin_src emacs-lisp
    (use-package sh-script
-     :ensure nil
      :config
      (add-hook 'sh-mode-hook
-	       (lambda ()
-		 (if (not (eq nil buffer-file-name))
-		     (if (string-match "\\.inc$" buffer-file-name)
-			 (sh-set-shell "rpm"))))))
+               (lambda ()
+    	          (if (not (eq nil buffer-file-name))
+    	              (if (string-match "\\.inc$" buffer-file-name)
+    		              (sh-set-shell "rpm"))))))
    #+end_src
 
 ** Lua
@@ -5457,11 +5449,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     #+begin_src emacs-lisp
     (use-package circe-display-images
       :after circe
-      :ensure nil
       :config
       (setq circe-display-images-image-regex
-	    "\\(https?://[^ ]*?\\.\\(?:png\\|jpg\\|jpeg\\|svg\\|gif\\)[^\]\)>\"\' \n]*\\)"
-	    circe-display-images-animate-gifs t)
+        "\\(https?://[^ ]*?\\.\\(?:png\\|jpg\\|jpeg\\|svg\\|gif\\)[^\]\)>\"\' \n]*\\)"
+        circe-display-images-animate-gifs t)
       (enable-circe-display-images))
     #+end_src
 
@@ -5493,7 +5484,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 *** Lui
     #+begin_src emacs-lisp
     (use-package lui
-      :ensure nil
       :config
       (require 'company-dabbrev)
       (require 'company-emoji)
@@ -5528,7 +5518,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
     #+begin_src emacs-lisp
     (use-package lui-track
-      :ensure nil
       :after lui
       :config
       (setq lui-track-behavior 'before-switch-to-buffer)
@@ -5537,7 +5526,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
     #+begin_src emacs-lisp
     (use-package lui-logging
-      :ensure nil
       :after lui
       :config
       (enable-lui-logging-globally)
@@ -5546,7 +5534,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
     #+begin_src emacs-lisp
     (use-package tracking
-      :ensure nil
       :init
       (setq tracking-max-mode-line-entries 5)
       (setq tracking-most-recent-first t)
