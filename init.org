@@ -1350,6 +1350,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+BEGIN_SRC emacs-lisp
    ;; dired config mostly from https://github.com/Fuco1/.emacs.d/blob/master/files/dired-defs.org
    (use-package dired
+     :hook ((dired . gnus-dired-mode))
      :bind (("C-x d" . dired)
             :map dired-mode-map
             ("j" . swiper)
