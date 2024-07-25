@@ -482,6 +482,9 @@
 [submodule "minions"]
 	path = lib/minions
 	url = git@github.com:tarsius/minions.git
+[submodule "mmm-jinja2"]
+	path = lib/mmm-jinja2
+	url = https://github.com/glynnforrest/mmm-jinja2
 [submodule "mmm-mode"]
 	path = lib/mmm-mode
 	url = git@github.com:dgutov/mmm-mode.git
@@ -652,6 +655,10 @@
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
+[submodule "salt-mode"]
+	path = lib/salt-mode
+	remote = "Thaodan git@github.com:thaodan/salt-mode.git"
+	url = https://github.com/glynnforrest/salt-mode
 [submodule "selected"]
 	path = lib/selected
 	url = git@github.com:Kungsgeten/selected.el.git

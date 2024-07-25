@@ -3898,6 +3898,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :mode ("\\.toml\\'" "Cargo.lock\\'"))
     #+end_src
 
+*** Salt: GNU Emacs major mode for editing Salt States
+    :PROPERTIES:
+    :CREATED:  [2024-07-25 Thu 00:00]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package salt-mode
+      :config
+      (setopt salt-mode-python-program "python3"))
+    #+end_src
+
 *** ssh-config
     #+begin_src emacs-lisp
     (use-package ssh-config-mode
