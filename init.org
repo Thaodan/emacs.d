@@ -685,14 +685,17 @@
 #+end_src
 
 * Password-store
+  #+begin_src emacs-lisp
+  (use-package auth-source-pass
+    :config
+    ;; Make auth-source-pass honor arguments such as :user or :host when searching for matching
+    ;; passwords so it traverses through the directory instead of building a password-file name
+    ;; that matches the arguments supplied in the query
+    (setopt auth-source-pass-extra-query-keywords t)
+    (auth-source-pass-enable))
 
-   #+begin_src emacs-lisp
-   (use-package auth-source-pass
-       :config
-       (auth-source-pass-enable))
-
-     (use-package helm-pass)
-   #+end_src
+  (use-package helm-pass)
+  #+end_src
 
 * Ui
   Here go packages that are mostly user-interface related, this isn't
