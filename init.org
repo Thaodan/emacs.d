@@ -3335,7 +3335,7 @@ Smart region guesses what you want to select by one command:
      ;; Small helper to launch Magit with yadm
      (defun yadm ()
        (interactive)
-       (magit-status "/yadm::"))
+       (magit-status-setup-buffer "/yadm::"))
 
      ;; Show magit status in the same window
      (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
