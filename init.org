@@ -4516,7 +4516,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (appt-activate)
       (org-agenda-to-appt)
 
-      (setq org-catch-invisible-edits 'show-and-error)
+      (setq org-fold-catch-invisible-edits 'show-and-error)
       (setq org-auto-align-tags t)
       ;; Display tags farther right
       ;; (setq org-agenda-tags-column 0)
@@ -5283,7 +5283,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               ("" "amssymb" t nil)
               ("" "capt-of" nil nil)
               ("" "hyperref" nil nil))))
-      (setq org-latex-listings 'minted)
+      (setq org-latex-src-block-backend 'minted)
       (add-to-list 'org-latex-packages-alist '("" "minted"))
       (setq org-latex-pdf-process
             '("xelatex -shell-escape -interaction nonstopmode %f"
