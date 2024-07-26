@@ -2079,7 +2079,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    (use-package dumb-jump
      :bind (("M-g o" . xref-find-definitions-other-window)
             ("M-g j" . xref-find-definitions)
-            ("M-g p" . xref-pop-marker-stack))
+            ("M-g p" . xref-go-back))
      :init
      (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
      :config
@@ -4155,7 +4155,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                   " line missing at position %s")
                                  (1+ start))))
                       (if (re-search-forward "^[ \t]*:END:" limit t)
-                          (outline-flag-region start (point-at-eol) t)
+                          (outline-flag-region start (line-end-position) t)
                         (user-error msg))))))))))
 
       (defun org-hide-all-drawers ()
@@ -6232,7 +6232,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; https://www.gnu.org/software/emms/manual/#Changing-Looks
      ;; The following code displays artist->track instead of artist->album->track
      ;; when you switch to the ’singles’ filter:
-     (defadvice emms-browser-next-mapping-type (after no-album (current-mapping))
+     (define-advice emms-browser-next-mapping-type (:after (current-mapping) no-album)
        (when (eq ad-return-value 'info-album)
          (setq ad-return-value 'info-title)))
 
