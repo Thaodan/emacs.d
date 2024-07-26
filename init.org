@@ -2857,7 +2857,7 @@ Smart region guesses what you want to select by one command:
                             (treemacs--select-visible-window)))
                 ('exists  (treemacs-select-window))
                 ('none    (treemacs--init))))
-             ((eq arg 4) (treemacs-display-current-project-exclusively))
+             ((eq arg 4) (treemacs-add-and-display-current-project-exclusively))
              ((eq arg 16) (treemacs-add-and-display-current-project))))
 
      (defun treemacs-ignore-python-files (file _)
