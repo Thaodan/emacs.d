@@ -64,7 +64,7 @@
 
      ,#+NAME: userdata_private
          ,#+begin_src emacs-lisp :tangle no
-     (setq user-full-name "Alice Bob"
+     (setopt user-full-name "Alice Bob"
            user-mail-address "alice@bob.de")
      ,#+end_src
   #+end_src
@@ -134,7 +134,7 @@
   will result in long GC pauses during normal usage.
 
   #+BEGIN_SRC emacs-lisp
-  (setq gc-cons-threshold (* 256 1024 1024))
+  (setopt gc-cons-threshold (* 256 1024 1024))
   #+END_SRC
 
   Temporarily disable file name handlers as it's not needed on initialization
@@ -145,7 +145,7 @@
 
   Increase max number of log messages
   #+BEGIN_SRC emacs-lisp
-  (setq message-log-max 16384)
+  (setopt message-log-max 16384)
   #+END_SRC
 
   Disable certain byte compiler warnings to cut down on the noise. This is a
@@ -155,7 +155,7 @@
   Note: these mostly make sense if its your package or if a package would break soon.
 
   #+BEGIN_SRC emacs-lisp
-  (setq byte-compile-warnings '(not free-vars unresolved noruntime lexical make-local))
+  (setopt byte-compile-warnings '(not free-vars unresolved noruntime lexical make-local))
   #+END_SRC
 
  Suppress warnings about lexical binding. Some packages store their data in Elisp
@@ -178,7 +178,7 @@
 
     Since Emacs 27.1 we have to disable package.el in the early init file.
     #+BEGIN_SRC emacs-lisp :tangle early-init.el
-    (setq package-enable-at-startup nil)
+    (setopt package-enable-at-startup nil)
     #+END_SRC
 
     But still leave it here so it's also disabled on machines that don't
@@ -186,7 +186,7 @@
     #+BEGIN_SRC emacs-lisp
     (setq package-enable-at-startup nil)
     ;; (package-initialize)
-    (setq load-prefer-newer t)
+    (setopt load-prefer-newer t)
     #+END_SRC
 
 *** System-packages
@@ -199,8 +199,8 @@
 
 *** Borg
     #+begin_src emacs-lisp
-    (setq user-init-file (or load-file-name buffer-file-name))
-    (setq user-emacs-directory (file-name-directory user-init-file))
+    (setopt user-init-file (or load-file-name buffer-file-name))
+    (setopt user-emacs-directory (file-name-directory user-init-file))
     (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
     (require 'borg)
     (borg-initialize)
@@ -235,11 +235,11 @@
     ;;(defvar use-package-enable-imenu-support t)
     (require 'use-package)
     (if nil  ; Toggle init debug
-	(setq use-package-verbose t
+	(setopt use-package-verbose t
 	      use-package-expand-minimally nil
 	      use-package-compute-statistics t
 	      debug-on-error t)
-      (setq use-package-verbose nil
+      (setopt use-package-verbose nil
 	    use-package-expand-minimally t))
 
     ;; For the :bind keyword
@@ -258,7 +258,7 @@
     #+begin_src emacs-lisp
     (use-package epkg
       :init
-      (setq epkg-database-connector 'sqlite-builtin)
+      (setopt epkg-database-connector 'sqlite-builtin)
       (advice-add #'describe-package :override #'epkg-describe-package))
     #+end_src
 
@@ -269,11 +269,11 @@
     :demand t
     :config
     ;; /etc is version controlled and I want to store mc-lists in git
-    (setq mc/list-file (no-littering-expand-etc-file-name "mc-list.el"))
+    (setopt mc/list-file (no-littering-expand-etc-file-name "mc-list.el"))
     ;; Keep custom variables in /etc for dir-locals save variables and so on
-    (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
+    (setopt custom-file (no-littering-expand-etc-file-name "custom.el"))
     ;; Put the auto-save files in the var directory to the other data files
-    (setq auto-save-file-name-transforms
+    (setopt auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
   (use-package custom
@@ -295,7 +295,7 @@
 
 * Basic Mail Settings
   #+begin_src emacs-lisp
-  (setq read-mail-command 'gnus)
+  (setopt read-mail-command 'gnus)
   #+end_src
 
 * SSH-Agent
@@ -316,13 +316,13 @@
 
   ;; Increase the amount of data which Emacs reads from the process
   ;; (Useful for LSP where the LSP responses are in the 800k - 3M range)
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (setopt read-process-output-max (* 1024 1024)) ;; 1mb
 
   ;; Don't compact font caches during GC as it doesn't play too nice
   ;; with org-superstar-mode and some of my large org files (e.g. this file).
   ;; This might enlarge the Emacs memory footprint but I don't mind if Emacs
   ;; uses more memory but rather prefer speed.
-  (setq inhibit-compacting-font-caches t)
+  (setopt inhibit-compacting-font-caches t)
 
   ;; Always just use left-to-right text
   ;; This makes Emacs a bit faster for very long lines
@@ -331,10 +331,10 @@
   (setq-default indent-tabs-mode nil)   ; don't use tabs to indent
   (setq-default tab-width 4)            ; but maintain correct appearance
   ;; smart tab behavior - indent or complete
-  (setq tab-always-indent 'complete)
+  (setopt tab-always-indent 'complete)
 
   ;; Newline at end of file
-  (setq require-final-newline t)
+  (setopt require-final-newline t)
 
   ;; Default to utf-8 unix encoding
   (prefer-coding-system 'utf-8-unix)
@@ -343,40 +343,40 @@
   (delete-selection-mode t)
 
   ;; Activate character folding in searches i.e. searching for 'a' matches 'ä' as well
-  (setq search-default-mode 'char-fold-to-regexp)
+  (setopt search-default-mode 'char-fold-to-regexp)
 
   ;; Only split vertically on very tall screens
-  (setq split-height-threshold 120)
+  (setopt split-height-threshold 120)
 
   ;; Only split horizontally if there are at least 90 chars column after splitting
-  (setq split-width-threshold 180)
+  (setopt split-width-threshold 180)
 
   ;; Paste with middle mouse button doesn't move the cursor
-  (setq mouse-yank-at-point t)
+  (setopt mouse-yank-at-point t)
 
   ;; Save whatever’s in the current (system) clipboard before
   ;; replacing it with the Emacs’ text.
   ;; https://github.com/dakrone/eos/blob/master/eos.org
-  (setq save-interprogram-paste-before-kill t)
+  (setopt save-interprogram-paste-before-kill t)
 
-  (setq ffap-machine-p-known 'reject)  ; don't "ping Germany" when typing test.de<TAB>
+  (setopt ffap-machine-p-known 'reject)  ; don't "ping Germany" when typing test.de<TAB>
 
   ;; Accept 'UTF-8' (uppercase) as a valid encoding in the coding header
   (define-coding-system-alias 'UTF-8 'utf-8)
 
   ;; Silence ad-handle-definition about advised functions getting redefined
-  (setq ad-redefinition-action 'accept)
+  (setopt ad-redefinition-action 'accept)
 
   ;; Use 'fancy' ellipses for truncated strings
-  (setq truncate-string-ellipsis "…")
+  (setopt truncate-string-ellipsis "…")
 
   ;; Increase the 'Limit on number of Lisp variable bindings and unwind-protects.'
   ;; mu4e seems to need more sometimes and it can be safely increased.
-  (setq max-specpdl-size 8192)
+  (setopt max-specpdl-size 8192)
 
   ;; Increase the limit to catch infinite recursions.
   ;; Large scala files need sometimes more and this value can safely be increased.
-  (setq max-lisp-eval-depth 25068)
+  (setopt max-lisp-eval-depth 25068)
   #+end_src
 
   Allow some commands as safe by default
@@ -409,9 +409,9 @@
      ;;; revert buffers automatically when underlying files are changed externally
      (global-auto-revert-mode nil)
      ;; auto revert dired buffers
-     (setq global-auto-revert-non-file-buffers t)
+     (setopt global-auto-revert-non-file-buffers t)
      ;; Turn off auto revert messages
-     (setq auto-revert-verbose nil))
+     (setopt auto-revert-verbose nil))
    #+end_src
 
 ** Select: Clipboard / primary selection
@@ -419,7 +419,7 @@
    (use-package select
      :config
      ;; Use clipboard and primary selection for copy/paste
-     (setq select-enable-primary nil)
+     (setopt select-enable-primary nil)
 
      (defun select-add-selection-to-kill-ring ()
        "Add clipboard and primary selection to the kill ring."
@@ -439,12 +439,12 @@
      :defer t
      :config
      ;; Always replace encrypted text with plain text version
-     (setq epa-replace-original-text t))
+     (setopt epa-replace-original-text t))
    (use-package epg
      :defer t
      :config
      ;; Let Emacs query the passphrase through the minibuffer
-     (setq epg-pinentry-mode 'loopback))
+     (setopt epg-pinentry-mode 'loopback))
    #+end_src
 
 ** Save-place
@@ -452,7 +452,7 @@
    (use-package saveplace
      :unless noninteractive
      :config
-     (setq save-place-limit 1000)
+     (setopt save-place-limit 1000)
      (save-place-mode))
    #+end_src
 
@@ -525,16 +525,16 @@
      :defer t
      :config
      ;; Only show loads of above 0.9 in the modeline
-     (setq display-time-load-average-threshold 0.9)
+     (setopt display-time-load-average-threshold 0.9)
      ;; A list of timezones to show for `display-time-world`
-     (setq zoneinfo-style-world-list
+     (setopt zoneinfo-style-world-list
 	   '(("Asia/Kuala_Lumpur" "Kuala Lumpur")
 	     ("Europe/Berlin" "Berlin")
 	     ("America/Los_Angeles" "Los Angeles")
 	     ("America/New_York" "New York")
 	     ("Australia/Sydney" "Sydney")))
 
-     (setq display-time-24hr-format t)
+     (setopt display-time-24hr-format t)
      ;; Enable to show time in modeline
      ;; (display-time-mode)
      ;; Right align time and org clocked-in task
@@ -555,22 +555,22 @@
      :hook (calendar-today-visible . calendar-mark-today)
      :config
      ;; Set coordinates so you can press `S` in the calendar for sunrise/sunset times
-     ;;(setq calendar-latitude 34.103
+     ;;(setopt calendar-latitude 34.103
      ;;      calendar-longitude -118.337
      ;;      calendar-location-name "Los Angeles, USA")
-     ;;(setq calendar-latitude -37.841
+     ;;(setopt calendar-latitude -37.841
      ;;      calendar-longitude 144.939
      ;;      calendar-location-name "Melbourne, Australia")
-     ;;(setq calendar-latitude 3.143
+     ;;(setopt calendar-latitude 3.143
      ;;      calendar-longitude 101.686
      ;;      calendar-location-name "Kuala Lumpur, Malaysia")
-     ;; (setq calendar-latitude 48.97
+     ;; (setopt calendar-latitude 48.97
      ;;       calendar-longitude 8.45
      ;;       calendar-location-name "Karlsruhe, Germany")
      ;; Start week on Monday
-     (setq calendar-week-start-day 1)
+     (setopt calendar-week-start-day 1)
      ;; Highlight public holidays
-     (setq calendar-holiday-marker t))
+     (setopt calendar-holiday-marker t))
    #+end_src
 
 ** Desktop
@@ -579,7 +579,7 @@
      :demand t
      :init
      ;; Automatically save and restore sessions
-     (setq desktop-dirname         (no-littering-expand-var-file-name "desktop")
+     (setopt desktop-dirname         (no-littering-expand-var-file-name "desktop")
            desktop-base-file-name      "emacs.desktop"
            desktop-base-lock-name      "lock"
            desktop-path                (list desktop-dirname)
@@ -661,17 +661,17 @@
   Disable startup screen and startup echo area message and select the
   scratch buffer by default
   #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-buffer-menu t)
-  (setq inhibit-startup-screen t)
-  (setq inhibit-startup-echo-area-message "")
-  (setq initial-buffer-choice t)
-  (setq initial-scratch-message nil)
-  (setq initial-major-mode 'org-mode)
+  (setopt inhibit-startup-buffer-menu t)
+  (setopt inhibit-startup-screen t)
+  (setopt inhibit-startup-echo-area-message "")
+  (setopt initial-buffer-choice t)
+  (setopt initial-scratch-message nil)
+  (setopt initial-major-mode 'org-mode)
   #+END_SRC
 
   Don't use dialog boxes
   #+BEGIN_SRC emacs-lisp
-  (setq use-dialog-box nil)
+  (setopt use-dialog-box nil)
   #+END_SRC
 
   Per default you’re required to type out a full “yes” or “no” whenever the function
@@ -685,9 +685,9 @@
 
 #+begin_src emacs-lisp
 ;; Put authinfo.gpg first so new secrets will be stored there by default and not in plain text
-(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
+(setopt auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
 ;; Don't ask to store credentials in .authinfo.gpg
-(setq auth-source-save-behavior nil)
+(setopt auth-source-save-behavior nil)
 #+end_src
 
 * Password-store
@@ -722,7 +722,7 @@
 
    Set title.
    #+begin_src emacs-lisp
-   (setq frame-title-format
+   (setopt frame-title-format
          '((:eval (if (buffer-file-name)
     	               (abbreviate-file-name (buffer-file-name))
     	             "%b"))
@@ -743,7 +743,7 @@
    (use-package modus-themes
      :unless noninteractive
      :init
-     (setq modus-themes-italic-constructs t
+     (setopt modus-themes-italic-constructs t
            modus-themes-bold-constructs t
            modus-themes-mixed-fonts nil
            modus-themes-subtle-line-numbers nil
@@ -854,7 +854,7 @@
      ;; (t . (semibold))))
      :config
      ;; For the dark theme I want a lightly lighter background than completely black
-     ;;(setq modus-themes-vivendi-color-overrides '((bg-main . "#101010")))
+     ;;(setopt modus-themes-vivendi-color-overrides '((bg-main . "#101010")))
 
      ;; (modus-themes-load-operandi)  ;; light theme
      (modus-themes-load-vivendi)  ;; dark theme
@@ -868,8 +868,8 @@
      :unless noninteractive
      :defer 2
      :config
-     (setq minions-mode-line-lighter "+")
-     (setq minions-prominent-modes '(projectile-mode
+     (setopt minions-mode-line-lighter "+")
+     (setopt minions-prominent-modes '(projectile-mode
                                      flycheck-mode
                                      multiple-cursors-mode
                                      sticky-buffer-mode
@@ -899,7 +899,7 @@
      ;; e.g. `projectile' doesn't handle symlink folders well, while `project' is unable
      ;; to hanle sub-projects.
      ;; You can specify one if you encounter the issue.
-     (setq doom-modeline-project-detection 'auto)
+     (setopt doom-modeline-project-detection 'auto)
      ;; Determines the style used by `doom-modeline-buffer-file-name'.
      ;;
      ;; Given ~/Projects/FOSS/emacs/lisp/comint.el
@@ -919,99 +919,99 @@
      ;; If you are experiencing the laggy issue, especially while editing remote files
      ;; with tramp, please try `file-name' style.
      ;; Please refer to https://github.com/bbatsov/projectile/issues/657.
-     (setq doom-modeline-buffer-file-name-style 'auto)
+     (setopt doom-modeline-buffer-file-name-style 'auto)
      ;; Whether display icons in the mode-line.
      ;; While using the server mode in GUI, should set the value explicitly.
-     (setq doom-modeline-icon t)
+     (setopt doom-modeline-icon t)
 
      ;; Whether display the icon for `major-mode'. It respects `doom-modeline-icon'.
-     (setq doom-modeline-major-mode-icon t)
+     (setopt doom-modeline-major-mode-icon t)
 
      ;; Whether display the colorful icon for `major-mode'.
      ;; It respects `all-the-icons-color-icons'.
-     (setq doom-modeline-major-mode-color-icon t)
+     (setopt doom-modeline-major-mode-color-icon t)
 
      ;; Whether display the icon for the buffer state. It respects `doom-modeline-icon'.
-     (setq doom-modeline-buffer-state-icon t)
+     (setopt doom-modeline-buffer-state-icon t)
 
      ;; Whether display the modification icon for the buffer.
      ;; It respects `doom-modeline-icon' and `doom-modeline-buffer-state-icon'.
-     (setq doom-modeline-buffer-modification-icon t)
+     (setopt doom-modeline-buffer-modification-icon t)
 
      ;; Whether display the time icon. It respects variable `doom-modeline-icon'.
-     (setq doom-modeline-time-icon t)
+     (setopt doom-modeline-time-icon t)
 
      ;; Whether to use unicode as a fallback (instead of ASCII) when not using icons.
-     (setq doom-modeline-unicode-fallback t)
+     (setopt doom-modeline-unicode-fallback t)
 
      ;; Whether display the buffer name.
-     (setq doom-modeline-buffer-name t)
+     (setopt doom-modeline-buffer-name t)
 
      ;; Whether display the minor modes in the mode-line.
-     (setq doom-modeline-minor-modes t)
+     (setopt doom-modeline-minor-modes t)
 
      ;; If non-nil, a word count will be added to the selection-info modeline segment.
-     (setq doom-modeline-enable-word-count nil)
+     (setopt doom-modeline-enable-word-count nil)
 
      ;; Major modes in which to display word count continuously.
      ;; Also applies to any derived modes. Respects `doom-modeline-enable-word-count'.
      ;; If it brings the sluggish issue, disable `doom-modeline-enable-word-count' or
      ;; remove the modes from `doom-modeline-continuous-word-count-modes'.
-     (setq doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
+     (setopt doom-modeline-continuous-word-count-modes '(markdown-mode gfm-mode org-mode))
 
      ;; Whether display the buffer encoding.
-     (setq doom-modeline-buffer-encoding t)
+     (setopt doom-modeline-buffer-encoding t)
 
      ;; Whether display the indentation information.
-     (setq doom-modeline-indent-info t)
+     (setopt doom-modeline-indent-info t)
 
      ;; If non-nil, only display one number for checker information if applicable.
-     (setq doom-modeline-check-simple-format t)
+     (setopt doom-modeline-check-simple-format t)
 
      ;; The maximum number displayed for notifications.
-     (setq doom-modeline-number-limit 99)
+     (setopt doom-modeline-number-limit 99)
 
      ;; The maximum displayed length of the branch name of version control.
-     (setq doom-modeline-vcs-max-length 12)
+     (setopt doom-modeline-vcs-max-length 12)
 
      ;; Whether display the workspace name. Non-nil to display in the mode-line.
-     (setq doom-modeline-workspace-name t)
+     (setopt doom-modeline-workspace-name t)
 
      ;; Whether display the perspective name. Non-nil to display in the mode-line.
-     (setq doom-modeline-persp-name t)
+     (setopt doom-modeline-persp-name t)
 
      ;; If non nil the default perspective name is displayed in the mode-line.
-     (setq doom-modeline-display-default-persp-name nil)
+     (setopt doom-modeline-display-default-persp-name nil)
 
      ;; If non nil the perspective name is displayed alongside a folder icon.
-     (setq doom-modeline-persp-icon t)
+     (setopt doom-modeline-persp-icon t)
 
      ;; Whether display the `lsp' state. Non-nil to display in the mode-line.
-     (setq doom-modeline-lsp t)
+     (setopt doom-modeline-lsp t)
 
      ;; Whether display the GitHub notifications. It requires `ghub' package.
-     (setq doom-modeline-github t)
+     (setopt doom-modeline-github t)
 
      ;; The interval of checking GitHub.
-     (setq doom-modeline-github-interval (* 30 60))
+     (setopt doom-modeline-github-interval (* 30 60))
 
      ;; Whether display the modal state icon.
      ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc.
-     (setq doom-modeline-modal-icon t)
+     (setopt doom-modeline-modal-icon t)
 
      ;; Whether display the mu4e notifications. It requires `mu4e-alert' package.
-     ;;(setq doom-modeline-mu4e nil)
+     ;;(setopt doom-modeline-mu4e nil)
      ;; also enable the start of mu4e-alert
      ;;(mu4e-alert-enable-mode-line-display)
 
      ;; Whether display the gnus notifications.
-     (setq doom-modeline-gnus t)
+     (setopt doom-modeline-gnus t)
 
      ;; Whether gnus should automatically be updated and how often (set to 0 or smaller than 0 to disable)
-     (setq doom-modeline-gnus-timer 0)
+     (setopt doom-modeline-gnus-timer 0)
 
      ;; Wheter groups should be excludede when gnus automatically being updated.
-     (setq doom-modeline-gnus-excluded-groups '("nntp+Gmane:gmane.emacs.bugs"
+     (setopt doom-modeline-gnus-excluded-groups '("nntp+Gmane:gmane.emacs.bugs"
                                                 "nntp+Gmane:gmane.emacs.devel"
                                                 "nntp+Gmane:gmane.emacs.gnus.general"
                                                 "nntp+Gmane:gmane.emacs.gnus.user"
@@ -1023,43 +1023,43 @@
                                                 "nntp+Gmane:gmane.linux.arch.announce"))
 
      ;; Whether display the IRC notifications. It requires `circe' or `erc' package.
-     (setq doom-modeline-irc t)
+     (setopt doom-modeline-irc t)
 
      ;; Function to stylize the irc buffer names.
-     (setq doom-modeline-irc-stylize 'identity)
+     (setopt doom-modeline-irc-stylize 'identity)
 
      ;; Whether display the time. It respects `display-time-mode'.
-     (setq doom-modeline-time t)
+     (setopt doom-modeline-time t)
 
      ;; Whether display the misc segment on all mode lines.
      ;; If nil, display only if the mode line is active.
-     (setq doom-modeline-display-misc-in-all-mode-lines t)
+     (setopt doom-modeline-display-misc-in-all-mode-lines t)
 
      ;; Whether display the environment version.
-     (setq doom-modeline-env-version t)
+     (setopt doom-modeline-env-version t)
 
      ;; ;; Or for individual languages
-     ;; (setq doom-modeline-env-enable-python t)
-     ;; (setq doom-modeline-env-enable-ruby t)
-     ;; (setq doom-modeline-env-enable-perl t)
-     ;; (setq doom-modeline-env-enable-go t)
-     ;; (setq doom-modeline-env-enable-elixir t)
-     ;; (setq doom-modeline-env-enable-rust t)
+     ;; (setopt doom-modeline-env-enable-python t)
+     ;; (setopt doom-modeline-env-enable-ruby t)
+     ;; (setopt doom-modeline-env-enable-perl t)
+     ;; (setopt doom-modeline-env-enable-go t)
+     ;; (setopt doom-modeline-env-enable-elixir t)
+     ;; (setopt doom-modeline-env-enable-rust t)
 
      ;; ;; Change the executables to use for the language version string
-     ;; (setq doom-modeline-env-python-executable "python") ; or `python-shell-interpreter'
-     ;; (setq doom-modeline-env-ruby-executable "ruby")
-     ;; (setq doom-modeline-env-perl-executable "perl")
-     ;; (setq doom-modeline-env-go-executable "go")
-     ;; (setq doom-modeline-env-elixir-executable "iex")
-     ;; (setq doom-modeline-env-rust-executable "rustc")
+     ;; (setopt doom-modeline-env-python-executable "python") ; or `python-shell-interpreter'
+     ;; (setopt doom-modeline-env-ruby-executable "ruby")
+     ;; (setopt doom-modeline-env-perl-executable "perl")
+     ;; (setopt doom-modeline-env-go-executable "go")
+     ;; (setopt doom-modeline-env-elixir-executable "iex")
+     ;; (setopt doom-modeline-env-rust-executable "rustc")
 
      ;; What to display as the version while a new one is being loaded
-     (setq doom-modeline-env-load-string "...")
+     (setopt doom-modeline-env-load-string "...")
 
      ;; Hooks that run before/after the modeline version string is updated
-     ;;(setq doom-modeline-before-update-env-hook nil)
-     ;;(setq doom-modeline-after-update-env-hook nil)
+     ;;(setopt doom-modeline-before-update-env-hook nil)
+     ;;(setopt doom-modeline-after-update-env-hook nil)
 
 
      ;;    (defun smf/irc-icons (buffer)
@@ -1078,7 +1078,7 @@
      ;; 		'font-lock-ignore t))
      ;;    (t buffer)))
 
-     ;; (setq doom-modeline-irc-stylize #'smf/irc-icons)
+     ;; (setopt doom-modeline-irc-stylize #'smf/irc-icons)
 
      )
    #+end_src
@@ -1119,7 +1119,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+begin_src emacs-lisp
    (use-package emojify
      :config
-     (setq emojify-display-style 'unicode)
+     (setopt emojify-display-style 'unicode)
      (add-hook 'after-init-hook #'global-emojify-mode))
    #+end_src
 
@@ -1193,10 +1193,10 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 
 
      ;; send alerts by default to D-Bus
-     (setq alert-default-style 'notifications-thao)
+     (setopt alert-default-style 'notifications-thao)
      ;; Display alerts for org-pomodoro messages
      ;; https://colekillian.com/posts/org-pomodoro-and-polybar/
-     (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) thao/alert-notifications-notify nil)))))
+     (setopt alert-user-configuration (quote ((((:category . "org-pomodoro")) thao/alert-notifications-notify nil)))))
    #+END_SRC
 
 ** Helm
@@ -1233,23 +1233,23 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
               ("C-c C-l" . helm-comint-input-ring))
       :config
       (when (executable-find "curl")
-        (setq helm-net-prefer-curl t))
-      (setq helm-split-window-inside-p           t; open helm buffer inside current window, not occupy whole other window
+        (setopt helm-net-prefer-curl t))
+      (setopt helm-split-window-inside-p           t; open helm buffer inside current window, not occupy whole other window
             helm-move-to-line-cycle-in-source     t; move to end or beginning of source when reaching top or bottom of source.
             helm-ff-search-library-in-sexp        t; search for library in `require' and `declare-function' sexp.
             helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
             helm-ff-file-name-history-use-recentf t
                                             ;helm-echo-input-in-header-line t)
             )
-      (setq helm-buffers-fuzzy-matching t
+      (setopt helm-buffers-fuzzy-matching t
             helm-recentf-fuzzy-match    t)
-      (setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
-      (setq helm-semantic-fuzzy-match t
+      (setopt helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
+      (setopt helm-semantic-fuzzy-match t
             helm-imenu-fuzzy-match    t)
-      (setq helm-apropos-fuzzy-match t)
-      (setq helm-lisp-fuzzy-completion t)
-      (setq helm-autoresize-max-height 0)
-      (setq helm-autoresize-min-height 30)
+      (setopt helm-apropos-fuzzy-match t)
+      (setopt helm-lisp-fuzzy-completion t)
+      (setopt helm-autoresize-max-height 0)
+      (setopt helm-autoresize-min-height 30)
       (helm-autoresize-mode 1)
       (helm-mode)
       :custom-face
@@ -1263,7 +1263,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       :after helm
       :config
       ;; Show bookmarks (and create bookmarks) in helm-mini
-      (setq helm-mini-default-sources '(helm-source-buffers-list
+      (setopt helm-mini-default-sources '(helm-source-buffers-list
     				                    helm-source-recentf
     				                    helm-source-bookmarks
     				                    helm-source-bookmark-set
@@ -1341,7 +1341,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
     #+begin_src emacs-lisp
     (use-package helm-icons
       :init
-      (setq helm-icons-provider 'nerd-icons)
+      (setopt helm-icons-provider 'nerd-icons)
       (helm-icons-enable))
     #+end_src
 
@@ -1368,35 +1368,35 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      ;;     ("C-c C-e" . dired-toggle-read-only))
      :config
      ;; Tell dired-x to not bind "I" key to `dired-info' or "N" to `dired-man'
-     (setq dired-bind-info nil)
-     (setq dired-bind-man nil)
+     (setopt dired-bind-info nil)
+     (setopt dired-bind-man nil)
 
      ;; Allow drag and drop out of dired into other apps (e.g. browser)
-     (setq dired-mouse-drag-files t)
+     (setopt dired-mouse-drag-files t)
 
      ;; When point is on a file name only search file names
-     (setq dired-isearch-filenames 'dwim)
+     (setopt dired-isearch-filenames 'dwim)
 
      ;; dired - reuse current buffer by pressing 'a'
      (put 'dired-find-alternate-file 'disabled nil)
 
      ;; Open directories in same buffer
-     (setq dired-kill-when-opening-new-dired-buffer t)
+     (setopt dired-kill-when-opening-new-dired-buffer t)
 
      ;; always delete and copy recursively
-     (setq dired-recursive-deletes 'always)
-     (setq dired-recursive-copies 'always)
+     (setopt dired-recursive-deletes 'always)
+     (setopt dired-recursive-copies 'always)
 
      ;; if there is a dired buffer displayed in the next window, use its
      ;; current subdir, instead of the current subdir of this dired buffer
-     (setq dired-dwim-target t)
+     (setopt dired-dwim-target t)
 
      (defconst my-dired-media-files-extensions
        '("mp3" "mp4" "MP3" "MP4" "avi" "mpg" "flv" "ogg")
        "Media files.")
 
      ;; dired list size in human-readable format and list directories first
-     (setq dired-listing-switches "-AGhlv --group-directories-first --time-style=long-iso")
+     (setopt dired-listing-switches "-AGhlv --group-directories-first --time-style=long-iso")
 
      ;; Not needed anymore since Emacs 29+ has native drag and drop support out of dired
      (defun dired-dragon-popup ()
@@ -1424,7 +1424,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                  (ediff-files file1 file2))
                (add-hook 'ediff-after-quit-hook-internal
                          (lambda ()
-                           (setq ediff-after-quit-hook-internal nil)
+                           (setopt ediff-after-quit-hook-internal nil)
                            (set-window-configuration wnd))))
            (error "no more than 2 files should be marked")))))
 
@@ -1438,7 +1438,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :after dired
      :config
      ;; Make permission bits editable
-     (setq wdired-allow-to-change-permissions t))
+     (setopt wdired-allow-to-change-permissions t))
 
    (use-package dired-x
      :bind ("C-x C-j" . dired-jump)
@@ -1454,11 +1454,11 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :after dired
      :config
      ;; human readable size format
-     (setq dired-du-size-format t))
+     (setopt dired-du-size-format t))
 
    (use-package async
      :config
-     (setq async-bytecomp-package-mode nil))
+     (setopt async-bytecomp-package-mode nil))
 
    (use-package dired-async  ; Part of async
      :after dired
@@ -1533,7 +1533,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       :after dired
       :config
       ;; Don't warn about opening archives less than 512MB (default 100)
-      (setq dired-avfs-file-size-threshold 512))
+      (setopt dired-avfs-file-size-threshold 512))
 
     (use-package dired-open
       :after dired
@@ -1544,7 +1544,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                   ("C-RET" . dired-open-xdg)
                   ([(control return)] . dired-open-xdg))
       :config
-      (setq dired-open-functions '(dired-open-by-extension dired-open-guess-shell-alist dired-open-subdir)))
+      (setopt dired-open-functions '(dired-open-by-extension dired-open-guess-shell-alist dired-open-subdir)))
 
     (use-package dired-ranger
       :after dired
@@ -1682,16 +1682,16 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 	   nil
 	 (highlight-indent-guides--highlighter-default level responsive display))
 
-       (setq highlight-indent-guides-highlighter-function 'my-highlighter)
-       (setq highlight-indent-guides-method 'character)
-       (setq highlight-indent-guides-character ?\|)
+       (setopt highlight-indent-guides-highlighter-function 'my-highlighter)
+       (setopt highlight-indent-guides-method 'character)
+       (setopt highlight-indent-guides-character ?\|)
 
-       ;; (setq highlight-indent-guides-auto-odd-face-perc 15)
-       ;; (setq highlight-indent-guides-auto-even-face-perc 15)
-       ;; (setq highlight-indent-guides-auto-character-face-perc 20)
+       ;; (setopt highlight-indent-guides-auto-odd-face-perc 15)
+       ;; (setopt highlight-indent-guides-auto-even-face-perc 15)
+       ;; (setopt highlight-indent-guides-auto-character-face-perc 20)
        ;; (highlight-indent-guides-auto-set-faces)
 
-       (setq highlight-indent-guides-auto-enabled nil)
+       (setopt highlight-indent-guides-auto-enabled nil)
        (set-face-foreground 'highlight-indent-guides-character-face "#3a3a3a")))
    #+end_src
 
@@ -1701,9 +1701,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :defer t
      ;; :hook (prog-mode . whitespace-mode)
      :config
-     (setq whitespace-style '(face tabs empty trailing lines-tail))
+     (setopt whitespace-style '(face tabs empty trailing lines-tail))
      ;; highlight lines with more than `fill-column' characters
-     (setq whitespace-line-column nil))
+     (setopt whitespace-line-column nil))
    #+end_src
 
 ** Symbol-Overlay
@@ -1723,11 +1723,11 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 	    ("C-c C-s t" . symbol-overlay-toggle-in-scope)
 	    ("C-c C-s n" . symbol-overlay-jump-next)
 	    ("C-c C-s p" . symbol-overlay-jump-prev))
-     :init (setq symbol-overlay-temp-in-scope t)
+     :init (setopt symbol-overlay-temp-in-scope t)
      :config
      ;;(set-face-background 'symbol-overlay-temp-face "gray30")
      ;; Remove all default bindings
-     (setq symbol-overlay-map (make-sparse-keymap)))
+     (setopt symbol-overlay-map (make-sparse-keymap)))
    #+end_src
 
 ** Smart-Parens
@@ -1766,12 +1766,12 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                  ("M-j" . sp-join-sexp))
      :config
      (require 'smartparens-config)
-     (setq sp-base-key-bindings 'paredit)
-     (setq sp-autoskip-closing-pair 'always)
+     (setopt sp-base-key-bindings 'paredit)
+     (setopt sp-autoskip-closing-pair 'always)
 
      ;; Always highlight matching parens
      (show-smartparens-global-mode +1)
-     (setq blink-matching-paren nil)  ;; Don't blink matching parens
+     (setopt blink-matching-paren nil)  ;; Don't blink matching parens
 
      ;; Create keybindings to wrap symbol/region in pairs
      (defun prelude-wrap-with (s)
@@ -1835,10 +1835,10 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+begin_src emacs-lisp
    (use-package uniquify
      :config
-     (setq uniquify-buffer-name-style 'forward)
-     (setq uniquify-separator "/")
-     (setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-     (setq uniquify-ignore-buffers-re "^\\*")) ; don't muck with special buffers)
+     (setopt uniquify-buffer-name-style 'forward)
+     (setopt uniquify-separator "/")
+     (setopt uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+     (setopt uniquify-ignore-buffers-re "^\\*")) ; don't muck with special buffers)
    #+end_src
 
 ** Eldoc: Display help
@@ -1856,7 +1856,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 
 ** Minibuffer interaction
    #+begin_src emacs-lisp
-   (setq enable-recursive-minibuffers t)
+   (setopt enable-recursive-minibuffers t)
    #+end_src
 
 ** Marginalia in the minibuffer
@@ -1883,7 +1883,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
            (lambda (pid) (string-match-p process-name (alist-get 'args (process-attributes pid)))))
           (-any? #'identity)))
 
-   (setq alpha-background-default 80)
+   (setopt alpha-background-default 80)
 
    (defun alpha-background-frame-opaque-p ()
      "Return if current frame is opaque."
@@ -2017,7 +2017,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
   #+begin_src emacs-lisp
   (use-package bookmark
     :defer t
-    :config (setq bookmark-save-flag 1))
+    :config (setopt bookmark-save-flag 1))
 
   ;; Nicer mark ring navigation (C-x C-SPC or C-x C-Left/Right)
   (use-package back-button
@@ -2041,9 +2041,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    (use-package avy
      :bind ("C-;" . avy-goto-char-timer)
      :config
-     (setq avy-background t)
-     (setq avy-style 'at-full)
-     (setq avy-timeout-seconds 0.2))
+     (setopt avy-background t)
+     (setopt avy-style 'at-full)
+     (setopt avy-timeout-seconds 0.2))
    #+end_src
 
 ** Ace-link: Quickly jump to any link on screen
@@ -2092,7 +2092,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :init
      (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
      :config
-     (setq dumb-jump-selector 'helm))
+     (setopt dumb-jump-selector 'helm))
    #+END_SRC
 
 ** ibuffer
@@ -2303,7 +2303,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+begin_src emacs-lisp
    (use-package ws-butler
      :hook ((text-mode prog-mode) . ws-butler-mode)
-     :config (setq ws-butler-keep-whitespace-before-point nil))
+     :config (setopt ws-butler-keep-whitespace-before-point nil))
    #+end_src
    
 ** Rainbow-Delimiters: Different color for each parenthesis level
@@ -2460,7 +2460,7 @@ Smart region guesses what you want to select by one command:
 		 ("s" . copy-as-format-slack)
 		 ("v" . org-copy-visible))
      :config
-     ;; (setq copy-as-format-default "slack")
+     ;; (setopt copy-as-format-default "slack")
      ;; Define own format since pidgin doesn't allow to begin a message with `/code'
      ;; FIXME: Bitlbee?
      (defun copy-as-format--hipchat-pidgin (text _multiline)
@@ -2556,7 +2556,7 @@ Smart region guesses what you want to select by one command:
 	 (unless (functionp mode)
 	   (error "Invalid mode `%s'" mode-str))
 	 (funcall mode)))
-     (setq edit-indirect-guess-mode-function #'edit-indirect-guess-mode-fn))
+     (setopt edit-indirect-guess-mode-function #'edit-indirect-guess-mode-fn))
    #+end_src
 
 ** Company
@@ -2574,20 +2574,20 @@ Smart region guesses what you want to select by one command:
                   ;; ([backtab] . company-select-previous)
                   ("C-j" . company-complete-selection))
       :config
-      (setq company-idle-delay 0.1)
-      (setq company-tooltip-limit 10)
-      (setq company-minimum-prefix-length 1)
+      (setopt company-idle-delay 0.1)
+      (setopt company-tooltip-limit 10)
+      (setopt company-minimum-prefix-length 1)
       ;; Don't display icons
-      (setq company-format-margin-function nil)
+      (setopt company-format-margin-function nil)
       ;; Aligns annotation to the right hand side
-      (setq company-tooltip-align-annotations t)
-      (setq company-dabbrev-downcase nil)
+      (setopt company-tooltip-align-annotations t)
+      (setopt company-dabbrev-downcase nil)
 
       ;; invert the navigation direction if the the completion popup-isearch-match
       ;; is displayed on top (happens near the bottom of windows)
-      (setq company-tooltip-flip-when-above t)
+      (setopt company-tooltip-flip-when-above t)
       ;; start autocompletion only after typing
-      (setq company-begin-commands '(self-insert-command
+      (setopt company-begin-commands '(self-insert-command
                                      org-self-insert-command
                                      orgtbl-self-insert-command))
       (global-company-mode 1)
@@ -2608,7 +2608,7 @@ Smart region guesses what you want to select by one command:
             backend
           (append (if (consp backend) backend (list backend))
                   '(:with company-yasnippet))))
-      (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+      (setopt company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
     #+end_src
 
 *** Company-tng
@@ -2694,7 +2694,7 @@ Smart region guesses what you want to select by one command:
    (use-package ispell
      :disabled t
      :config
-     (setq ispell-program-name "hunspell"))
+     (setopt ispell-program-name "hunspell"))
    #+end_src
 
 ** Flyspell
@@ -2728,10 +2728,10 @@ Smart region guesses what you want to select by one command:
      ;; Only guess language for emails
      :hook ((text-mode org-mode lui-mode message-mode ) . guess-language-mode)
      :config
-     (setq guess-language-langcodes '((en . ("en_US" "English" "🇺🇸" "English"))
+     (setopt guess-language-langcodes '((en . ("en_US" "English" "🇺🇸" "English"))
                                       (de . ("de_DE" "German" "🇩🇪" "German"))))
-     (setq guess-language-languages '(en de))
-     (setq guess-language-min-paragraph-length 35))
+     (setopt guess-language-languages '(en de))
+     (setopt guess-language-min-paragraph-length 35))
    #+end_src
 
 ** Jinx
@@ -2805,7 +2805,7 @@ Smart region guesses what you want to select by one command:
      ;;(defun projectile-short-mode-line ()
        "Short version of the default projectile mode line."
        ;;(format " P[%s]" (projectile-project-name)))
-     ;;(setq projectile-mode-line-function 'projectile-short-mode-line)
+     ;;(setopt projectile-mode-line-function 'projectile-short-mode-line)
 
      ;; https://sideshowcoder.com/2017/10/24/projectile-and-tramp/
      ;; (defadvice projectile-on (around exlude-tramp activate)
@@ -2875,9 +2875,9 @@ Smart region guesses what you want to select by one command:
      (add-to-list 'treemacs-ignored-file-predicates 'treemacs-ignore-python-files)
 
      ;; Read input from minibuffer instead of childframe (which requires an extra package)
-     (setq treemacs-read-string-input 'from-minibuffer)
+     (setopt treemacs-read-string-input 'from-minibuffer)
 
-     (setq treemacs-follow-after-init          t
+     (setopt treemacs-follow-after-init          t
            treemacs-indentation                1
            treemacs-width                      30
            treemacs-collapse-dirs              5
@@ -2893,7 +2893,7 @@ Smart region guesses what you want to select by one command:
                  ("C-p p" . nil)
                  ("C-p" . nil)  ; I often still type C-p for UP
                  ("C-t p" . treemacs-projectile))
-     :config (setq treemacs-header-function #'treemacs-projectile-create-header))
+     :config (setopt treemacs-header-function #'treemacs-projectile-create-header))
 
    ;; Use magit hooks to notify treemacs of git changes
    (use-package treemacs-magit
@@ -2913,19 +2913,19 @@ Smart region guesses what you want to select by one command:
    (use-package tramp
      :defer t
      :config
-     (setq tramp-default-method "ssh")
+     (setopt tramp-default-method "ssh")
 
      ;; Only for debugging slow tramp connections
-     ;;(setq tramp-verbose 7)
+     ;;(setopt tramp-verbose 7)
 
      ;; Skip version control for tramp files
-     (setq vc-ignore-dir-regexp
+     (setopt vc-ignore-dir-regexp
            (format "\\(%s\\)\\|\\(%s\\)"
                    vc-ignore-dir-regexp
                    tramp-file-name-regexp))
 
      ;; Use ControlPath from .ssh/config
-     ;;(setq tramp-ssh-controlmaster-options nil)
+     ;;(setopt tramp-ssh-controlmaster-options nil)
 
      ;; Add tramp method for yadm
      (add-to-list 'tramp-methods
@@ -2938,7 +2938,7 @@ Smart region guesses what you want to select by one command:
 
      ;; Backup tramp files like local files and don't litter the remote
      ;; file system with my emacs backup files
-     (setq tramp-backup-directory-alist backup-directory-alist)
+     (setopt tramp-backup-directory-alist backup-directory-alist)
 
      ;; See https://www.gnu.org/software/tramp/#Ad_002dhoc-multi_002dhops
      ;; For all hosts, except my local one, first connect via ssh, and then apply sudo -u root:
@@ -2949,7 +2949,7 @@ Smart region guesses what you want to select by one command:
      ;; ("skor-pi" nil nil)
      ;; ;; Add tramp proxy for atomx user
      ;; (nil "atomx" "/ssh:%h:")))
-     ;;(setq tramp-default-proxies-alist nil)))
+     ;;(setopt tramp-default-proxies-alist nil)))
                                            ;(add-to-list 'tramp-default-proxies-alist tramp-proxies))
      )
    #+end_src
@@ -2962,10 +2962,10 @@ Smart region guesses what you want to select by one command:
      :bind (:map vterm-mode-map
                  ("C-s" . isearch-forward))
      :config
-     (setq vterm-max-scrollback 100000)
+     (setopt vterm-max-scrollback 100000)
      ;; Include the title in vterm and multi-vterm buffers
      ;; setting multi-vterm-buffer-name isn't enough.
-     (setq vterm-buffer-name-string "*vterm %s*")
+     (setopt vterm-buffer-name-string "*vterm %s*")
      (setopt vterm-tramp-shells '(("docker" "/bin/sh")
                                   ("ssh" "/bin/zsh"))))
    #+end_src
@@ -2974,7 +2974,7 @@ Smart region guesses what you want to select by one command:
    #+begin_src emacs-lisp
    (use-package multi-vterm
      :config
-     (setq multi-vterm-buffer-name "vterm"))
+     (setopt multi-vterm-buffer-name "vterm"))
    #+end_src
 
 ** Piper: Shell scripting with Emacs
@@ -2995,7 +2995,7 @@ Smart region guesses what you want to select by one command:
      (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:")
      (add-to-list 'recentf-exclude no-littering-var-directory)
 
-     (setq recentf-max-saved-items 500
+     (setopt recentf-max-saved-items 500
 	   recentf-max-menu-items 15
 	   ;; disable recentf-cleanup on Emacs start, because it can cause
 	   ;; problems with remote files
@@ -3012,15 +3012,15 @@ Smart region guesses what you want to select by one command:
      ;; to have vlf offered as choice when opening large files
      :config
      ;; Set batch size for browsing large files to 5MB (default 1)
-     (setq vlf-batch-size 5242880)
+     (setopt vlf-batch-size 5242880)
      ;; warn when opening files bigger than 30MB
-     (setq large-file-warning-threshold 30000000))
+     (setopt large-file-warning-threshold 30000000))
 
    ;; Logview provides syntax highlighting, filtering and other features for various log files
    (use-package logview
      :defer t
      :config
-     (setq logview-additional-submodes
+     (setopt logview-additional-submodes
 	   '(("Logback4me"
 	      (format . "TIMESTAMP [THREAD] {} LEVEL NAME -")
 	      (levels . "SLF4J")))))
@@ -3037,10 +3037,10 @@ Smart region guesses what you want to select by one command:
      :config
      ;; Set port to a less common one
      ;; Must be changed in Firefox too!
-     (setq atomic-chrome-server-ghost-text-port 8326)
-     (setq atomic-chrome-default-major-mode 'gfm-mode)
-     (setq atomic-chrome-buffer-open-style 'frame)
-     (setq atomic-chrome-url-major-mode-alist
+     (setopt atomic-chrome-server-ghost-text-port 8326)
+     (setopt atomic-chrome-default-major-mode 'gfm-mode)
+     (setopt atomic-chrome-buffer-open-style 'frame)
+     (setopt atomic-chrome-url-major-mode-alist
            '(("reddit\\.com" . markdown-mode)
              ("github\\.com" . gfm-mode)
              ("gitlab\\.com" . gfm-mode)
@@ -3126,9 +3126,9 @@ Smart region guesses what you want to select by one command:
    (use-package midnight
      :config
      (midnight-delay-set 'midnight-delay "4:30am")
-     (setq clean-buffer-list-delay-general 4)
-     (setq clean-buffer-list-kill-regexps '("^.*$"))
-     (setq clean-buffer-list-kill-never-buffer-names
+     (setopt clean-buffer-list-delay-general 4)
+     (setopt clean-buffer-list-kill-regexps '("^.*$"))
+     (setopt clean-buffer-list-kill-never-buffer-names
            (nconc clean-buffer-list-kill-never-buffer-names
                   '("*eshell*"
                     "*ielm*"
@@ -3174,8 +3174,8 @@ Smart region guesses what you want to select by one command:
                  ;; ("k" . code-review-section-delete-comment)
      :hook (code-review . emoiji-mode)
      :config
-     (setq code-review-fill-column 80)
-     (setq code-review-auth-login-marker 'forge))
+     (setopt code-review-fill-column 80)
+     (setopt code-review-auth-login-marker 'forge))
    #+end_src
 
 ** Magit
@@ -3202,7 +3202,7 @@ Smart region guesses what you want to select by one command:
        "Major mode for editing commit messages in GitHub Flavored Markdown.
    Like the official markdown gfm-mode but `#' at the beginning of a line
    is not a title but instead is displayed as a comment."
-       (setq markdown-link-space-sub-char "-")
+       (setopt markdown-link-space-sub-char "-")
        (setq-local markdown-regex-comment-start "^#")
        (setq-local markdown-regex-comment-end "$")
        (setq-local markdown-table-at-point-p-function 'gfm--table-at-point-p)
@@ -3214,14 +3214,14 @@ Smart region guesses what you want to select by one command:
     		               (eq m 'gfm-mode)
     		               (eq m 'text-mode)
     		               (eq m 'git-commit-elisp-text-mode))))
-     :config (setq git-commit-major-mode 'git-commit-gfm-mode))
+     :config (setopt git-commit-major-mode 'git-commit-gfm-mode))
 
    (use-package transient
      :defer t
      :config
      ;; Display transient buffer below current window
      ;; and not bottom of the complete frame (minibuffer like)
-     (setq transient-display-buffer-action '(display-buffer-below-selected)))
+     (setopt transient-display-buffer-action '(display-buffer-below-selected)))
    #+end_src
 
    #+begin_src emacs-lisp
@@ -3263,16 +3263,16 @@ Smart region guesses what you want to select by one command:
      ;;   ?i "Invert filter" "--invert-grep")
 
      ;; Show gravatars
-     (setq magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
+     (setopt magit-revision-show-gravatars '("^Author:     " . "^Commit:     "))
 
      ;; Don't show fringe indicators (Not really visible with our small exwm fringe)
-     ;;(setq magit-section-visibility-indicator nil)
+     ;;(setopt magit-section-visibility-indicator nil)
 
      ;; Always show recent/unpushed/unpulled commits
-     (setq magit-section-initial-visibility-alist '((unpushed . show)
+     (setopt magit-section-initial-visibility-alist '((unpushed . show)
                                                     (unpulled . show)))
 
-     (setq magit-repository-directories
+     (setopt magit-repository-directories
            '(("~/dev" . 1)
              ("~/dev/arch" . 1)
              ("~/dev/arch/repos" . 2)
@@ -3309,8 +3309,8 @@ Smart region guesses what you want to select by one command:
                              'magit-insert-untracked-files
                              nil)
      ;; Disable safety nets
-     (setq magit-commit-squash-confirm nil)
-     (setq magit-save-repository-buffers 'dontask)
+     (setopt magit-commit-squash-confirm nil)
+     (setopt magit-save-repository-buffers 'dontask)
      (setf (nth 2 (assq 'magit-stash-pop  magit-dwim-selection)) t)
      ;;(setf (nth 2 (assq 'magit-stash-drop magit-dwim-selection)) t)
      (add-to-list 'magit-no-confirm 'rename t)
@@ -3318,27 +3318,27 @@ Smart region guesses what you want to select by one command:
      (add-to-list 'magit-no-confirm 'trash t)
 
      ;; Don't override date for extend or reword
-     (setq magit-commit-extend-override-date nil)
-     (setq magit-commit-reword-override-date nil)
+     (setopt magit-commit-extend-override-date nil)
+     (setopt magit-commit-reword-override-date nil)
 
      ;; Set remote.pushDefault
-     (setq magit-remote-set-if-missing 'default)
+     (setopt magit-remote-set-if-missing 'default)
 
      ;; When showing refs (In magit status press `y y') show only merged into master by default
-     ;;(setq magit-show-refs-arguments '("--merged=master"))
+     ;;(setopt magit-show-refs-arguments '("--merged=master"))
      ;; Show color and graph in magit-log. Since color makes it a bit slow, only show the last 128 commits
-     (setq magit-log-arguments '("--graph" "--color" "--decorate" "-n128"))
+     (setopt magit-log-arguments '("--graph" "--color" "--decorate" "-n128"))
      ;; Always highlight word differences in diff
-     (setq magit-diff-refine-hunk 'all)
+     (setopt magit-diff-refine-hunk 'all)
 
      ;; Only show 2 ediff panes
-     (setq magit-ediff-dwim-show-on-hunks t)
+     (setopt magit-ediff-dwim-show-on-hunks t)
 
      ;; Don't change my window layout after quitting magit
      ;; Ofter I invoke magit and then do a lot of things in other windows
      ;; On quitting, magit would then "restore" the window layout like it was
      ;; when I first invoked magit. Don't do that!
-     (setq magit-bury-buffer-function 'magit-mode-quit-window)
+     (setopt magit-bury-buffer-function 'magit-mode-quit-window)
 
 
      ;; Small helper to launch Magit with yadm
@@ -3346,8 +3346,8 @@ Smart region guesses what you want to select by one command:
        (interactive)
        (magit-status-setup-buffer "/yadm::"))
 
-     ;; Show magit status in the same window
-     (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+     ;; Sh ow magit status in the same window
+     (setopt magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
    (use-package magit-wip
      :after magit
@@ -3364,7 +3364,7 @@ Smart region guesses what you want to select by one command:
    (use-package forge
      :after magit
      :init
-     (setq forge-database-connector 'sqlite-builtin)
+     (setopt forge-database-connector 'sqlite-builtin)
      :config
      (push '("git.sailfishos.org" "git.sailfishos.org/api/v4"
              "git.sailfishos.org" forge-gitlab-repository)
@@ -3388,7 +3388,7 @@ Smart region guesses what you want to select by one command:
    (use-package diff-mode
      :config
      ;; Shorten file headers like Magit's diff format.
-     (setq diff-font-lock-prettify t))
+     (setopt diff-font-lock-prettify t))
 
    (use-package ediff
      :defer t
@@ -3396,9 +3396,9 @@ Smart region guesses what you want to select by one command:
      ;; Always expand files before diffing (especially org files)
      (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
      ;; Do everything in one frame
-     (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+     (setopt ediff-window-setup-function 'ediff-setup-windows-plain)
      ;; Split ediff windows horizontally by default
-     (setq ediff-split-window-function 'split-window-horizontally))
+     (setopt ediff-split-window-function 'split-window-horizontally))
 
    ;; Highlight and link issue IDs to website
    ;; bug-reference-url-format has to be set in dir-locals (S-p E)
@@ -3406,8 +3406,8 @@ Smart region guesses what you want to select by one command:
    (use-package bug-reference
      :hook (prog-mode . bug-reference-prog-mode)
      :config
-     ;; (setq bug-reference-bug-regexp "#\\(?2:[0-9]+\\)")
-     (setq bug-reference-bug-regexp "\\(\\b\\(?:[Bb]ug ?#?\\|[Ii]ssue ?#\\|[Pp]atch ?#\\|RFE ?#\\|PR [a-z+-]+/\\)\\([0-9]+\\(?:#[0-9]+\\)?\\)\\)"))
+     ;; (setopt bug-reference-bug-regexp "#\\(?2:[0-9]+\\)")
+     (setopt bug-reference-bug-regexp "\\(\\b\\(?:[Bb]ug ?#?\\|[Ii]ssue ?#\\|[Pp]atch ?#\\|RFE ?#\\|PR [a-z+-]+/\\)\\([0-9]+\\(?:#[0-9]+\\)?\\)\\)"))
    #+end_src
 
 ** VC-OSC
@@ -3458,10 +3458,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
   :defer t
   :config
   ;; Set terminfo to a dumb terminal with ANSI color codes
-  (setq comint-terminfo-terminal "dumb-emacs-ansi")
+  (setopt comint-terminfo-terminal "dumb-emacs-ansi")
 
   ;; Increase comint buffer size.
-  (setq comint-buffer-maximum-size 8192))
+  (setopt comint-buffer-maximum-size 8192))
 #+end_src
 
 ** Compilation
@@ -3478,7 +3478,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; xterm-color config
      (require 'xterm-color)
 
-     (setq compilation-environment '("TERM=xterm-256color"))
+     (setopt compilation-environment '("TERM=xterm-256color"))
 
      (defun my/advice-compilation-filter (f proc string)
        (funcall f proc (xterm-color-filter string)))
@@ -3497,12 +3497,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (local-set-key "q" 'quit-window))
 
      ;; Always save before compiling
-     (setq compilation-ask-about-save nil)
+     (setopt compilation-ask-about-save nil)
      ;; Just kill old compile processes before starting the new one
-     (setq compilation-always-kill t)
+     (setopt compilation-always-kill t)
      ;; Scroll with the compilation output
      ;; Set to 'first-error to stop scrolling on first error
-     (setq compilation-scroll-output t)
+     (setopt compilation-scroll-output t)
      :hook
      (compilation . compile-mode-q-to-quit))
    #+end_src
@@ -3533,8 +3533,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                  ("M-." . lsp-find-definition-other)
                  ("M-," . lsp-find-references-other))
      :init
-     (setq lsp-keymap-prefix nil)  ; Don't map the lsp keymap to any key
-     (setq lsp-lens-enable nil)
+     (setopt lsp-keymap-prefix nil)  ; Don't map the lsp keymap to any key
+     (setopt lsp-lens-enable nil)
      :config
      ;; Increase lsp file watch threshold when lsp shows a warning
      (setopt lsp-file-watch-threshold 1500)
@@ -3576,14 +3576,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
          (lsp-ui-doc-show)))
 
      ;; Deactivate most of the annoying "fancy features"
-     (setq lsp-headerline-breadcrumb-enable nil)
-     (setq lsp-ui-doc-enable nil)
-     (setq lsp-ui-doc-use-childframe t)
-     (setq lsp-ui-doc-include-signature t)
-     (setq lsp-ui-doc-position 'at-point)
-     (setq lsp-ui-sideline-enable nil)
-     (setq lsp-ui-sideline-show-hover nil)
-     (setq lsp-ui-sideline-show-symbol nil))
+     (setopt lsp-headerline-breadcrumb-enable nil)
+     (setopt lsp-ui-doc-enable nil)
+     (setopt lsp-ui-doc-use-childframe t)
+     (setopt lsp-ui-doc-include-signature t)
+     (setopt lsp-ui-doc-position 'at-point)
+     (setopt lsp-ui-sideline-enable nil)
+     (setopt lsp-ui-sideline-show-hover nil)
+     (setopt lsp-ui-sideline-show-symbol nil))
 
    (use-package lsp-treemacs
      :after lsp-mode
@@ -3643,10 +3643,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :hook (flycheck-mode . flycheck-color-mode-line-mode)
      :config
      ;; Use the load-path from running Emacs when checking elisp files
-     (setq flycheck-emacs-lisp-load-path 'inherit)
+     (setopt flycheck-emacs-lisp-load-path 'inherit)
 
      ;; Only do flycheck when I actually safe the buffer
-     (setq flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled)))
+     (setopt flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled)))
 
    (use-package flycheck-color-mode-line)
    #+end_src
@@ -3662,7 +3662,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     #+begin_src emacs-lisp
     (use-package cc-mode
       :config
-      (setq c-default-style "stroustrup"
+      (setopt c-default-style "stroustrup"
 	    c-indent-level 2)
       (add-hook 'c++-mode-hook
 		(lambda ()
@@ -3750,13 +3750,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :config
      ;; use cperl-mode instead of perl-mode
      ;; http://xahlee.info/emacs/emacs/emacs_perl_vs_cperl_mode.html
-     (setq auto-mode-alist (rassq-delete-all 'perl-mode auto-mode-alist))
+     (setopt auto-mode-alist (rassq-delete-all 'perl-mode auto-mode-alist))
 
-     (setq interpreter-mode-alist (rassq-delete-all 'perl-mode interpreter-mode-alist))
+     (setopt interpreter-mode-alist (rassq-delete-all 'perl-mode interpreter-mode-alist))
      (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
      (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
      (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-     (setq cperl-indent-level 3
+     (setopt cperl-indent-level 3
            cperl-set-style "C++"
            cperl-auto-newline-after-colon t
            cperl-continued-statement-offset 4
@@ -3798,7 +3798,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 		 ("M-." . xref-find-definitions))
      :config
      ;; Use eww to browse Lua documentation
-     (setq lua-documentation-function 'eww)
+     (setopt lua-documentation-function 'eww)
      (defun lua-outline-mode ()
        (setq-local outline-regexp "function")))
 
@@ -3827,20 +3827,20 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 	     ("\\.html?\\'" . web-mode)
 	     ("\\.tmpl?\\'" . web-mode))
       :config
-      (setq web-mode-markup-indent-offset 2)
-      (setq web-mode-indent-style 2)
+      (setopt web-mode-markup-indent-offset 2)
+      (setopt web-mode-indent-style 2)
 
-      (setq web-mode-ac-sources-alist
+      (setopt web-mode-ac-sources-alist
 	    '(("css" . (ac-source-css-property))
 	      ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
-      (setq web-mode-enable-auto-pairing t)
-      (setq web-mode-enable-auto-closing t)
+      (setopt web-mode-enable-auto-pairing t)
+      (setopt web-mode-enable-auto-closing t)
 
-      (setq web-mode-enable-current-element-highlight t)
-      (setq web-mode-enable-current-column-highlight t)
+      (setopt web-mode-enable-current-element-highlight t)
+      (setopt web-mode-enable-current-column-highlight t)
 
-      (setq web-mode-enable-css-colorization t))
+      (setopt web-mode-enable-css-colorization t))
     #+end_src
 
 ** Elixir
@@ -3895,7 +3895,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package yaml-mode
       :mode ("\\.yaml\\'" "\\.yml\\'")
       :config
-      (setq yaml-indent-offset 2))
+      (setopt yaml-indent-offset 2))
     #+end_src
 
 *** Systemd
@@ -3987,14 +3987,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                   (add-to-list 'company-backends
                                '(company-capf :with company-dabbrev))
 
-                  (setq completion-at-point-functions
+                  (setopt completion-at-point-functions
                         '(org-completion-symbols
                           ora-cap-filesystem))))
       :config
       (require 'xdg)
       ;; Insead of "..." show "…" when there's hidden folded content
       ;; Some characters to choose from: …, ⤵, ▼, ↴, ⬎, ⤷, and ⋱
-      (setq org-ellipsis "…")
+      (setopt org-ellipsis "…")
 
       <<org_private>>
 
@@ -4010,41 +4010,41 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; Fold everything when opening an org file.
       ;; Set it to 'overview to onnly show headings up to level 2.
-      (setq org-startup-folded t)
+      (setopt org-startup-folded t)
 
       ;; Show inline images by default
-      (setq org-startup-with-inline-images t)
+      (setopt org-startup-with-inline-images t)
 
       ;; Add more levels to headlines that get displayed with imenu
-      (setq org-imenu-depth 5)
+      (setopt org-imenu-depth 5)
 
       ;; Enter key follows links (= C-c C-o)
-      (setq org-return-follows-link t)
+      (setopt org-return-follows-link t)
 
       ;; When enabling the cache I get errors on latest Emacs 29.1
       ;; (wrong-type-argument avl-tree- nil)
       ;; So disable it (temporarily)
-      ;; (setq org-element-use-cache nil)
+      ;; (setopt org-element-use-cache nil)
 
       ;; Never show 'days' in clocksum (e.g. in report clocktable)
       ;; format string used when creating CLOCKSUM lines and when generating a
       ;; time duration (avoid showing days)
-      (setq org-duration-format '((special . h:mm)))
+      (setopt org-duration-format '((special . h:mm)))
       ;; Set to  (("d" . nil) (special . h:mm)) if you want to show days
 
       ;; Set default column view headings: Task Effort Clock_Summary
-      ;;(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+      ;;(setopt org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 
       ;; Set default column view headings: Task Total-Time Time-Stamp
-      (setq org-columns-default-format "%75ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
+      (setopt org-columns-default-format "%75ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 
       ;; global Effort estimate values
       ;; global STYLE property values for completion
-      (setq org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
+      (setopt org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
                                           ("STYLE_ALL" . "habit"))))
 
       ;; Tags with fast selection keys
-      (setq org-tag-alist (quote ((:startgroup)
+      (setopt org-tag-alist (quote ((:startgroup)
                                   ("WAITING" . ?w)
                                   ("HOLD" . ?h)
                                   ("MEETING" . ?m)
@@ -4061,73 +4061,73 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                   ("email" . ??))))
 
       ;; Allow setting single tags without the menu
-      (setq org-fast-tag-selection-single-key (quote expert))
+      (setopt org-fast-tag-selection-single-key (quote expert))
 
-      (setq org-archive-mark-done nil)
+      (setopt org-archive-mark-done nil)
       (setopt org-archive-location "%s_archive::")
       (require 'org-archive-subtree-hierarchy)
       (org-archive-subtree-hierarchy)
 
       ;; C-RET, C-S-RET insert new heading after current task content
-      (setq org-insert-heading-respect-content nil)
+      (setopt org-insert-heading-respect-content nil)
 
       ;; Show a little bit more when using sparse-trees
-      (setq org-show-following-heading t)
-      (setq org-show-hierarchy-above t)
-      (setq org-show-siblings (quote ((default))))
+      (setopt org-show-following-heading t)
+      (setopt org-show-hierarchy-above t)
+      (setopt org-show-siblings (quote ((default))))
 
       ;; don't show * / = etc
-      (setq org-hide-emphasis-markers t)
+      (setopt org-hide-emphasis-markers t)
 
       ;; leave highlights in sparse tree after edit. C-c C-c removes highlights
-      (setq org-remove-highlights-with-change nil)
+      (setopt org-remove-highlights-with-change nil)
 
       ;; M-RET should not split the lines
-      (setq org-M-RET-may-split-line '((default . nil)))
+      (setopt org-M-RET-may-split-line '((default . nil)))
 
-      (setq org-special-ctrl-a/e t)
-      (setq org-special-ctrl-k t)
-      (setq org-yank-adjusted-subtrees t)
+      (setopt org-special-ctrl-a/e t)
+      (setopt org-special-ctrl-k t)
+      (setopt org-yank-adjusted-subtrees t)
 
       ;; Enable hard indentation to have indentation also visible outside
       ;; of emacs.
-      (setq org-adapt-indentation t)
-      (setq org-image-actual-width t)
-      (setq org-support-shift-select 1)
+      (setopt org-adapt-indentation t)
+      (setopt org-image-actual-width t)
+      (setopt org-support-shift-select 1)
 
 
       (require 'smartparens-org)  ;; Additional org sp-local-pairs
 
       ;; Add org-directory and its sub-directories
-      (setq org-directory `,(append (list (concat (xdg-user-dir "DOCUMENTS") "/org"))
+      (setopt org-directory `,(append (list (concat (xdg-user-dir "DOCUMENTS") "/org"))
                                     (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
                                                    nil t)))
 
       ;; Log time when we re-schedule a task
-      (setq org-log-reschedule 'time)
+      (setopt org-log-reschedule 'time)
       ;; Always take note when marking task as done
-      (setq org-log-done 'note)
+      (setopt org-log-done 'note)
       ;; and take note when re-scheduling a deadline
-      (setq org-log-redeadline 'note)
+      (setopt org-log-redeadline 'note)
 
       ;; Show org entities as UTF-8 characters (e.g. \sum as ∑)
-      (setq org-pretty-entities t)
+      (setopt org-pretty-entities t)
       ;; But Don't print "bar" as subscript in "foo_bar"
-      (setq org-pretty-entities-include-sub-superscripts nil)
+      (setopt org-pretty-entities-include-sub-superscripts nil)
       ;; And also don't display ^ or _ as super/subscripts
-      (setq org-use-sub-superscripts nil)
+      (setopt org-use-sub-superscripts nil)
       ;; Undone TODO entries will block switching the parent to DONE
-      (setq org-enforce-todo-dependencies t)
+      (setopt org-enforce-todo-dependencies t)
 
-      (setq org-use-fast-todo-selection t)
+      (setopt org-use-fast-todo-selection t)
 
       ;; This allows changing todo states with S-left and S-right skipping all of the normal processing
       ;; when entering or leaving a todo state.
       ;; This cycles through the todo states but skips setting timestamps and entering notes which
       ;; is very convenient when all you want to do is fix up the status of an entry.
-      (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+      (setopt org-treat-S-cursor-todo-selection-as-state-change nil)
 
-      (setq org-default-notes-file (concat (car org-directory) "/inbox.org"))
+      (setopt org-default-notes-file (concat (car org-directory) "/inbox.org"))
 
                                             ; Use the current window for indirect buffer display
       (setopt org-indirect-buffer-display 'current-window)
@@ -4173,7 +4173,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
         (org-cycle-hide-drawers-all 'all))
 
       ;; FIXME: Create minor mode that always hides drawers and adds/removes advice instead of temp var
-      (setq org-always-hide-all-drawers-p nil)
+      (setopt org-always-hide-all-drawers-p nil)
 
       (defun org-always-hide-all-drawers (state)
         (when (and (not (eq state 'folded)) org-always-hide-all-drawers-p)
@@ -4188,23 +4188,23 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
         (org-cycle-hide-drawers-all t))
 
       ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-      (setq org-refile-targets '((nil :maxlevel . 9)
+      (setopt org-refile-targets '((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9)))
 
       ;; Allow refile to create parent tasks with confirmation
-      (setq org-refile-allow-creating-parent-nodes (quote confirm))
-      (setq org-refile-use-outline-path 'file)  ; Show filename for refiling
-      (setq org-outline-path-complete-in-steps nil)  ; Refile in a single go
+      (setopt org-refile-allow-creating-parent-nodes (quote confirm))
+      (setopt org-refile-use-outline-path 'file)  ; Show filename for refiling
+      (setopt org-outline-path-complete-in-steps nil)  ; Refile in a single go
 
       ;; Exclude DONE state tasks from refile targets
       (defun org-refile-verify-refile-target ()
         "Exclude todo keywords with a done state from refile targets."
         (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
-      (setq org-refile-target-verify-function #'org-refile-verify-refile-target)
+      (setopt org-refile-target-verify-function #'org-refile-verify-refile-target)
 
       ;; Automatically change the list bullets when you change list levels
-      (setq org-list-demote-modify-bullet '(("+" . "-")
+      (setopt org-list-demote-modify-bullet '(("+" . "-")
                                             ("*" . "-")
                                             ("1." . "-")
                                             ("1)" . "-")
@@ -4217,12 +4217,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                             ("a." . "-")
                                             ("b." . "-")))
 
-      (setq org-todo-keywords
+      (setopt org-todo-keywords
             (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                     (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")
                     (type "PHONE" "LESSON" "EXAM" "SHIFT" "MEETING" "|" "CANCELLED(c@/!)"))))
 
-      (setq org-todo-keyword-faces
+      (setopt org-todo-keyword-faces
             (quote (;; Generic TODO's
                     ("TODO"
                      :inverse-video t :weight semibold :height 1.0 :inherit
@@ -4245,7 +4245,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;;  If a task moves to CANCELLED state then it gets a CANCELLED tag.
       ;; Moving a CANCELLED task back to TODO removes the CANCELLED tag.
       ;; http://doc.norang.ca/org-mode.html#ToDoStateTriggers
-      (setq org-todo-state-tags-triggers
+      (setopt org-todo-state-tags-triggers
             (quote (("CANCELLED" ("CANCELLED" . t))
                     ("WAITING" ("WAITING" . t))
                     ("HOLD" ("WAITING") ("HOLD" . t))
@@ -4322,14 +4322,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
 
       ;; set org-mode link abbrevs
-      (setq org-link-abbrev-alist
+      (setopt org-link-abbrev-alist
                '(("google"    . "http://www.google.com/search?q=")
                ("gmap"      . "http://maps.google.com/maps?q=%s")
                ("omap"      . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")
                ("wpen"      . "http://en.wikipedia.org/wiki/%s")
                ("wpde"      . "http://de.wikipedia.org/wiki/%s")
                ("mane"      . "http://man.he.net/?topic=%s&section=all")))
-      (setq org-link-abbrev-alist
+      (setopt org-link-abbrev-alist
             (append org-link-abbrev-alist
                     org-link-abbrev-alist-private)))
     #+end_src
@@ -4355,7 +4355,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package org-appear
       :hook (org-mode . org-appear-mode)
       :config
-      (setq org-appear-autolinks nil))
+      (setopt org-appear-autolinks nil))
     #+end_src
 
 *** Org-Agenda
@@ -4378,16 +4378,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             (mapc #'appt-org-notification-single (-interleave min time text))
           (appt-org-notification-single min time text)))
 
-      (setq appt-display-format 'window)
-      (setq appt-disp-window-function #'appt-org-notification)
-      (setq appt-message-warning-time 6))
+      (setopt appt-display-format 'window)
+      (setopt appt-disp-window-function #'appt-org-notification)
+      (setopt appt-message-warning-time 6))
 
     (use-package org-agenda
       :defer t
       :after org
       :config
       ;; org-org-directory and subdirectories
-      (setq org-agenda-files  `,(append (list (concat (xdg-user-dir "DOCUMENTS")"/org" ))
+      (setopt org-agenda-files  `,(append (list (concat (xdg-user-dir "DOCUMENTS")"/org" ))
                                         (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
                                                        nil t)))
 
@@ -4410,11 +4410,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                                                                  ,(expand-file-name "refile.org" (car org-directory))
                                                                                  ,(expand-file-name (concat file ".org") (car org-directory)))))))
 
-      (setq org-clocked-in-project "jolla")
+      (setopt org-clocked-in-project "jolla")
 
       <<org_agenda_private>>
 
-      (setq org-agenda-custom-commands
+      (setopt org-agenda-custom-commands
              `(
                ("A" "Agenda and all TODOs" ((agenda "") (alltodo "")))
                (" " "Current Project Agenda and TODOs" ,@(org-agenda-custom-command-for-work org-clocked-in-project))
@@ -4431,64 +4431,64 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                  (todo "WAITING"))) ; review waiting items
                ;; ...other commands here
                ))
-      (setq org-agenda-custom-commands
+      (setopt org-agenda-custom-commands
             (append
              org-agenda-custom-commands org-agenda-custom-commands-private))
 
       ;; Overwrite the current window with the agenda
-      (setq org-agenda-window-setup 'other-frame)
+      (setopt org-agenda-window-setup 'other-frame)
 
       ;; Do not dim blocked tasks
-      (setq org-agenda-dim-blocked-tasks nil)
+      (setopt org-agenda-dim-blocked-tasks nil)
 
       ;; Compact the block agenda view
-      (setq org-agenda-compact-blocks nil)
+      (setopt org-agenda-compact-blocks nil)
 
       ;; Agenda clock report parameters
-      (setq org-agenda-clockreport-parameter-plist
+      (setopt org-agenda-clockreport-parameter-plist
             (quote (:link t :maxlevel 5 :fileskip0 t :stepskip0 t :compact nil :narrow 80)))
 
       ;; Agenda log mode items to display (closed and state changes by default)
-      (setq org-agenda-log-mode-items (quote (closed state clock)))
+      (setopt org-agenda-log-mode-items (quote (closed state clock)))
 
       ;; Keep tasks with dates on the global todo lists
-      (setq org-agenda-todo-ignore-with-date nil)
+      (setopt org-agenda-todo-ignore-with-date nil)
 
       ;; Keep tasks with deadlines on the global todo lists
-      (setq org-agenda-todo-ignore-deadlines nil)
+      (setopt org-agenda-todo-ignore-deadlines nil)
 
       ;; Keep tasks with scheduled dates on the global todo lists
-      (setq org-agenda-todo-ignore-scheduled nil)
+      (setopt org-agenda-todo-ignore-scheduled nil)
 
       ;; Keep tasks with timestamps on the global todo lists
-      (setq org-agenda-todo-ignore-timestamp nil)
+      (setopt org-agenda-todo-ignore-timestamp nil)
 
       ;; Remove completed deadline tasks from the agenda view
-      (setq org-agenda-skip-deadline-if-done t)
+      (setopt org-agenda-skip-deadline-if-done t)
 
       ;; Remove completed scheduled tasks from the agenda view
-      ;; (setq org-agenda-skip-scheduled-if-done t)
+      ;; (setopt org-agenda-skip-scheduled-if-done t)
 
       ;; Remove completed items from search results
-      ;; (setq org-agenda-skip-timestamp-if-done t)
+      ;; (setopt org-agenda-skip-timestamp-if-done t)
 
       ;; Include agenda archive files when searching for things
-      (setq org-agenda-text-search-extra-files (quote (agenda-archives)))
+      (setopt org-agenda-text-search-extra-files (quote (agenda-archives)))
 
       ;; Show all future entries for repeating tasks
-      (setq org-agenda-repeating-timestamp-show-all t)
+      (setopt org-agenda-repeating-timestamp-show-all t)
 
       ;; Show all agenda dates - even if they are empty
-      (setq org-agenda-show-all-dates t)
+      (setopt org-agenda-show-all-dates t)
 
       ;; Start the weekly agenda on Monday
-      (setq org-agenda-start-on-weekday 1)
+      (setopt org-agenda-start-on-weekday 1)
 
       ;; For 0 to 4am show yesterday in the agenda view "toady"
-      (setq org-extend-today-until 4)
+      (setopt org-extend-today-until 4)
 
       ;; Agenda styling
-      (setq org-agenda-block-separator ?─
+      (setopt org-agenda-block-separator ?─
             org-agenda-time-grid
             '((daily today require-timed)
               (800 1000 1200 1400 1600 1800 2000)
@@ -4497,26 +4497,26 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             "⭠ now ─────────────────────────────────────────────────")
 
       ;; Insert a separator between each day
-      (setq org-agenda-format-date (lambda (date) (concat "\n"
+      (setopt org-agenda-format-date (lambda (date) (concat "\n"
                                                           (make-string (window-width) 9472)
                                                           "\n"
                                                           (org-agenda-format-date-aligned date))))
 
       ;; Use sticky agenda's so they persist
-      ;;(setq org-agenda-sticky t)
+      ;;(setopt org-agenda-sticky t)
 
       ;; Limit restriction lock highlighting to the headline only
-      (setq org-agenda-restriction-lock-highlight-subtree nil)
+      (setopt org-agenda-restriction-lock-highlight-subtree nil)
 
       ;; Sorting order for tasks on the agenda
-      (setq org-agenda-sorting-strategy
+      (setopt org-agenda-sorting-strategy
             (quote ((agenda habit-down time-up user-defined-up effort-up category-keep)
                     (todo category-up effort-up)
                     (tags category-up effort-up)
                     (search category-up))))
 
       ;; Enable display of the time grid so we can see the marker for the current time
-      ;;(setq org-agenda-time-grid (quote ((daily today remove-match)
+      ;;(setopt org-agenda-time-grid (quote ((daily today remove-match)
       ;;                                   #("----------------" 0 16 (org-heading t))
       ;;                                   (0900 1100 1300 1500 1700))))
 
@@ -4525,17 +4525,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (appt-activate)
       (org-agenda-to-appt)
 
-      (setq org-fold-catch-invisible-edits 'show-and-error)
-      (setq org-auto-align-tags t)
+      (setopt org-fold-catch-invisible-edits 'show-and-error)
+      (setopt org-auto-align-tags t)
       ;; Display tags farther right
-      ;; (setq org-agenda-tags-column 0)
-      (setq org-agenda-tags-column -102)
+      ;; (setopt org-agenda-tags-column 0)
+      (setopt org-agenda-tags-column -102)
 
-      (setq org-agenda-include-diary t)
+      (setopt org-agenda-include-diary t)
 
       ;; Include the last few days in the agenda by default
       ;; Switch w to get a week a agenda
-      (setq org-agenda-span 2)
+      (setopt org-agenda-span 2)
 
       ;; http://doc.norang.ca/org-mode.html#CustomAgendaViewFiltering
       (defun thao/org-auto-exclude-function (tag)
@@ -4544,7 +4544,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               ((string= tag "hold")
                t))
              (concat "-" tag)))
-      (setq org-agenda-auto-exclude-function 'thao/org-auto-exclude-function)
+      (setopt org-agenda-auto-exclude-function 'thao/org-auto-exclude-function)
       )
     #+end_src
 
@@ -4553,7 +4553,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package org-super-agenda
       :after org-agenda
       :config
-      (setq org-super-agenda-groups
+      (setopt org-super-agenda-groups
             '(;; Each group has an implicit boolean OR operator between its selectors.
 
               (:name "Items to Refile"
@@ -4653,7 +4653,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
       :config
                                             ; don't prompt me to confirm every time I want to evaluate a block
-      (setq org-confirm-babel-evaluate nil)
+      (setopt org-confirm-babel-evaluate nil)
 
       (defun org-babel-restart-session-to-point (&optional arg)
         "Restart session up to the src-block in the current point.
@@ -4782,16 +4782,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :config
       ;; Always split babel source window below.
       ;; Alternative is `current-window' to don't mess with window layout at all
-      (setq org-src-window-setup 'split-window-below)
+      (setopt org-src-window-setup 'split-window-below)
 
-      (setq org-src-fontify-natively t)  ; syntax highlighting for source code blocks
+      (setopt org-src-fontify-natively t)  ; syntax highlighting for source code blocks
 
       ;; Tab should do indent in code blocks
-      (setq org-src-tab-acts-natively t)
+      (setopt org-src-tab-acts-natively t)
 
       ;; Don't remove (or add) any extra whitespace
-      (setq org-src-preserve-indentation nil)
-      (setq org-edit-src-content-indentation 0)
+      (setopt org-src-preserve-indentation nil)
+      (setopt org-edit-src-content-indentation 0)
 
     ;;; Some helper function to manage org-babel sessions
 
@@ -4843,7 +4843,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
          (internal-border-width . 0)))
 
       (setopt org-modern-todo-faces org-todo-keyword-faces)
-      ;;(setq org-modern-star ["❶" "❷" "❸" "❹" "❺" "❻" "❼"])
+      ;;(setopt org-modern-star ["❶" "❷" "❸" "❹" "❺" "❻" "❼"])
       )
     #+end_src
 
@@ -4870,12 +4870,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (advice-add 'org-capture-place-template :around 'org-capture-place-template-dont-delete-windows)
 
       ;; Do *NOT* bookmark to the last location when capturing
-      (setq org-capture-bookmark nil)
+      (setopt org-capture-bookmark nil)
 
       ;; Capture/refile new items to the top of the list
-      (setq org-reverse-note-order t)
+      (setopt org-reverse-note-order t)
       ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
-      (setq org-capture-templates
+      (setopt org-capture-templates
             `(("t" "todo" entry (file ,(concat (car org-directory) "/refile.org"))
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("j" "Journal entry")
@@ -4945,7 +4945,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             (org-no-properties (org-clock-get-clock-string))))
 
       ;; FIXME: remove unused bh functions?
-      (setq bh/keep-clock-running nil)
+      (setopt bh/keep-clock-running nil)
 
       (defun bh/clock-in-last-task (arg)
         "Clock in the interrupted task if there is one
@@ -4985,7 +4985,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
           (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
             (while (org-up-heading-safe)
               (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-                (setq parent-task (point))))
+                (setopt parent-task (point))))
             (goto-char parent-task)
             parent-task)))
 
@@ -4994,7 +4994,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     selected task.  If no task is selected set the Organization task
     as the default task."
         (interactive "p")
-        (setq bh/keep-clock-running t)
+        (setopt bh/keep-clock-running t)
         (if (equal major-mode 'org-agenda-mode)
             ;;
             ;; We're in the agenda
@@ -5016,7 +5016,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       (defun bh/punch-out ()
         (interactive)
-        (setq bh/keep-clock-running nil)
+        (setopt bh/keep-clock-running nil)
         (when (org-clock-is-active)
           (org-clock-out))
         (org-agenda-remove-restriction-lock))
@@ -5034,7 +5034,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               (widen)
               (while (and (not parent-task) (org-up-heading-safe))
                 (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-                  (setq parent-task (point))))
+                  (setopt parent-task (point))))
               (if parent-task
                   (org-with-point-at parent-task
                     (org-clock-in))
@@ -5059,61 +5059,61 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       :config
       ;; Install `xprintidle' to get idle time over all X11. Otherwise it's only Emacs idle time.
-      (setq org-clock-idle-time 35)  ; idle after 35 minutes
+      (setopt org-clock-idle-time 35)  ; idle after 35 minutes
 
-      ;;(setq org-clock-continuously t)  ; Start clocking from the last clock-out time, if any.
+      ;;(setopt org-clock-continuously t)  ; Start clocking from the last clock-out time, if any.
 
       ;; Show lot of clocking history so it's easy to pick items off the C-F11 list
-      (setq org-clock-history-length 30)
+      (setopt org-clock-history-length 30)
 
       ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-      (setq org-clock-persist t)
+      (setopt org-clock-persist t)
       (org-clock-persistence-insinuate)
 
       ;; org-clock-display (C-c C-x C-d) shows times for this month by default
-      (setq org-clock-display-default-range 'thismonth)
+      (setopt org-clock-display-default-range 'thismonth)
 
       ;; Only show the current clocked time in mode line (not all)
-      (setq org-clock-mode-line-total 'current)
+      (setopt org-clock-mode-line-total 'current)
 
       ;; Don't show modeline - display in i3status bar instead
-      (setq org-clock-clocked-in-display nil)
+      (setopt org-clock-clocked-in-display nil)
 
       ;; Clocktable (C-c C-x C-r) defaults
       ;; Use fixed month instead of (current-month) because I want to keep a table for each month
-      (setq org-clock-clocktable-default-properties
+      (setopt org-clock-clocktable-default-properties
             `(:block ,(format-time-string "%Y-%m") :scope file-with-archives))
 
       ;; Clocktable (reporting: r) in the agenda
-      (setq org-clocktable-defaults
+      (setopt org-clocktable-defaults
             '(:maxlevel 3 :lang "en" :scope file-with-archives
                         :wstart 1 :mstart 1 :tstart nil :tend nil :step nil :stepskip0 t :fileskip0 t
                         :tags nil :emphasize nil :link t :narrow 70! :indent t :formula nil :timestamp nil
                         :level nil :tcolumns nil :formatter nil))
 
       ;; Resume clocking task on clock-in if the clock is open
-      (setq org-clock-in-resume t)
+      (setopt org-clock-in-resume t)
       ;; Change tasks to NEXT when clocking in
-      ;;(setq org-clock-in-switch-to-state 'bh/clock-in-to-next)
+      ;;(setopt org-clock-in-switch-to-state 'bh/clock-in-to-next)
 
       ;; Separate drawers for clocking and logs
-      ;;(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+      ;;(setopt org-drawers (quote ("PROPERTIES" "LOGBOOK")))
 
       ;; Save clock data and state changes and notes in the LOGBOOK drawer
-      (setq org-clock-into-drawer t)
+      (setopt org-clock-into-drawer t)
       ;; Log all State changes to drawer
-      (setq org-log-into-drawer t)
+      (setopt org-log-into-drawer t)
       ;; make time editing use discrete minute intervals (no rounding) increments
-      (setq org-time-stamp-rounding-minutes (quote (1 1)))
+      (setopt org-time-stamp-rounding-minutes (quote (1 1)))
       ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
-      (setq org-clock-out-remove-zero-time-clocks t)
+      (setopt org-clock-out-remove-zero-time-clocks t)
       ;; Don't clock out when moving task to a done state
-      (setq org-clock-out-when-done nil)
+      (setopt org-clock-out-when-done nil)
 
       ;; Enable auto clock resolution for finding open clocks
-      (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+      (setopt org-clock-auto-clock-resolution (quote when-no-clock-is-running))
       ;; Include current clocking task in clock reports
-      (setq org-clock-report-include-clocking-task t))
+      (setopt org-clock-report-include-clocking-task t))
     #+end_src
 
 *** Org-Clock-Helpers: Past clock insertion helpers
@@ -5140,7 +5140,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package ol-man
       :after org
       :config
-      (setq org-man-command 'man))  ; open org-link man pages with woman
+      (setopt org-man-command 'man))  ; open org-link man pages with woman
     #+end_src
 
 *** Org-expiry: Automatically add a CREATED property when inserting a new headline
@@ -5148,7 +5148,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package org-expiry
       :after org
       :config
-      (setq org-expiry-inactive-timestamps t)
+      (setopt org-expiry-inactive-timestamps t)
       (org-expiry-insinuate))
     #+end_src
 
@@ -5156,7 +5156,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     #+begin_src emacs-lisp
     (use-package org-id
       :after org
-      :config (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id))
+      :config (setopt org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id))
     #+end_src
 
 *** Org-Pomodoro
@@ -5212,9 +5212,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       :config
       ;; Don't delete already clocked time when killing a running pomodoro
-      (setq org-pomodoro-keep-killed-pomodoro-time t)
+      (setopt org-pomodoro-keep-killed-pomodoro-time t)
       ;; Never clock-out automatically
-      (setq org-pomodoro-clock-always t))
+      (setopt org-pomodoro-clock-always t))
 
     #+end_src
 
@@ -5226,10 +5226,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;;:bind ("C-c e" . org-formatted-copy)
       :config
       ;; By default only export subtree instead of whole buffer
-      (setq org-export-initial-scope 'subtree)
+      (setopt org-export-initial-scope 'subtree)
 
       ;; Don't evaluate babel source blocks during export
-      (setq org-export-use-babel nil)
+      (setopt org-export-use-babel nil)
 
       ;; copy org text as rich text
       (defun org-formatted-copy ()
@@ -5257,14 +5257,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     	          priority (and priority " ")
     	          text
     	          (and tags "&#xa0;&#xa0;&#xa0;</h3><p>") tags (and tags "</p><h3>"))))
-      (setq org-html-format-headline-function #'my-hack-org-html-format-headline-function)
+      (setopt org-html-format-headline-function #'my-hack-org-html-format-headline-function)
       ;; Use html5 as org export and use new tags (I don't care about browsers <=IE8)
-      (setq org-html-doctype "html5")
-      (setq org-html-html5-fancy t)
+      (setopt org-html-doctype "html5")
+      (setopt org-html-html5-fancy t)
       ;; Don't add html footer to export
-      (setq org-html-postamble nil)
+      (setopt org-html-postamble nil)
       ;; Don't export ^ or _ as super/subscripts
-      (setq org-export-with-sub-superscripts nil))
+      (setopt org-export-with-sub-superscripts nil))
 
     (use-package ox-extra
       :after ox
@@ -5276,7 +5276,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :after ox
       :after ox-extra
       :config
-      (setq org-latex-default-packages-alist
+      (setopt org-latex-default-packages-alist
             (quote
              (("AUTO" "inputenc" t
                ("pdflatex"))
@@ -5292,12 +5292,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               ("" "amssymb" t nil)
               ("" "capt-of" nil nil)
               ("" "hyperref" nil nil))))
-      (setq org-latex-src-block-backend 'minted)
+      (setopt org-latex-src-block-backend 'minted)
       (add-to-list 'org-latex-packages-alist '("" "minted"))
-      (setq org-latex-pdf-process
+      (setopt org-latex-pdf-process
             '("xelatex -shell-escape -interaction nonstopmode %f"
               "xelatex -shell-escape -interaction nonstopmode %f"))
-      (setq org-latex-compiler "xelatex"))
+      (setopt org-latex-compiler "xelatex"))
 
     (use-package ox-koma-letter
       :after ox-latex
@@ -5370,7 +5370,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
              ("C-c g F" . helm-org-rifle-files)
              ("C-c g a" . helm-org-rifle-agenda-files))
       :config
-      (setq helm-org-rifle-show-path t))
+      (setopt helm-org-rifle-show-path t))
     #+end_src
 
 *** Org-edit-indirect:
@@ -5431,7 +5431,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     \fn(fn host user &optional network)"
         (auth-source-forget (list :host host :user user :max 1))
         (when network
-      (setq user (circe--ident user network)))
+      (setopt user (circe--ident user network)))
         (let ((match (car (circe--auth-source-get (list :secret)
                 :host host :user user))))
       (cond ((null match)
@@ -5447,7 +5447,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       <<circe_base_private>>
 
-      (setq circe-reduce-lurker-spam t
+      (setopt circe-reduce-lurker-spam t
         circe-format-self-say "<{nick}> {body}"
         circe-use-cycle-completion t
         circe-server-send-unknown-command-p t)
@@ -5473,7 +5473,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package circe-display-images
       :after circe
       :config
-      (setq circe-display-images-image-regex
+      (setopt circe-display-images-image-regex
         "\\(https?://[^ ]*?\\.\\(?:png\\|jpg\\|jpeg\\|svg\\|gif\\)[^\]\)>\"\' \n]*\\)"
         circe-display-images-animate-gifs t)
       (enable-circe-display-images))
@@ -5524,7 +5524,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (enable-lui-irc-colors)
       (unless (fboundp 'jinx-mode)
         (setopt lui-flyspell-p t))
-      (setq lui-formatting-list
+      (setopt lui-formatting-list
             '(("\\(?:^\\|[[:space:]]\\)\\(\\*[^*[:space:]]+?\\*\\)\\(?:$\\|[[:space:]]\\)" 1
                lui-strong-face)
               ("\\(?:^\\|[[:space:]]\\)\\(_[^_[:space:]]+?_\\)\\(?:$\\|[[:space:]]\\)" 1
@@ -5543,7 +5543,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package lui-track
       :after lui
       :config
-      (setq lui-track-behavior 'before-switch-to-buffer)
+      (setopt lui-track-behavior 'before-switch-to-buffer)
       (enable-lui-track))
     #+end_src
 
@@ -5552,15 +5552,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :after lui
       :config
       (enable-lui-logging-globally)
-      (setq lui-logging-directory "~/logs"))
+      (setopt lui-logging-directory "~/logs"))
     #+end_src
 
     #+begin_src emacs-lisp
     (use-package tracking
       :init
-      (setq tracking-max-mode-line-entries 5)
-      (setq tracking-most-recent-first t)
-      (setq tracking-sort-faces-first t))
+      (setopt tracking-max-mode-line-entries 5)
+      (setopt tracking-most-recent-first t)
+      (setopt tracking-sort-faces-first t))
     #+end_src
 
 ** Mastodon
@@ -5597,9 +5597,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    (use-package bbdb
      :config
      (bbdb-initialize)
-     (setq bbdb-north-american-phone-numbers-p nil)
+     (setopt bbdb-north-american-phone-numbers-p nil)
      ;; If non-nil, expand mail aliases in `bbdb-complete-name'.
-     (setq bbdb-expand-mail-aliases t)
+     (setopt bbdb-expand-mail-aliases t)
      ;; If this is t (the default), then VM, MH, and RMAIL will automatically
      ;; create new bbdb records for people you receive mail from.
      ;; If this variable is a function name or lambda expression,
@@ -5608,8 +5608,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; not create records for messages which have reached you through a particular mailing list, or to only create records automatically if the mail has a particular subject.
      ;; See the variables bbdb-ignore-most-messages-alist and
      ;; bbdb-ignore-some-messages-alist (See section Predefined Hooks.)
-     ;;(setq bbdb/mail-auto-create-p t)
-     (setq bbdb-ignore-message-alist
+     ;;(setopt bbdb/mail-auto-create-p t)
+     (setopt bbdb-ignore-message-alist
            '(("From" . "donotreply")
              ("Mail-Followup-to" . "donotreply")
              ("Reply-to" . "donotreply")
@@ -5627,9 +5627,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :hook (gnus-startup . bbdb-insinuate-gnus)
      :after gnus-score
      :config
-     (setq gnus-score-find-score-files-function '(gnus-score-find-bnews bbdb/gnus-score))
-     (setq bbdb/gnus-header-prefer-real-names t)
-     (setq bbdb/gnus-header-show-bbdb-names t)
+     (setopt gnus-score-find-score-files-function '(gnus-score-find-bnews bbdb/gnus-score))
+     (setopt bbdb/gnus-header-prefer-real-names t)
+     (setopt bbdb/gnus-header-show-bbdb-names t)
      )
 
    (use-package bbdb-pgp
@@ -5641,7 +5641,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    (use-package bbdb-vcard
      :config
      (require 'xdg)
-     (setq bbdb-vcard-default-dir (expand-file-name (concat (xdg-data-home) "/contacts"))))
+     (setopt bbdb-vcard-default-dir (expand-file-name (concat (xdg-data-home) "/contacts"))))
    #+end_src
 
 ** GNUs
@@ -5651,7 +5651,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :after smtpmail-async
      :after all-the-icons
      :init
-     (setq gnus-select-method '(nnnil ""))
+     (setopt gnus-select-method '(nnnil ""))
      :hook ((messsage-sent . gnus-score-followup-thread))
      :config
      ;; Save newsrc.eld in ~/News
@@ -5659,31 +5659,31 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt gnus-use-cache t)
      (setopt gnus-cache-enter-articles '(ticked dormant unread))
      ;; Belongs to gnus-cache
-     (setq gnus-uncacheable-groups nil)
+     (setopt gnus-uncacheable-groups nil)
      ;; Belongs to gnus-start
-     (setq gnus-read-newsrc-file nil)
-     (setq gnus-select-method '(nnnil ""))
-     ;; (setq gnus-secondary-select-methods '((nntp "Gmane"
+     (setopt gnus-read-newsrc-file nil)
+     (setopt gnus-select-method '(nnnil ""))
+     ;; (setopt gnus-secondary-select-methods '((nntp "Gmane"
      ;;                                             (nntp-address "news.gmane.io"))))
 
      ;;[[http://stackoverflow.com/questions/4982831/i-dont-want-to-expire-mail-in-gnus]]
-     (setq gnus-large-newsgroup 2000)
+     (setopt gnus-large-newsgroup 2000)
 
      ;; Belongs to gnus-start
-     (setq gnus-subscribe-newsgroup-method 'gnus-subscribe-topics)
+     (setopt gnus-subscribe-newsgroup-method 'gnus-subscribe-topics)
 
      ;; Belongs to gnus-start
-     (setq gnus-check-new-newsgroups 'ask-server)
+     (setopt gnus-check-new-newsgroups 'ask-server)
      ;; Belongs to gnus-uu
-     (setq gnus-asynchronous t)
+     (setopt gnus-asynchronous t)
      ;; gnus-async
-     (setq gnus-use-header-prefetch t)
+     (setopt gnus-use-header-prefetch t)
 
-     (setq nnmail-split-methods nil)
-     (setq gnus-use-adaptive-scoring '(line))
+     (setopt nnmail-split-methods nil)
+     (setopt gnus-use-adaptive-scoring '(line))
 
      ;; set gnus-parameter
-     (setq gnus-parameters
+     (setopt gnus-parameters
            '(("INBOX"
               (gnus-use-scoring t))
              ;; (display . all))
@@ -5743,7 +5743,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                 (gnus-alive-p))
            (with-current-buffer (get-buffer "*Group*")
              (gnus-save-newsrc-file))))
-     (setq gnus-demon-handlers '((gnus-demon-scan-mail 120 60)
+     (setopt gnus-demon-handlers '((gnus-demon-scan-mail 120 60)
                                  (gnus-demon-scan-pgp 60 60)
                                  (gnus-demon-close-connections nil 3)
                                  (save-gnus-newsrc nil 1)
@@ -5764,35 +5764,35 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        "Generate a notification with BODY using `alert'."
        (alert body :title gnus-desktop-notify-send-subject
               :icon "/usr/share/icons/breeze-dark/actions/32@2x/mail-unread-new.svg"))
-     (setq gnus-desktop-notify-function 'thao/gnus-desktop-notify-alert)
-     (setq gnus-desktop-notify-behavior 'gnus-desktop-notify-single)
+     (setopt gnus-desktop-notify-function 'thao/gnus-desktop-notify-alert)
+     (setopt gnus-desktop-notify-behavior 'gnus-desktop-notify-single)
      (gnus-desktop-notify-mode))
 
    (use-package gnus-art
      :after gnus
      :config
      ;; Don't auto-expire articles
-     (setq gnus-inhibit-user-auto-expire t)
+     (setopt gnus-inhibit-user-auto-expire t)
 
-     (setq gnus-article-over-scroll t)
+     (setopt gnus-article-over-scroll t)
 
-     (setq gnus-treat-mail-gravatar 'head)
-     (setq gnus-treat-from-gravatar 'head)
+     (setopt gnus-treat-mail-gravatar 'head)
+     (setopt gnus-treat-from-gravatar 'head)
 
      ;; https://www.gnu.org/software/emacs/manual//html_node/gnus/Customizing-Articles.html
-     (setq gnus-article-date-headers 'combined-local-lapsed)
+     (setopt gnus-article-date-headers 'combined-local-lapsed)
 
-     ;;  (setq gnus-show-mime t)
+     ;;  (setopt gnus-show-mime t)
 
      ;; Mime
-     (setq gnus-article-decode-mime-words t
+     (setopt gnus-article-decode-mime-words t
            gnus-article-decode-charset 1
            gnus-mime-view-all-parts t        ; View all the MIME parts in current
                                            ; article
            gnus-ignored-mime-types '("text/x-vcard")
            gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
            gnus-unbuttonized-mime-types '("text/plain"))
-     (setq gnus-inhibit-images nil))
+     (setopt gnus-inhibit-images nil))
 
    (use-package gnus-agent
      :config
@@ -5802,9 +5802,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :after gnus
      :config
      ;; Mark article as read on the server
-     (setq gnus-gcc-mark-as-read t)
+     (setopt gnus-gcc-mark-as-read t)
      ;; Mark these groups are mailing-lists
-     (setq gnus-mailing-list-groups "\\`\\(list\\|wg21\\)\\."))
+     (setopt gnus-mailing-list-groups "\\`\\(list\\|wg21\\)\\."))
 
    (use-package gnus-sum
      :after gnus
@@ -5817,7 +5817,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (gnus-summary-mark-article nil gnus-read-mark))
 
 
-     (setq gnus-fetch-old-headers 'some)
+     (setopt gnus-fetch-old-headers 'some)
 
      ;; Threads and article sorting
      (define-key gnus-summary-mode-map "-" 'gnus-summary-hide-thread)
@@ -5827,71 +5827,70 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; several replies or is part of a thread, only show the first message.
      ;; `gnus-thread-ignore-subject' will ignore the subject and
      ;; look at 'In-Reply-To:' and 'References:' headers.
-     (setq gnus-thread-hide-subtree t)
-     (setq gnus-thread-ignore-subject t
-           gnus-article-sort-functions '(gnus-article-sort-by-number)
-           gnus-thread-sort-functions  '(gnus-thread-sort-by-number
-                                         gnus-thread-sort-by-date))
+     (setopt gnus-thread-hide-subtree t)
+     (setopt gnus-thread-ignore-subject t
+             gnus-article-sort-functions '(gnus-article-sort-by-number)
+             gnus-thread-sort-functions  '(gnus-thread-sort-by-number
+                                           gnus-thread-sort-by-date))
      ;; ;; En plus :  trier les threads en fonctions de la  date la plus récente
-     (setq gnus-thread-sort-functions
-           '(gnus-thread-sort-by-number gnus-thread-sort-by-most-recent-date))
+     (setopt gnus-thread-sort-functions
+             '(gnus-thread-sort-by-number gnus-thread-sort-by-most-recent-date))
 
-     (setq gnus-subthread-sort-functions
-           '(gnus-thread-sort-by-number gnus-thread-sort-by-date))
-     (setq gnus-sort-gathered-threads-function 'gnus-thread-sort-by-date)
+     (setopt gnus-subthread-sort-functions
+             '(gnus-thread-sort-by-number gnus-thread-sort-by-date))
+     (setopt gnus-sort-gathered-threads-function 'gnus-thread-sort-by-date)
 
-
-     (setq gnus-summary-gather-subject-limit 'fuzzy)
+     (setopt gnus-summary-gather-subject-limit 'fuzzy)
 
      ;; Gather read by reference, TODO: fix loose threads
-     (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references)
+     (setopt gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references)
 
      ;; Summary formatting
 
-     (setq gnus-treat-buttonize t               ; Add buttons
-           gnus-treat-buttonize-head 'head      ; Add buttons to the head
-           gnus-treat-emphasize t               ; Emphasize text
-           gnus-treat-fill-article nil          ; Fill the article
-           gnus-treat-strip-cr 'last            ; Remove carriage returns
-           gnus-treat-hide-headers 'head        ; Hide headers
-           gnus-treat-hide-boring-headers t ; -Hide boring headers
-           gnus-treat-hide-signature nil        ; Hide the signature
-           gnus-treat-hide-citation nil         ; Hide cited text
-           ;; Deprecated.
-           ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
-           gnus-treat-strip-pem 'last           ; Strip PEM signatures
-           gnus-treat-highlight-headers 'head   ; Highlight the headers
-           gnus-treat-highlight-citation 'last  ; Highlight cited text
-           gnus-treat-highlight-signature 'last ; Highlight the signature
-           gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
-           gnus-treat-date-local t           ; Display the Date in the local timezone
-           gnus-treat-date-original t        ; Display the date in the original
+     (setopt gnus-treat-buttonize t               ; Add buttons
+             gnus-treat-buttonize-head 'head      ; Add buttons to the head
+             gnus-treat-emphasize t               ; Emphasize text
+             gnus-treat-fill-article nil          ; Fill the article
+             gnus-treat-strip-cr 'last            ; Remove carriage returns
+             gnus-treat-hide-headers 'head        ; Hide headers
+             gnus-treat-hide-boring-headers t ; -Hide boring headers
+             gnus-treat-hide-signature nil        ; Hide the signature
+             gnus-treat-hide-citation nil         ; Hide cited text
+             ;; Deprecated.
+             ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
+             gnus-treat-strip-pem 'last           ; Strip PEM signatures
+             gnus-treat-highlight-headers 'head   ; Highlight the headers
+             gnus-treat-highlight-citation 'last  ; Highlight cited text
+             gnus-treat-highlight-signature 'last ; Highlight the signature
+             gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
+             gnus-treat-date-local t           ; Display the Date in the local timezone
+             gnus-treat-date-original t        ; Display the date in the original
                                            ; timezone
-           gnus-treat-display-x-face t
-           gnus-treat-display-face t
-           gnus-treat-display-smileys t
-           gnus-treat-strip-trailing-blank-lines 'last ; Strip trailing blank lines
-           gnus-treat-strip-leading-blank-lines 'last  ; Strip leading blank lines
-           gnus-treat-strip-multiple-blank-lines 'last ; Strip multiple blank lines
-           ;; gnus-treat-strip-blank-lines nil             ; Strip all blank lines
-           gnus-treat-overstrike 'last)
+             gnus-treat-display-x-face t
+             gnus-treat-display-face t
+             gnus-treat-display-smileys t
+             gnus-treat-strip-trailing-blank-lines 'last ; Strip trailing blank lines
+             gnus-treat-strip-leading-blank-lines 'last  ; Strip leading blank lines
+             gnus-treat-strip-multiple-blank-lines 'last ; Strip multiple blank lines
+             ;; gnus-treat-strip-blank-lines nil             ; Strip all blank lines
+             gnus-treat-overstrike 'last)
 
      ;; eye candy
      (copy-face 'font-lock-variable-name-face 'gnus-face-6)
-     (setq gnus-face-6 'gnus-face-6)
+     (setopt gnus-face-6 'gnus-face-6)
      (copy-face 'font-lock-constant-face 'gnus-face-7)
-     (setq gnus-face-7 'gnus-face-7)
+     (setopt gnus-face-7 'gnus-face-7)
      (copy-face 'gnus-face-7 'gnus-summary-normal-unread)
      (copy-face 'font-lock-constant-face 'gnus-face-8)
      (set-face-foreground 'gnus-face-8 "gray50")
-     (setq gnus-face-8 'gnus-face-8)
+     (setopt gnus-face-8 'gnus-face-8)
      (copy-face 'font-lock-constant-face 'gnus-face-9)
      (set-face-foreground 'gnus-face-9 "gray70")
-     (setq gnus-face-9 'gnus-face-9)
-     (setq gnus-summary-make-false-root 'dummy)
-     (setq gnus-summary-make-false-root-always nil)
+     (setopt gnus-face-9 'gnus-face-9)
+     (setopt gnus-summary-make-false-root 'dummy)
+     (setopt gnus-summary-make-false-root-always nil)
 
-     ;; (setq gnus-summary-line-format "%8{%4k│%}%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{║%} %6{%B%} %s\n"
+     ;; (setopt gnus-summary-line-format "%8{%4k│%}%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{║%} %6{%B%} %s\n"
      ;;      gnus-summary-same-subject  ""
      ;;     gnus-summary-dummy-line-format "    %8{│%}   %(%8{│%}                       %7{║%}%) %6{┏○%}  %S\n"
      ;;     gnus-sum-thread-tree-indent " "
@@ -5903,90 +5902,90 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;;     gnus-sum-thread-tree-single-leaf "┗━━❯ ")
 
      ;; fancy summary
-     ;;(setq gnus-summary-line-format "%U|%R|%z|%ur|%(%-20&user-date;|%-30B%[%5L: %-40n%] %s%)\n")
-     (setq gnus-summary-make-false-root 'dummy
-           gnus-sum-thread-tree-false-root      "┈─►"
-           gnus-sum-thread-tree-single-indent   "◈   "
-           gnus-sum-thread-tree-root            "●   "
-           gnus-sum-thread-tree-vertical        "│   "
-           gnus-sum-thread-tree-leaf-with-other "├─►"
-           gnus-sum-thread-tree-single-leaf     "╰─►"
-           gnus-sum-thread-tree-indent          "    ")
+     ;;(setopt gnus-summary-line-format "%U|%R|%z|%ur|%(%-20&user-date;|%-30B%[%5L: %-40n%] %s%)\n")
+     (setopt gnus-summary-make-false-root 'dummy
+             gnus-sum-thread-tree-false-root      "┈─►"
+             gnus-sum-thread-tree-single-indent   "◈   "
+             gnus-sum-thread-tree-root            "●   "
+             gnus-sum-thread-tree-vertical        "│   "
+             gnus-sum-thread-tree-leaf-with-other "├─►"
+             gnus-sum-thread-tree-single-leaf     "╰─►"
+             gnus-sum-thread-tree-indent          "    ")
 
 
-     (setq gnus-user-date-format-alist
-           `(((gnus-seconds-today)
-              . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                          (all-the-icons-material "date_range")
-                          'display '(raise 0.0)) " Today, %H:%M"))
-             ((+ 86400
-                 (gnus-seconds-today))
-              . ,(concat
-                  (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                   (all-the-icons-material "date_range")
-                   'display '(raise 0.0)) " Yesterday, %H:%M"))
-             (604800 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                                 (all-the-icons-material "date_range")
-                                 'display '(raise 0.0)) " %A %H:%M"))
-             ((gnus-seconds-month)
-              . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                          (all-the-icons-material "date_range")
-                          'display '(raise 0.0)) " %A %d"))
-             ((gnus-seconds-year)
-              . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                          (all-the-icons-material "date_range")
-                          'display '(raise 0.0)) " %B %d"))
-             (t . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+     (setopt gnus-user-date-format-alist
+             `(((gnus-seconds-today)
+                . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
                             (all-the-icons-material "date_range")
-                            'display '(raise 0.0)) " %b %d %Y"))))
+                            'display '(raise 0.0)) " Today, %H:%M"))
+               ((+ 86400
+                   (gnus-seconds-today))
+                . ,(concat
+                    (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                     (all-the-icons-material "date_range")
+                     'display '(raise 0.0)) " Yesterday, %H:%M"))
+               (604800 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                                   (all-the-icons-material "date_range")
+                                   'display '(raise 0.0)) " %A %H:%M"))
+               ((gnus-seconds-month)
+                . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                            (all-the-icons-material "date_range")
+                            'display '(raise 0.0)) " %A %d"))
+               ((gnus-seconds-year)
+                . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                            (all-the-icons-material "date_range")
+                            'display '(raise 0.0)) " %B %d"))
+               (t . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                              (all-the-icons-material "date_range")
+                              'display '(raise 0.0)) " %b %d %Y"))))
 
-     (setq gnus-topic-line-format (concat "%i[ "
-                                          (propertize ;(all-the-icons-faicon "folder-open")
-                                           (all-the-icons-material "folder")
-                                           'display '(raise 0.0))
-                                          " %(%{%n -- %A%}%) ]%v\n"))
-     (setq gnus-topic-display-empty-topics nil)
+     (setopt gnus-topic-line-format (concat "%i[ "
+                                            (propertize ;(all-the-icons-faicon "folder-open")
+                                             (all-the-icons-material "folder")
+                                             'display '(raise 0.0))
+                                            " %(%{%n -- %A%}%) ]%v\n"))
+     (setopt gnus-topic-display-empty-topics nil)
 
 
 
      ;;      gnus-summary-line-format ":%U%R %B %s %-60=|%4L |%-20,20f |%&user-date; \n")
      ;; gnus-summary-line-format "%U%R%z %12&user-date; %(%[%-30,30f%]%) %B %s\n"
 
-     (setq gnus-summary-line-format (concat ":%U%R %B "
-                                            ;; (propertize ;(all-the-icons-faicon "terminal")
-                                            ;;  (all-the-icons-material "send")
-                                            ;;  'display '(raise 0.0)) ;; FIXME: Buggy sometimes morphes from  to 
-                                            "%s %-60=|%4L |"
-                                            (propertize ;(all-the-icons-faicon "male")
-                                             (all-the-icons-material "person")
-                                             'display '(raise 0.0)) "%-20,20n |%&user-date; \n"))
-     ;; (setq gnus-summary-line-format
+     (setopt gnus-summary-line-format (concat ":%U%R %B "
+                                              ;; (propertize ;(all-the-icons-faicon "terminal")
+                                              ;;  (all-the-icons-material "send")
+                                              ;;  'display '(raise 0.0)) ;; FIXME: Buggy sometimes morphes from  to 
+                                              "%s %-60=|%4L |"
+                                              (propertize ;(all-the-icons-faicon "male")
+                                               (all-the-icons-material "person")
+                                               'display '(raise 0.0)) "%-20,20n |%&user-date; \n"))
+     ;; (setopt gnus-summary-line-format
      ;;       "%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{│%} %6{%B%} | %s | %&user-date; \n")
 
 
-     (setq gnus-cached-mark 9741 ;; ☍
-           gnus-canceled-mark 10060 ;; ❌
-           gnus-del-mark 10062 ;; ❎ maybe 🗑 instead?
-           gnus-dormant-mark 127988 ;; 🏴
-           gnus-expirable-mark 9851 ;; ♻
-           gnus-forwarded-mark 8618 ;; ↪
-           gnus-killed-mark 9760 ;; ☠
-           gnus-process-mark 9881 ;; ⚙
-           gnus-read-mark 9989 ;; ✅
-           gnus-unread-mark 9993 ;;  ✉
-           gnus-recent-mark 127381 ;; 🆕
-           gnus-replied-mark 10548 ;; ⤴
-           gnus-unseen-mark 128232 ;; 📨
-           gnus-ancient-mark 128336 ;; 🕐
-           gnus-duplicate-mark 9410;; Ⓜ
-           gnus-score-over-mark 11088 ;; ⭐
-           gnus-score-below-mark 9734 ;; ☆
-           gnus-low-score-marl 8902 ;; ⋆
-           gnus-saved-mark 128190 ;; 💾
-           gnus-ticked-mark 127987 ;; 🏳
-           ;; gnus-no-mark 9723;; ◻
-           gnus-not-empty-thread-mark 11015;; ⬇ , maybe 🔽 instead?
-           ))
+     (setopt gnus-cached-mark 9741 ;; ☍
+             gnus-canceled-mark 10060 ;; ❌
+             gnus-del-mark 10062 ;; ❎ maybe 🗑 instead?
+             gnus-dormant-mark 127988 ;; 🏴
+             gnus-expirable-mark 9851 ;; ♻
+             gnus-forwarded-mark 8618 ;; ↪
+             gnus-killed-mark 9760 ;; ☠
+             gnus-process-mark 9881 ;; ⚙
+             gnus-read-mark 9989 ;; ✅
+             gnus-unread-mark 9993 ;;  ✉
+             gnus-recent-mark 127381 ;; 🆕
+             gnus-replied-mark 10548 ;; ⤴
+             gnus-unseen-mark 128232 ;; 📨
+             gnus-ancient-mark 128336 ;; 🕐
+             gnus-duplicate-mark 9410;; Ⓜ
+             gnus-score-over-mark 11088 ;; ⭐
+             gnus-score-below-mark 9734 ;; ☆
+             gnus-low-score-marl 8902 ;; ⋆
+             gnus-saved-mark 128190 ;; 💾
+             gnus-ticked-mark 127987 ;; 🏳
+             ;; gnus-no-mark 9723;; ◻
+             gnus-not-empty-thread-mark 11015;; ⬇ , maybe 🔽 instead?
+             ))
 
    (use-package gnus-ml
      :hook (((gnus-summary-mode . turn-on-gnus-mailing-list-mode))))
@@ -5998,14 +5997,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :bind (:map gnus-group-mode-map
                  ("o" . thao/gnus-group-list-subscribed-groups))
      :config
-     (setq gnus-group-use-permanent-levels t)
-     (setq gnus-group-line-format (concat "%M%S%p%P%5y "
+     (setopt gnus-group-use-permanent-levels t)
+     (setopt gnus-group-line-format (concat "%M%S%p%P%5y "
                                           (propertize ;(all-the-icons-faicon "envelope-o")
                                            (all-the-icons-material "mail")
                                            'display '(raise 0.0))
                                           " : [%T]:%B%(%G%)\n"))
 
-     (setq gnus-permanently-visible-groups "INBOX")
+     (setopt gnus-permanently-visible-groups "INBOX")
 
      ;; {{ press "o" to view all groups
      (defun thao/gnus-group-list-subscribed-groups()
@@ -6031,31 +6030,31 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    (use-package mm-decode
      :config
      ;; Tell mm that we like  text/html the least.
-     (setq mm-discouraged-alternatives '("text/html"))
+     (setopt mm-discouraged-alternatives '("text/html"))
      ;; set renderer for html mail to w3m in emacs
-     ;; (setq mm-text-html-renderer 'gnus-w3m)
-     (setq mm-text-html-renderer 'w3m))
+     ;; (setopt mm-text-html-renderer 'gnus-w3m)
+     (setopt mm-text-html-renderer 'w3m))
    (use-package smtpmail
      :config
      <<smtpmail_private>>)
 
    (use-package smtpmail-async
      :config
-     (setq send-mail-function 'async-smtpmail-send-it))
+     (setopt send-mail-function 'async-smtpmail-send-it))
 
    (use-package gnus-alias
      :hook ((message-setup . gnus-alias-determine-identity))
      :config
-     (setq gnus-alias-override-user-mail-address t)
-     (setq gnus-alias-allow-forward-as-reply t)
-     (setq gnus-alias-use-buttonized-from t)
+     (setopt gnus-alias-override-user-mail-address t)
+     (setopt gnus-alias-allow-forward-as-reply t)
+     (setopt gnus-alias-use-buttonized-from t)
      <<gnus_alias_private>>) ;; Signature
 
    (use-package gnus-icalendar
      :after org
      :config
-     (setq gnus-icalendar-org-capture-file (expand-file-name (concat (car org-directory) "/inbox.org")))
-     (setq gnus-icalendar-org-capture-headline '("Calendar"))
+     (setopt gnus-icalendar-org-capture-file (expand-file-name (concat (car org-directory) "/inbox.org")))
+     (setopt gnus-icalendar-org-capture-headline '("Calendar"))
      (gnus-icalendar-org-setup))
 
    (use-package gnus-recent
@@ -6080,7 +6079,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             ("C-c t" . gnus-notes-org-capture-mail))
      :config
      (require 'no-littering)
-     (setq gnus-notes-org-capture-template
+     (setopt gnus-notes-org-capture-template
            `("e" "Email Reply Scheduled (a)" entry
              (file+olp ,(expand-file-name
                          (concat (car org-directory)
@@ -6137,7 +6136,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    #+begin_src emacs-lisp
      (use-package khardel
        :config
-       (setq khardel-command "khard"))
+       (setopt khardel-command "khard"))
    #+end_src
 
 * Multimedia
@@ -6215,24 +6214,24 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                (t (emms-track-simple-description track)))))
 
 
-     (setq emms-playlist-default-major-mode #'emms-playlist-mode)
+     (setopt emms-playlist-default-major-mode #'emms-playlist-mode)
      (add-to-list 'emms-track-initialize-functions #'emms-info-initialize-track)
-     (setq emms-player-list '(emms-player-mpd))
-     (setq emms-info-functions '(emms-info-mpd
+     (setopt emms-player-list '(emms-player-mpd))
+     (setopt emms-info-functions '(emms-info-mpd
                                  emms-info-native
                                  emms-info-cueinfo
                                  emms-info-libtag))
-     (setq emms-score-enabled-p t)
-     (setq emms-source-file-default-directory (xdg-user-dir "MUSIC"))
-     (setq emmms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
-     (setq emms-info-libtag-program-name (concat user-emacs-directory
+     (setopt emms-score-enabled-p t)
+     (setopt emms-source-file-default-directory (xdg-user-dir "MUSIC"))
+     (setopt emmms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
+     (setopt emms-info-libtag-program-name (concat user-emacs-directory
                                                  "lib/emms/src/emms-print-metadata"))
-     (setq emms-browser-covers #'emms-browser-cache-thumbnail-async)
+     (setopt emms-browser-covers #'emms-browser-cache-thumbnail-async)
 
-     (setq emms-track-description-function 'thao/emms-track-description)
-     (setq emms-playlist-insert-track-function #'emms-playlist-mode-insert-track)
+     (setopt emms-track-description-function 'thao/emms-track-description)
+     (setopt emms-playlist-insert-track-function #'emms-playlist-mode-insert-track)
 
-     (setq emms-info-libtag-known-extensions
+     (setopt emms-info-libtag-known-extensions
            (regexp-opt '("mp3" "mp4" "m4a" "ogg" "flac" "spx" "wma" "aif")))
 
      (emms-cache 1)
@@ -6271,7 +6270,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    ;; (use-package emms-player-mpv
    ;;   :after (:any emms dired)
    ;;   :config
-   ;;   (setq emms-player-mpv-parameters '("--no-terminal" "--force-window=no" "--audio-display=no")))
+   ;;   (setopt emms-player-mpv-parameters '("--no-terminal" "--force-window=no" "--audio-display=no")))
 
    (use-package emms-lyrics
      :after emms
@@ -6287,10 +6286,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :after emms-cache
      :config
      (require 'xdg)
-     (setq emms-player-mpd-server-name (concat (xdg-runtime-dir)
+     (setopt emms-player-mpd-server-name (concat (xdg-runtime-dir)
                                                "/mpd/socket"))
-     (setq emms-player-mpd-server-port nil)
-     (setq emms-player-mpd-music-directory (xdg-user-dir "MUSIC"))
+     (setopt emms-player-mpd-server-port nil)
+     (setopt emms-player-mpd-music-directory (xdg-user-dir "MUSIC"))
      (emms-player-mpd-connect)
      (emms-player-mpd-update-all)
      (emms-cache-set-from-mpd-all))
@@ -6299,7 +6298,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :after emms
      :bind ("s-h h" . helm-emms)
      :config
-     (setq helm-emms-default-sources '(helm-source-emms-dired
+     (setopt helm-emms-default-sources '(helm-source-emms-dired
                                        helm-source-emms-files
                                        helm-source-emms-streams)))
 
@@ -6348,13 +6347,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setq-default elfeed-search-filter "-youtube ")
 
      ;; Show unique buffer instead of a single buffer
-     (setq elfeed-show-unique-buffers t)
+     (setopt elfeed-show-unique-buffers t)
 
-     (setq elfeed-show-entry-switch 'display-buffer)
-     (setq elfeed-show-entry-delete 'thao/elfeed-quit-window-delete)
+     (setopt elfeed-show-entry-switch 'display-buffer)
+     (setopt elfeed-show-entry-delete 'thao/elfeed-quit-window-delete)
 
      ;; Remain on entry after performing a command such as viewing an article
-     (setq elfeed-search-remain-on-entry t)
+     (setopt elfeed-search-remain-on-entry t)
 
      (defun elfeed-entry-other-window ()
        "In elfeed-search mode, open elfeed entry in the other window
@@ -6543,9 +6542,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    (use-package elfeed-protocol
      :config
-     (setq elfeed-protocol-enabled-protocols '(owncloud))
-     (setq elfeed-protocol-owncloud-update-with-modified-time t)
-     (setq elfeed-protocol-owncloud-maxsize 1000)
+     (setopt elfeed-protocol-enabled-protocols '(owncloud))
+     (setopt elfeed-protocol-owncloud-update-with-modified-time t)
+     (setopt elfeed-protocol-owncloud-maxsize 1000)
      <<elfeed_protocol_private>>
      (elfeed-protocol-enable))
 
@@ -6553,8 +6552,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :after elfeed
      :demand t
      :config
-     ;; (setq elfeed-tube-auto-save-p nil) ; default value
-     ;; (setq elfeed-tube-auto-fetch-p t)  ; default value
+     ;; (setopt elfeed-tube-auto-save-p nil) ; default value
+     ;; (setopt elfeed-tube-auto-fetch-p t)  ; default value
      (elfeed-tube-setup)
 
      :bind (:map elfeed-show-mode-map
@@ -6576,11 +6575,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             ("$" . elfeed-show-log))
      :config
      ;; https://github.com/SqrtMinusOne/elfeed-summary#opening-elfeed-search-in-other-window
-     ;;(setq elfeed-summary-other-window t)
-     (setq elfeed-summary-refresh-on-each-update t)
-     (setq elfeed-summary-default-filter elfeed-search-filter)
+     ;;(setopt elfeed-summary-other-window t)
+     (setopt elfeed-summary-refresh-on-each-update t)
+     (setopt elfeed-summary-default-filter elfeed-search-filter)
 
-     (setq elfeed-summary-settings
+     (setopt elfeed-summary-settings
            '((group (:title . "Gaming")
                     (:elements (search (:title  . "Wowhead")
                                        (:filter . "+wowhead")
@@ -6725,7 +6724,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;;(require 'bug-mode-autoloads)
      (require 'bug-custom)
      (require 'bug-persistent-data)
-     (setq bug-default-instance :work)
+     (setopt bug-default-instance :work)
 
      (bug--read-data-file)
 
@@ -6755,8 +6754,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 	       (float-time (time-subtract (current-time)
 					  before-user-init-time)))
 	      ;; Restore original file name handlers
-	      (setq file-name-handler-alist file-name-handler-alist-old)
+	      (setopt file-name-handler-alist file-name-handler-alist-old)
 	      ;; Let's lower our GC thresholds back down to a sane level.
-	      (setq gc-cons-threshold (* 32 1024 1024)))
+	      (setopt gc-cons-threshold (* 32 1024 1024)))
 	    t)
   #+end_src
