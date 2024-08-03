@@ -5806,6 +5806,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; Mark these groups are mailing-lists
      (setopt gnus-mailing-list-groups "\\`\\(list\\|wg21\\)\\."))
 
+   (use-package gnus-score
+     :config
+     (setopt gnus-score-thread-simplify t))
+
    (use-package gnus-sum
      :after gnus
      :hook ((gnus-summary-mode . hl-line-mode))
@@ -5844,6 +5848,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      ;; Gather read by reference, TODO: fix loose threads
      (setopt gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references)
+
+
+     ;; Override  ‘gnus-summary-gather-subject-limit’ with the list functions below
+     ;; which are applied to the ‘Subject’
+     (setopt gnus-simplify-subject-functions '(gnus-simplify-subject-re ;; Strip the leading ‘Re:’.
+                                               ))
 
      ;; Summary formatting
 
