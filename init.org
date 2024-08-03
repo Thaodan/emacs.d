@@ -5682,6 +5682,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt nnmail-split-methods nil)
      (setopt gnus-use-adaptive-scoring '(line))
 
+     ;; Register handler to PrepareForSleep signal on org.freedesktop.login1.Manager
+     ;; to close servers
+     (setopt gnus-dbus-close-on-sleep t)
+
      ;; set gnus-parameter
      (setopt gnus-parameters
            '(("INBOX"
