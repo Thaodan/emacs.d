@@ -5635,490 +5635,491 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
 ** GNUs
    #+begin_src emacs-lisp
-      (use-package gnus
-        :after org
-        :after smtpmail-async
-        :after all-the-icons
-        :init
-        (setq gnus-select-method '(nnnil ""))
-        :config
-        ;; Save newsrc.eld in ~/News
-        (setopt gnus-startup-file (expand-file-name "newsrc" gnus-directory))
-        (setopt gnus-use-cache t)
-        (setopt gnus-cache-enter-articles '(ticked dormant unread))
-        ;; Belongs to gnus-cache
-        (setq gnus-uncacheable-groups nil)
-        ;; Belongs to gnus-start
-        (setq gnus-read-newsrc-file nil)
-        (setq gnus-select-method '(nnnil ""))
-        ;; (setq gnus-secondary-select-methods '((nntp "Gmane"
-        ;;                                             (nntp-address "news.gmane.io"))))
+   (use-package gnus
+     :after org
+     :after smtpmail-async
+     :after all-the-icons
+     :init
+     (setq gnus-select-method '(nnnil ""))
+     :hook ((messsage-sent . gnus-score-followup-thread))
+     :config
+     ;; Save newsrc.eld in ~/News
+     (setopt gnus-startup-file (expand-file-name "newsrc" gnus-directory))
+     (setopt gnus-use-cache t)
+     (setopt gnus-cache-enter-articles '(ticked dormant unread))
+     ;; Belongs to gnus-cache
+     (setq gnus-uncacheable-groups nil)
+     ;; Belongs to gnus-start
+     (setq gnus-read-newsrc-file nil)
+     (setq gnus-select-method '(nnnil ""))
+     ;; (setq gnus-secondary-select-methods '((nntp "Gmane"
+     ;;                                             (nntp-address "news.gmane.io"))))
 
-        ;;[[http://stackoverflow.com/questions/4982831/i-dont-want-to-expire-mail-in-gnus]]
-        (setq gnus-large-newsgroup 2000)
+     ;;[[http://stackoverflow.com/questions/4982831/i-dont-want-to-expire-mail-in-gnus]]
+     (setq gnus-large-newsgroup 2000)
 
-        ;; Belongs to gnus-start
-        (setq gnus-subscribe-newsgroup-method 'gnus-subscribe-topics)
+     ;; Belongs to gnus-start
+     (setq gnus-subscribe-newsgroup-method 'gnus-subscribe-topics)
 
-        ;; Belongs to gnus-start
-        (setq gnus-check-new-newsgroups 'ask-server)
-        ;; Belongs to gnus-uu
-        (setq gnus-asynchronous t)
-        ;; gnus-async
-        (setq gnus-use-header-prefetch t)
+     ;; Belongs to gnus-start
+     (setq gnus-check-new-newsgroups 'ask-server)
+     ;; Belongs to gnus-uu
+     (setq gnus-asynchronous t)
+     ;; gnus-async
+     (setq gnus-use-header-prefetch t)
 
-        (setq nnmail-split-methods nil)
-        (setq gnus-use-adaptive-scoring '(line))
+     (setq nnmail-split-methods nil)
+     (setq gnus-use-adaptive-scoring '(line))
 
-        ;; set gnus-parameter
-        (setq gnus-parameters
-              '(("INBOX"
-                 (gnus-use-scoring t))
-                ;; (display . all))
-                ("list\\."
-                 (subscribed . t)
-                 (gcc-self . t))
-                ("Gmane"
-                 (group-notify . t))))
-        (defvar gnus-user-format-function-g-prev "" "")
-        (defun empty-common-prefix (left right)
-          "Given `left' '(\"foo\" \"bar\" \"fie\") and `right' '(\"foo\"
-            \"bar\" \"fum\"), return '(\"   \" \"   \" \"fum\")."
-          (if (and (cdr right)			; always keep the last part of right
-                   (equal (car left) (car right)))
-              (cons (make-string (length (car left)) ? )
-                    (empty-common-prefix (cdr left) (cdr right)))
-            right))
-        ;; (defun gnus-user-format-function-g (arg)
-        ;;   "The full group name, but if it starts with a previously seen
-        ;;   prefix, empty that prefix."
-        ;;   (if (equal gnus-user-format-function-g-prev gnus-tmp-group) ; line-format is updated on exiting the summary, making prev equal this
-        ;;       gnus-tmp-group
-        ;;     (let* ((prev (split-string-and-unquote gnus-user-format-function-g-prev "\\."))
-        ;;            (this (split-string-and-unquote gnus-tmp-group "\\.")))
-        ;;       (setq gnus-user-format-function-g-prev gnus-tmp-group)
-        ;;       (combine-and-quote-strings
-        ;;        (empty-common-prefix prev this)
-        ;;        "."))))
-        ;;  (setq gnus-group-line-format "%M%S%p%P%5y:%B%(%ug%)\n")
+     ;; set gnus-parameter
+     (setq gnus-parameters
+           '(("INBOX"
+              (gnus-use-scoring t))
+             ;; (display . all))
+             ("list\\."
+              (subscribed . t)
+              (gcc-self . t))
+             ("Gmane"
+              (group-notify . t))))
+     (defvar gnus-user-format-function-g-prev "" "")
+     (defun empty-common-prefix (left right)
+       "Given `left' '(\"foo\" \"bar\" \"fie\") and `right' '(\"foo\"
+         \"bar\" \"fum\"), return '(\"   \" \"   \" \"fum\")."
+       (if (and (cdr right)			; always keep the last part of right
+                (equal (car left) (car right)))
+           (cons (make-string (length (car left)) ? )
+                 (empty-common-prefix (cdr left) (cdr right)))
+         right))
+     ;; (defun gnus-user-format-function-g (arg)
+     ;;   "The full group name, but if it starts with a previously seen
+     ;;   prefix, empty that prefix."
+     ;;   (if (equal gnus-user-format-function-g-prev gnus-tmp-group) ; line-format is updated on exiting the summary, making prev equal this
+     ;;       gnus-tmp-group
+     ;;     (let* ((prev (split-string-and-unquote gnus-user-format-function-g-prev "\\."))
+     ;;            (this (split-string-and-unquote gnus-tmp-group "\\.")))
+     ;;       (setq gnus-user-format-function-g-prev gnus-tmp-group)
+     ;;       (combine-and-quote-strings
+     ;;        (empty-common-prefix prev this)
+     ;;        "."))))
+     ;;  (setq gnus-group-line-format "%M%S%p%P%5y:%B%(%ug%)\n")
 
-        ;; FIXME: Handle private vs work invites.
+     ;; FIXME: Handle private vs work invites.
 
-        <<gnus_private>>
-        )
+     <<gnus_private>>
+     )
 
-      (use-package gnus-demon
-        :after gnus
-        :after gnus-group
-        :hook (gnus-started . gnus-demon-init)
-        :config
-        (defun gnus-demon-scan-news-2 ()
-          (when gnus-plugged
-            (let ((win (current-window-configuration))
-                  (gnus-read-active-file nil)
-                  (gnus-check-new-newsgroups nil)
-                  (gnus-verbose 2)
-                  (gnus-verbose-backends 5))
-              (unwind-protect
-                  (save-window-excursion
-                    (when (gnus-alive-p)
-                      (with-current-buffer gnus-group-buffer
-                        (gnus-group-get-new-news gnus-activate-level))))
-                (set-window-configuration win)))))
+   (use-package gnus-demon
+     :after gnus
+     :after gnus-group
+     :hook (gnus-started . gnus-demon-init)
+     :config
+     (defun gnus-demon-scan-news-2 ()
+       (when gnus-plugged
+         (let ((win (current-window-configuration))
+               (gnus-read-active-file nil)
+               (gnus-check-new-newsgroups nil)
+               (gnus-verbose 2)
+               (gnus-verbose-backends 5))
+           (unwind-protect
+               (save-window-excursion
+                 (when (gnus-alive-p)
+                   (with-current-buffer gnus-group-buffer
+                     (gnus-group-get-new-news gnus-activate-level))))
+             (set-window-configuration win)))))
 
-        (defun save-gnus-newsrc ()
-          (if (and (fboundp 'gnus-group-exit)
-                   (gnus-alive-p))
-              (with-current-buffer (get-buffer "*Group*")
-                (gnus-save-newsrc-file))))
-        (setq gnus-demon-handlers '((gnus-demon-scan-mail 120 60)
-                                    (gnus-demon-scan-pgp 60 60)
-                                    (gnus-demon-close-connections nil 3)
-                                    (save-gnus-newsrc nil 1)
-                                    (gnus-demon-scan-news-2 60 nil))))
+     (defun save-gnus-newsrc ()
+       (if (and (fboundp 'gnus-group-exit)
+                (gnus-alive-p))
+           (with-current-buffer (get-buffer "*Group*")
+             (gnus-save-newsrc-file))))
+     (setq gnus-demon-handlers '((gnus-demon-scan-mail 120 60)
+                                 (gnus-demon-scan-pgp 60 60)
+                                 (gnus-demon-close-connections nil 3)
+                                 (save-gnus-newsrc nil 1)
+                                 (gnus-demon-scan-news-2 60 nil))))
 
-      (use-package gnus-desktop-notify
-        :config
-        (defun thao/gnus-desktop-notify-dbus (body)
-          "Generate a notification with BODY using `notifications'."
-          (notifications-notify
-           :title gnus-desktop-notify-send-subject
-           :body body
-           :app-icon "/usr/share/icons/breeze-dark/actions/32@2x/mail-unread-new.svg"
-           ;; fixme ^ this could use the theme spec as mentioned in Freedesktop.org
-           ;; Desktop Notifications Specification
-           :desktop-entry notifications-application-name))
-        (defun thao/gnus-desktop-notify-alert (body)
-          "Generate a notification with BODY using `alert'."
-          (alert body :title gnus-desktop-notify-send-subject
-                 :icon "/usr/share/icons/breeze-dark/actions/32@2x/mail-unread-new.svg"))
-        (setq gnus-desktop-notify-function 'thao/gnus-desktop-notify-alert)
-        (setq gnus-desktop-notify-behavior 'gnus-desktop-notify-single)
-        (gnus-desktop-notify-mode))
+   (use-package gnus-desktop-notify
+     :config
+     (defun thao/gnus-desktop-notify-dbus (body)
+       "Generate a notification with BODY using `notifications'."
+       (notifications-notify
+        :title gnus-desktop-notify-send-subject
+        :body body
+        :app-icon "/usr/share/icons/breeze-dark/actions/32@2x/mail-unread-new.svg"
+        ;; fixme ^ this could use the theme spec as mentioned in Freedesktop.org
+        ;; Desktop Notifications Specification
+        :desktop-entry notifications-application-name))
+     (defun thao/gnus-desktop-notify-alert (body)
+       "Generate a notification with BODY using `alert'."
+       (alert body :title gnus-desktop-notify-send-subject
+              :icon "/usr/share/icons/breeze-dark/actions/32@2x/mail-unread-new.svg"))
+     (setq gnus-desktop-notify-function 'thao/gnus-desktop-notify-alert)
+     (setq gnus-desktop-notify-behavior 'gnus-desktop-notify-single)
+     (gnus-desktop-notify-mode))
 
-      (use-package gnus-art
-        :after gnus
-        :config
-        ;; Don't auto-expire articles
-        (setq gnus-inhibit-user-auto-expire t)
+   (use-package gnus-art
+     :after gnus
+     :config
+     ;; Don't auto-expire articles
+     (setq gnus-inhibit-user-auto-expire t)
 
-        (setq gnus-article-over-scroll t)
+     (setq gnus-article-over-scroll t)
 
-        (setq gnus-treat-mail-gravatar 'head)
-        (setq gnus-treat-from-gravatar 'head)
+     (setq gnus-treat-mail-gravatar 'head)
+     (setq gnus-treat-from-gravatar 'head)
 
-        ;; https://www.gnu.org/software/emacs/manual//html_node/gnus/Customizing-Articles.html
-        (setq gnus-article-date-headers 'combined-local-lapsed)
+     ;; https://www.gnu.org/software/emacs/manual//html_node/gnus/Customizing-Articles.html
+     (setq gnus-article-date-headers 'combined-local-lapsed)
 
-        ;;  (setq gnus-show-mime t)
+     ;;  (setq gnus-show-mime t)
 
-        ;; Mime
-        (setq gnus-article-decode-mime-words t
-              gnus-article-decode-charset 1
-              gnus-mime-view-all-parts t        ; View all the MIME parts in current
-                                              ; article
-              gnus-ignored-mime-types '("text/x-vcard")
-              gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
-              gnus-unbuttonized-mime-types '("text/plain"))
-        (setq gnus-inhibit-images nil))
+     ;; Mime
+     (setq gnus-article-decode-mime-words t
+           gnus-article-decode-charset 1
+           gnus-mime-view-all-parts t        ; View all the MIME parts in current
+                                           ; article
+           gnus-ignored-mime-types '("text/x-vcard")
+           gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
+           gnus-unbuttonized-mime-types '("text/plain"))
+     (setq gnus-inhibit-images nil))
 
-      (use-package gnus-agent
-        :config
-        (setopt gnus-agent-synchronize-flags 'always))
+   (use-package gnus-agent
+     :config
+     (setopt gnus-agent-synchronize-flags 'always))
 
-      (use-package gnus-msg
-        :after gnus
-        :config
-        ;; Mark article as read on the server
-        (setq gnus-gcc-mark-as-read t)
-        ;; Mark these groups are mailing-lists
-        (setq gnus-mailing-list-groups "\\`\\(list\\|wg21\\)\\."))
+   (use-package gnus-msg
+     :after gnus
+     :config
+     ;; Mark article as read on the server
+     (setq gnus-gcc-mark-as-read t)
+     ;; Mark these groups are mailing-lists
+     (setq gnus-mailing-list-groups "\\`\\(list\\|wg21\\)\\."))
 
-      (use-package gnus-sum
-        :after gnus
-        :hook ((gnus-summary-mode . hl-line-mode))
-        :bind (:map gnus-summary-mode-map
-                    ("M M d d" . thao/gnus-summary-mark-article-read))
-        :config
-        (defun thao/gnus-summary-mark-article-read()
-          (interactive)
-          (gnus-summary-mark-article nil gnus-read-mark))
-
-
-        (setq gnus-fetch-old-headers 'some)
-
-        ;; Threads and article sorting
-        (define-key gnus-summary-mode-map "-" 'gnus-summary-hide-thread)
-        (define-key gnus-summary-mode-map "+" 'gnus-summary-show-thread)
-
-        ;; Also, I prefer to see only the top level message.  If a message has
-        ;; several replies or is part of a thread, only show the first message.
-        ;; `gnus-thread-ignore-subject' will ignore the subject and
-        ;; look at 'In-Reply-To:' and 'References:' headers.
-        (setq gnus-thread-hide-subtree t)
-        (setq gnus-thread-ignore-subject t
-              gnus-article-sort-functions '(gnus-article-sort-by-number)
-              gnus-thread-sort-functions  '(gnus-thread-sort-by-number
-                                            gnus-thread-sort-by-date))
-        ;; ;; En plus :  trier les threads en fonctions de la  date la plus récente
-        (setq gnus-thread-sort-functions
-              '(gnus-thread-sort-by-number gnus-thread-sort-by-most-recent-date))
-
-        (setq gnus-subthread-sort-functions
-              '(gnus-thread-sort-by-number gnus-thread-sort-by-date))
-        (setq gnus-sort-gathered-threads-function 'gnus-thread-sort-by-date)
+   (use-package gnus-sum
+     :after gnus
+     :hook ((gnus-summary-mode . hl-line-mode))
+     :bind (:map gnus-summary-mode-map
+                 ("M M d d" . thao/gnus-summary-mark-article-read))
+     :config
+     (defun thao/gnus-summary-mark-article-read()
+       (interactive)
+       (gnus-summary-mark-article nil gnus-read-mark))
 
 
-        (setq gnus-summary-gather-subject-limit 'fuzzy)
+     (setq gnus-fetch-old-headers 'some)
 
-        ;; Gather read by reference, TODO: fix loose threads
-        (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references)
+     ;; Threads and article sorting
+     (define-key gnus-summary-mode-map "-" 'gnus-summary-hide-thread)
+     (define-key gnus-summary-mode-map "+" 'gnus-summary-show-thread)
 
-        ;; Summary formatting
+     ;; Also, I prefer to see only the top level message.  If a message has
+     ;; several replies or is part of a thread, only show the first message.
+     ;; `gnus-thread-ignore-subject' will ignore the subject and
+     ;; look at 'In-Reply-To:' and 'References:' headers.
+     (setq gnus-thread-hide-subtree t)
+     (setq gnus-thread-ignore-subject t
+           gnus-article-sort-functions '(gnus-article-sort-by-number)
+           gnus-thread-sort-functions  '(gnus-thread-sort-by-number
+                                         gnus-thread-sort-by-date))
+     ;; ;; En plus :  trier les threads en fonctions de la  date la plus récente
+     (setq gnus-thread-sort-functions
+           '(gnus-thread-sort-by-number gnus-thread-sort-by-most-recent-date))
 
-        (setq gnus-treat-buttonize t               ; Add buttons
-              gnus-treat-buttonize-head 'head      ; Add buttons to the head
-              gnus-treat-emphasize t               ; Emphasize text
-              gnus-treat-fill-article nil          ; Fill the article
-              gnus-treat-strip-cr 'last            ; Remove carriage returns
-              gnus-treat-hide-headers 'head        ; Hide headers
-              gnus-treat-hide-boring-headers t ; -Hide boring headers
-              gnus-treat-hide-signature nil        ; Hide the signature
-              gnus-treat-hide-citation nil         ; Hide cited text
-              ;; Deprecated.
-              ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
-              gnus-treat-strip-pem 'last           ; Strip PEM signatures
-              gnus-treat-highlight-headers 'head   ; Highlight the headers
-              gnus-treat-highlight-citation 'last  ; Highlight cited text
-              gnus-treat-highlight-signature 'last ; Highlight the signature
-              gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
-              gnus-treat-date-local t           ; Display the Date in the local timezone
-              gnus-treat-date-original t        ; Display the date in the original
-                                              ; timezone
-              gnus-treat-display-x-face t
-              gnus-treat-display-face t
-              gnus-treat-display-smileys t
-              gnus-treat-strip-trailing-blank-lines 'last ; Strip trailing blank lines
-              gnus-treat-strip-leading-blank-lines 'last  ; Strip leading blank lines
-              gnus-treat-strip-multiple-blank-lines 'last ; Strip multiple blank lines
-              ;; gnus-treat-strip-blank-lines nil             ; Strip all blank lines
-              gnus-treat-overstrike 'last)
-
-        ;; eye candy
-        (copy-face 'font-lock-variable-name-face 'gnus-face-6)
-        (setq gnus-face-6 'gnus-face-6)
-        (copy-face 'font-lock-constant-face 'gnus-face-7)
-        (setq gnus-face-7 'gnus-face-7)
-        (copy-face 'gnus-face-7 'gnus-summary-normal-unread)
-        (copy-face 'font-lock-constant-face 'gnus-face-8)
-        (set-face-foreground 'gnus-face-8 "gray50")
-        (setq gnus-face-8 'gnus-face-8)
-        (copy-face 'font-lock-constant-face 'gnus-face-9)
-        (set-face-foreground 'gnus-face-9 "gray70")
-        (setq gnus-face-9 'gnus-face-9)
-        (setq gnus-summary-make-false-root 'dummy)
-        (setq gnus-summary-make-false-root-always nil)
-
-        ;; (setq gnus-summary-line-format "%8{%4k│%}%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{║%} %6{%B%} %s\n"
-        ;;      gnus-summary-same-subject  ""
-        ;;     gnus-summary-dummy-line-format "    %8{│%}   %(%8{│%}                       %7{║%}%) %6{┏○%}  %S\n"
-        ;;     gnus-sum-thread-tree-indent " "
-        ;;     gnus-sum-thread-tree-root "┏● "
-        ;;     gnus-sum-thread-tree-false-root " ○ "
-        ;;     gnus-sum-thread-tree-single-indent " ● "
-        ;;     gnus-sum-thread-tree-leaf-with-other "┣━━❯ "
-        ;;     gnus-sum-thread-tree-vertical "┃"
-        ;;     gnus-sum-thread-tree-single-leaf "┗━━❯ ")
-
-        ;; fancy summary
-        ;;(setq gnus-summary-line-format "%U|%R|%z|%ur|%(%-20&user-date;|%-30B%[%5L: %-40n%] %s%)\n")
-        (setq gnus-summary-make-false-root 'dummy
-              gnus-sum-thread-tree-false-root      "┈─►"
-              gnus-sum-thread-tree-single-indent   "◈   "
-              gnus-sum-thread-tree-root            "●   "
-              gnus-sum-thread-tree-vertical        "│   "
-              gnus-sum-thread-tree-leaf-with-other "├─►"
-              gnus-sum-thread-tree-single-leaf     "╰─►"
-              gnus-sum-thread-tree-indent          "    ")
+     (setq gnus-subthread-sort-functions
+           '(gnus-thread-sort-by-number gnus-thread-sort-by-date))
+     (setq gnus-sort-gathered-threads-function 'gnus-thread-sort-by-date)
 
 
-        (setq gnus-user-date-format-alist
-              `(((gnus-seconds-today)
-                 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                             (all-the-icons-material "date_range")
-                             'display '(raise 0.0)) " Today, %H:%M"))
-                ((+ 86400
-                    (gnus-seconds-today))
-                 . ,(concat
-                     (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                      (all-the-icons-material "date_range")
-                      'display '(raise 0.0)) " Yesterday, %H:%M"))
-                (604800 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                                    (all-the-icons-material "date_range")
-                                    'display '(raise 0.0)) " %A %H:%M"))
-                ((gnus-seconds-month)
-                 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                             (all-the-icons-material "date_range")
-                             'display '(raise 0.0)) " %A %d"))
-                ((gnus-seconds-year)
-                 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                             (all-the-icons-material "date_range")
-                             'display '(raise 0.0)) " %B %d"))
-                (t . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                               (all-the-icons-material "date_range")
-                               'display '(raise 0.0)) " %b %d %Y"))))
+     (setq gnus-summary-gather-subject-limit 'fuzzy)
 
-        (setq gnus-topic-line-format (concat "%i[ "
-                                             (propertize ;(all-the-icons-faicon "folder-open")
-                                              (all-the-icons-material "folder")
-                                              'display '(raise 0.0))
-                                             " %(%{%n -- %A%}%) ]%v\n"))
-        (setq gnus-topic-display-empty-topics nil)
+     ;; Gather read by reference, TODO: fix loose threads
+     (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references)
+
+     ;; Summary formatting
+
+     (setq gnus-treat-buttonize t               ; Add buttons
+           gnus-treat-buttonize-head 'head      ; Add buttons to the head
+           gnus-treat-emphasize t               ; Emphasize text
+           gnus-treat-fill-article nil          ; Fill the article
+           gnus-treat-strip-cr 'last            ; Remove carriage returns
+           gnus-treat-hide-headers 'head        ; Hide headers
+           gnus-treat-hide-boring-headers t ; -Hide boring headers
+           gnus-treat-hide-signature nil        ; Hide the signature
+           gnus-treat-hide-citation nil         ; Hide cited text
+           ;; Deprecated.
+           ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
+           gnus-treat-strip-pem 'last           ; Strip PEM signatures
+           gnus-treat-highlight-headers 'head   ; Highlight the headers
+           gnus-treat-highlight-citation 'last  ; Highlight cited text
+           gnus-treat-highlight-signature 'last ; Highlight the signature
+           gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
+           gnus-treat-date-local t           ; Display the Date in the local timezone
+           gnus-treat-date-original t        ; Display the date in the original
+                                           ; timezone
+           gnus-treat-display-x-face t
+           gnus-treat-display-face t
+           gnus-treat-display-smileys t
+           gnus-treat-strip-trailing-blank-lines 'last ; Strip trailing blank lines
+           gnus-treat-strip-leading-blank-lines 'last  ; Strip leading blank lines
+           gnus-treat-strip-multiple-blank-lines 'last ; Strip multiple blank lines
+           ;; gnus-treat-strip-blank-lines nil             ; Strip all blank lines
+           gnus-treat-overstrike 'last)
+
+     ;; eye candy
+     (copy-face 'font-lock-variable-name-face 'gnus-face-6)
+     (setq gnus-face-6 'gnus-face-6)
+     (copy-face 'font-lock-constant-face 'gnus-face-7)
+     (setq gnus-face-7 'gnus-face-7)
+     (copy-face 'gnus-face-7 'gnus-summary-normal-unread)
+     (copy-face 'font-lock-constant-face 'gnus-face-8)
+     (set-face-foreground 'gnus-face-8 "gray50")
+     (setq gnus-face-8 'gnus-face-8)
+     (copy-face 'font-lock-constant-face 'gnus-face-9)
+     (set-face-foreground 'gnus-face-9 "gray70")
+     (setq gnus-face-9 'gnus-face-9)
+     (setq gnus-summary-make-false-root 'dummy)
+     (setq gnus-summary-make-false-root-always nil)
+
+     ;; (setq gnus-summary-line-format "%8{%4k│%}%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{║%} %6{%B%} %s\n"
+     ;;      gnus-summary-same-subject  ""
+     ;;     gnus-summary-dummy-line-format "    %8{│%}   %(%8{│%}                       %7{║%}%) %6{┏○%}  %S\n"
+     ;;     gnus-sum-thread-tree-indent " "
+     ;;     gnus-sum-thread-tree-root "┏● "
+     ;;     gnus-sum-thread-tree-false-root " ○ "
+     ;;     gnus-sum-thread-tree-single-indent " ● "
+     ;;     gnus-sum-thread-tree-leaf-with-other "┣━━❯ "
+     ;;     gnus-sum-thread-tree-vertical "┃"
+     ;;     gnus-sum-thread-tree-single-leaf "┗━━❯ ")
+
+     ;; fancy summary
+     ;;(setq gnus-summary-line-format "%U|%R|%z|%ur|%(%-20&user-date;|%-30B%[%5L: %-40n%] %s%)\n")
+     (setq gnus-summary-make-false-root 'dummy
+           gnus-sum-thread-tree-false-root      "┈─►"
+           gnus-sum-thread-tree-single-indent   "◈   "
+           gnus-sum-thread-tree-root            "●   "
+           gnus-sum-thread-tree-vertical        "│   "
+           gnus-sum-thread-tree-leaf-with-other "├─►"
+           gnus-sum-thread-tree-single-leaf     "╰─►"
+           gnus-sum-thread-tree-indent          "    ")
+
+
+     (setq gnus-user-date-format-alist
+           `(((gnus-seconds-today)
+              . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                          (all-the-icons-material "date_range")
+                          'display '(raise 0.0)) " Today, %H:%M"))
+             ((+ 86400
+                 (gnus-seconds-today))
+              . ,(concat
+                  (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                   (all-the-icons-material "date_range")
+                   'display '(raise 0.0)) " Yesterday, %H:%M"))
+             (604800 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                                 (all-the-icons-material "date_range")
+                                 'display '(raise 0.0)) " %A %H:%M"))
+             ((gnus-seconds-month)
+              . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                          (all-the-icons-material "date_range")
+                          'display '(raise 0.0)) " %A %d"))
+             ((gnus-seconds-year)
+              . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                          (all-the-icons-material "date_range")
+                          'display '(raise 0.0)) " %B %d"))
+             (t . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
+                            (all-the-icons-material "date_range")
+                            'display '(raise 0.0)) " %b %d %Y"))))
+
+     (setq gnus-topic-line-format (concat "%i[ "
+                                          (propertize ;(all-the-icons-faicon "folder-open")
+                                           (all-the-icons-material "folder")
+                                           'display '(raise 0.0))
+                                          " %(%{%n -- %A%}%) ]%v\n"))
+     (setq gnus-topic-display-empty-topics nil)
 
 
 
-        ;;      gnus-summary-line-format ":%U%R %B %s %-60=|%4L |%-20,20f |%&user-date; \n")
-        ;; gnus-summary-line-format "%U%R%z %12&user-date; %(%[%-30,30f%]%) %B %s\n"
+     ;;      gnus-summary-line-format ":%U%R %B %s %-60=|%4L |%-20,20f |%&user-date; \n")
+     ;; gnus-summary-line-format "%U%R%z %12&user-date; %(%[%-30,30f%]%) %B %s\n"
 
-        (setq gnus-summary-line-format (concat ":%U%R %B "
-                                               ;; (propertize ;(all-the-icons-faicon "terminal")
-                                               ;;  (all-the-icons-material "send")
-                                               ;;  'display '(raise 0.0)) ;; FIXME: Buggy sometimes morphes from  to 
-                                               "%s %-60=|%4L |"
-                                               (propertize ;(all-the-icons-faicon "male")
-                                                (all-the-icons-material "person")
-                                                'display '(raise 0.0)) "%-20,20n |%&user-date; \n"))
-        ;; (setq gnus-summary-line-format
-        ;;       "%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{│%} %6{%B%} | %s | %&user-date; \n")
+     (setq gnus-summary-line-format (concat ":%U%R %B "
+                                            ;; (propertize ;(all-the-icons-faicon "terminal")
+                                            ;;  (all-the-icons-material "send")
+                                            ;;  'display '(raise 0.0)) ;; FIXME: Buggy sometimes morphes from  to 
+                                            "%s %-60=|%4L |"
+                                            (propertize ;(all-the-icons-faicon "male")
+                                             (all-the-icons-material "person")
+                                             'display '(raise 0.0)) "%-20,20n |%&user-date; \n"))
+     ;; (setq gnus-summary-line-format
+     ;;       "%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{│%} %6{%B%} | %s | %&user-date; \n")
 
 
-        (setq gnus-cached-mark 9741 ;; ☍
-              gnus-canceled-mark 10060 ;; ❌
-              gnus-del-mark 10062 ;; ❎ maybe 🗑 instead?
-              gnus-dormant-mark 127988 ;; 🏴
-              gnus-expirable-mark 9851 ;; ♻
-              gnus-forwarded-mark 8618 ;; ↪
-              gnus-killed-mark 9760 ;; ☠
-              gnus-process-mark 9881 ;; ⚙
-              gnus-read-mark 9989 ;; ✅
-              gnus-unread-mark 9993 ;;  ✉
-              gnus-recent-mark 127381 ;; 🆕
-              gnus-replied-mark 10548 ;; ⤴
-              gnus-unseen-mark 128232 ;; 📨
-              gnus-ancient-mark 128336 ;; 🕐
-              gnus-duplicate-mark 9410;; Ⓜ
-              gnus-score-over-mark 11088 ;; ⭐
-              gnus-score-below-mark 9734 ;; ☆
-              gnus-low-score-marl 8902 ;; ⋆
-              gnus-saved-mark 128190 ;; 💾
-              gnus-ticked-mark 127987 ;; 🏳
-              ;; gnus-no-mark 9723;; ◻
-              gnus-not-empty-thread-mark 11015;; ⬇ , maybe 🔽 instead?
-              ))
+     (setq gnus-cached-mark 9741 ;; ☍
+           gnus-canceled-mark 10060 ;; ❌
+           gnus-del-mark 10062 ;; ❎ maybe 🗑 instead?
+           gnus-dormant-mark 127988 ;; 🏴
+           gnus-expirable-mark 9851 ;; ♻
+           gnus-forwarded-mark 8618 ;; ↪
+           gnus-killed-mark 9760 ;; ☠
+           gnus-process-mark 9881 ;; ⚙
+           gnus-read-mark 9989 ;; ✅
+           gnus-unread-mark 9993 ;;  ✉
+           gnus-recent-mark 127381 ;; 🆕
+           gnus-replied-mark 10548 ;; ⤴
+           gnus-unseen-mark 128232 ;; 📨
+           gnus-ancient-mark 128336 ;; 🕐
+           gnus-duplicate-mark 9410;; Ⓜ
+           gnus-score-over-mark 11088 ;; ⭐
+           gnus-score-below-mark 9734 ;; ☆
+           gnus-low-score-marl 8902 ;; ⋆
+           gnus-saved-mark 128190 ;; 💾
+           gnus-ticked-mark 127987 ;; 🏳
+           ;; gnus-no-mark 9723;; ◻
+           gnus-not-empty-thread-mark 11015;; ⬇ , maybe 🔽 instead?
+           ))
 
-      (use-package gnus-ml
-        :hook (((gnus-summary-mode . turn-on-gnus-mailing-list-mode))))
+   (use-package gnus-ml
+     :hook (((gnus-summary-mode . turn-on-gnus-mailing-list-mode))))
 
-      (use-package gnus-group
-        :after gnus
-        :hook ((gnus-group-mode . hl-line-mode)
-               (gnus-group-mode . gnus-topic-mode))
-        :bind (:map gnus-group-mode-map
-                    ("o" . thao/gnus-group-list-subscribed-groups))
-        :config
-        (setq gnus-group-use-permanent-levels t)
-        (setq gnus-group-line-format (concat "%M%S%p%P%5y "
-                                             (propertize ;(all-the-icons-faicon "envelope-o")
-                                              (all-the-icons-material "mail")
-                                              'display '(raise 0.0))
-                                             " : [%T]:%B%(%G%)\n"))
+   (use-package gnus-group
+     :after gnus
+     :hook ((gnus-group-mode . hl-line-mode)
+            (gnus-group-mode . gnus-topic-mode))
+     :bind (:map gnus-group-mode-map
+                 ("o" . thao/gnus-group-list-subscribed-groups))
+     :config
+     (setq gnus-group-use-permanent-levels t)
+     (setq gnus-group-line-format (concat "%M%S%p%P%5y "
+                                          (propertize ;(all-the-icons-faicon "envelope-o")
+                                           (all-the-icons-material "mail")
+                                           'display '(raise 0.0))
+                                          " : [%T]:%B%(%G%)\n"))
 
-        (setq gnus-permanently-visible-groups "INBOX")
+     (setq gnus-permanently-visible-groups "INBOX")
 
-        ;; {{ press "o" to view all groups
-        (defun thao/gnus-group-list-subscribed-groups()
-          "List all subscribed groups with or without un-read messages"
-          (interactive)
-          (gnus-group-list-all-groups 5))
+     ;; {{ press "o" to view all groups
+     (defun thao/gnus-group-list-subscribed-groups()
+       "List all subscribed groups with or without un-read messages"
+       (interactive)
+       (gnus-group-list-all-groups 5))
 
-        (define-key gnus-group-mode-map
-                    ;; list all the subscribed groups even they contain zero un-read messages
-                    (kbd "o") 'my-gnus-group-list-subscribed-groups))
+     (define-key gnus-group-mode-map
+                 ;; list all the subscribed groups even they contain zero un-read messages
+                 (kbd "o") 'my-gnus-group-list-subscribed-groups))
 
-      (use-package message
-        :config
-        (setq message-subscribed-address-functions
-              '(gnus-find-subscribed-addresses)))
+   (use-package message
+     :config
+     (setopt message-subscribed-address-functions
+             '(gnus-find-subscribed-addresses)))
 
-      (use-package message-attachment-reminder
-        :hook (message-send . message-attachment-reminder-warn-if-no-attachments))
+   (use-package message-attachment-reminder
+     :hook (message-send . message-attachment-reminder-warn-if-no-attachments))
 
-      (use-package message-view-patch
-        :hook (gnus-part-display . message-view-patch-highlight))
+   (use-package message-view-patch
+     :hook (gnus-part-display . message-view-patch-highlight))
 
-      (use-package mm-decode
-        :config
-        ;; Tell mm that we like  text/html the least.
-        (setq mm-discouraged-alternatives '("text/html"))
-        ;; set renderer for html mail to w3m in emacs
-        ;; (setq mm-text-html-renderer 'gnus-w3m)
-        (setq mm-text-html-renderer 'w3m))
-      (use-package smtpmail
-        :config
-        <<smtpmail_private>>)
+   (use-package mm-decode
+     :config
+     ;; Tell mm that we like  text/html the least.
+     (setq mm-discouraged-alternatives '("text/html"))
+     ;; set renderer for html mail to w3m in emacs
+     ;; (setq mm-text-html-renderer 'gnus-w3m)
+     (setq mm-text-html-renderer 'w3m))
+   (use-package smtpmail
+     :config
+     <<smtpmail_private>>)
 
-      (use-package smtpmail-async
-        :config
-        (setq send-mail-function 'async-smtpmail-send-it))
+   (use-package smtpmail-async
+     :config
+     (setq send-mail-function 'async-smtpmail-send-it))
 
-      (use-package gnus-alias
-        :hook ((message-setup . gnus-alias-determine-identity))
-        :config
-        (setq gnus-alias-override-user-mail-address t)
-        (setq gnus-alias-allow-forward-as-reply t)
-        (setq gnus-alias-use-buttonized-from t)
-        <<gnus_alias_private>>) ;; Signature
+   (use-package gnus-alias
+     :hook ((message-setup . gnus-alias-determine-identity))
+     :config
+     (setq gnus-alias-override-user-mail-address t)
+     (setq gnus-alias-allow-forward-as-reply t)
+     (setq gnus-alias-use-buttonized-from t)
+     <<gnus_alias_private>>) ;; Signature
 
-      (use-package gnus-icalendar
-        :after org
-        :config
-        (setq gnus-icalendar-org-capture-file (expand-file-name (concat (car org-directory) "/inbox.org")))
-        (setq gnus-icalendar-org-capture-headline '("Calendar"))
-        (gnus-icalendar-org-setup))
+   (use-package gnus-icalendar
+     :after org
+     :config
+     (setq gnus-icalendar-org-capture-file (expand-file-name (concat (car org-directory) "/inbox.org")))
+     (setq gnus-icalendar-org-capture-headline '("Calendar"))
+     (gnus-icalendar-org-setup))
 
-      (use-package gnus-recent
-        :after gnus
-        :bind (("M-s a" . gnus-recent-goto-ivy)
-               :map gnus-summary-mode-map
-               ("l" . gnus-recent-goto-previous)
-               :map gnus-group-mode-map
-               ("C-c L" . gnus-recent-goto-previous)))
+   (use-package gnus-recent
+     :after gnus
+     :bind (("M-s a" . gnus-recent-goto-ivy)
+            :map gnus-summary-mode-map
+            ("l" . gnus-recent-goto-previous)
+            :map gnus-group-mode-map
+            ("C-c L" . gnus-recent-goto-previous)))
 
-      (use-package gnus-notes-org
-        :after org
-        :bind ( ;; define keybindings here instead of using gnus-notes-org-define-key
-               ;; to profit from use-packages lazy loading
-               :map org-mode-map
-               ("C-c t" . gnus-notes-org-handle-mail)
-               :map org-agenda-keymap
-               ("C-c t" . gnus-notes-org-handle-mail)
-               :map gnus-summary-mode-map
-               ("C-c t" . gnus-notes-org-capture-mail)
-               :map gnus-article-mode-map
-               ("C-c t" . gnus-notes-org-capture-mail))
-        :config
-        (require 'no-littering)
-        (setq gnus-notes-org-capture-template
-              `("e" "Email Reply Scheduled (a)" entry
-                (file+olp ,(expand-file-name
-                            (concat (car org-directory)
-                                    "/inbox.org"))
-                          "Emails")
-                (file ,(no-littering-expand-etc-file-name "org/templates/email.org"))
-                :prepend nil :clock-in t :clock-resume t)
-              ))
+   (use-package gnus-notes-org
+     :after org
+     :bind ( ;; define keybindings here instead of using gnus-notes-org-define-key
+            ;; to profit from use-packages lazy loading
+            :map org-mode-map
+            ("C-c t" . gnus-notes-org-handle-mail)
+            :map org-agenda-keymap
+            ("C-c t" . gnus-notes-org-handle-mail)
+            :map gnus-summary-mode-map
+            ("C-c t" . gnus-notes-org-capture-mail)
+            :map gnus-article-mode-map
+            ("C-c t" . gnus-notes-org-capture-mail))
+     :config
+     (require 'no-littering)
+     (setq gnus-notes-org-capture-template
+           `("e" "Email Reply Scheduled (a)" entry
+             (file+olp ,(expand-file-name
+                         (concat (car org-directory)
+                                 "/inbox.org"))
+                       "Emails")
+             (file ,(no-littering-expand-etc-file-name "org/templates/email.org"))
+             :prepend nil :clock-in t :clock-resume t)
+           ))
 
-      (use-package gnus-notes
-        :after no-littering
-        :after gnus
-        :after gnus-notes-org
-        :config
-        (gnus-notes-init))
+   (use-package gnus-notes
+     :after no-littering
+     :after gnus
+     :after gnus-notes-org
+     :config
+     (gnus-notes-init))
 
-      (use-package gnus-notes-helm
-        :after gnus-notes
-        :bind (("C-c g m" . gnus-notes-helm)))
+   (use-package gnus-notes-helm
+     :after gnus-notes
+     :bind (("C-c g m" . gnus-notes-helm)))
 
-      ;; (use-package all-the-icons-gnus
-      ;;   :config)
-      ;; ;; (all-the-icons-gnus-setup))
+   ;; (use-package all-the-icons-gnus
+   ;;   :config)
+   ;; ;; (all-the-icons-gnus-setup))
 
-      (use-package autocrypt
-        :config
-        <<autocrypt_private>>)
+   (use-package autocrypt
+     :config
+     <<autocrypt_private>>)
 
-      (use-package autocrypt-message
-        :hook ((message-mode . autocrypt-mode)))
+   (use-package autocrypt-message
+     :hook ((message-mode . autocrypt-mode)))
 
-      (use-package autocrypt-gnus
-        :hook ((gnus-mode . autocrypt-mode)))
+   (use-package autocrypt-gnus
+     :hook ((gnus-mode . autocrypt-mode)))
 
-      (use-package smiley
-        :config
-        (setopt smiley-style 'emoji))
+   (use-package smiley
+     :config
+     (setopt smiley-style 'emoji))
 
-      (use-package gravatar
-        :config
-        (setopt gravatar-default-image "robohash")
-        ;; Allow any level of gravatar image rating
-        ;; "g"  - Suitable for any audience.
-        ;; "pg" - May contain rude gestures, provocatively dressed
-        ;;        individuals, mild profanity, or mild violence.
-        ;; "r"  - May contain harsh profanity, intense violence, nudity,
-        ;;        or hard drug use.
-        ;; "x"  - May contain hardcore sexual imagery or extremely
-        ;;        disturbing violence.
-        (setopt gravatar-rating "x"))
+   (use-package gravatar
+     :config
+     (setopt gravatar-default-image "robohash")
+     ;; Allow any level of gravatar image rating
+     ;; "g"  - Suitable for any audience.
+     ;; "pg" - May contain rude gestures, provocatively dressed
+     ;;        individuals, mild profanity, or mild violence.
+     ;; "r"  - May contain harsh profanity, intense violence, nudity,
+     ;;        or hard drug use.
+     ;; "x"  - May contain hardcore sexual imagery or extremely
+     ;;        disturbing violence.
+     (setopt gravatar-rating "x"))
    #+end_src
 
 ** Khardel
