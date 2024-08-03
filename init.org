@@ -12,6 +12,12 @@
    each time you make a change or ~make build-init~ if you only made
    changes to this file.
 
+   If you want to check this file can be build before pushing
+   you call install the hook in [[file:misc/git-hooks/pre-push][./misc/git-hooks/git/pre-push]] to run
+   ~make build-init~ before each push.
+   You can install the hook by executing [[file:misc/autogen.sh][./misc/autogen.sh]] from the root
+   of this repository.
+
 * Org-Configuration for this file                                  :noexport:
   :PROPERTIES:
   :CREATED:  [2024-07-18 Thu 23:25]
@@ -2066,6 +2072,11 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :config
      (setopt aw-scope 'visible))
    #+end_src
+
+** Display Buffer Action
+   :PROPERTIES:
+   :CREATED:  [2024-07-26 Fri 18:34]
+   :END:
 
 ** Dumb-jump: Jump to definition with smart regex searches
    Dumb Jump is an Emacs "jump to definition" package with support for 40+ programming languages that favors
