@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Run make init-build before pushing to make init.el is in a working state
+
+make init-build
