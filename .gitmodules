@@ -293,6 +293,11 @@
 [submodule "ghub"]
 	path = lib/ghub
 	url = git@github.com:magit/ghub.git
+[submodule "git-email"]
+	path = lib/git-email
+	no-byte-compile = git-mu4e.el
+	no-byte-compile = git-notmuch.el
+	url = git@codeberg.org:mekeor/git-email.git
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git

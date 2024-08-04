@@ -3178,6 +3178,14 @@ Smart region guesses what you want to select by one command:
      (setopt code-review-auth-login-marker 'forge))
    #+end_src
 
+** Git-Email: Format and send patches in Emacs
+   :PROPERTIES:
+   :CREATED:  [2024-08-04 Sun 17:57]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package git-email)
+   #+end_src
+
 ** Magit
 
    If you want to use magit-commit-absorb you need git-absorb installed.
