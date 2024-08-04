@@ -5748,10 +5748,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
            (with-current-buffer (get-buffer "*Group*")
              (gnus-save-newsrc-file))))
      (setopt gnus-demon-handlers '((gnus-demon-scan-mail 120 60)
-                                 (gnus-demon-scan-pgp 60 60)
-                                 (gnus-demon-close-connections nil 3)
-                                 (save-gnus-newsrc nil 1)
-                                 (gnus-demon-scan-news-2 60 nil))))
+                                   (gnus-demon-close-connections nil 3)
+                                   (save-gnus-newsrc nil 1)
+                                   (gnus-demon-scan-news-2 60 nil))))
 
    (use-package gnus-desktop-notify
      :config
