@@ -6270,7 +6270,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    file extension."
        (with-temp-buffer
          (save-excursion (insert (file-name-nondirectory (directory-file-name file))))
-         (ignore-error 'search-failed
+         (ignore-error search-failed
            (search-forward-regexp (rx "." (+ alnum) eol))
            (delete-region (match-beginning 0) (match-end 0)))
          (buffer-string))))
