@@ -2256,6 +2256,13 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      "Make the current window always display this buffer."
      :lighter " sticky"
      (set-window-dedicated-p (selected-window) sticky-buffer-mode))
+
+   (defun display-buffer-window-dedicated (buffer)
+     "Like `display-buffer' but the returning window is set as dedicated."
+     (when-let ((window (display-buffer buffer '(nil (inhibit-same-window . t)))))
+       (set-window-dedicated-p window t)
+       window))
+
    #+end_src
 
 * Editor
@@ -3362,7 +3369,7 @@ Smart region guesses what you want to select by one command:
        (magit-status-setup-buffer "/yadm::"))
 
      ;; Sh ow magit status in the same window
-     (setopt magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+     (setopt magit-display-buffer-function #'display-buffer-window-dedicated))
 
    (use-package magit-wip
      :after magit
