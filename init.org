@@ -578,13 +578,20 @@
    (use-package desktop
      :demand t
      :init
+     (require 'no-littering)
      ;; Automatically save and restore sessions
      (setopt desktop-dirname         (no-littering-expand-var-file-name "desktop")
            desktop-base-file-name      "emacs.desktop"
            desktop-base-lock-name      "lock"
            desktop-path                (list desktop-dirname)
            desktop-save                t
-           desktop-files-not-to-save   "/su:.*\\|^/sudo:.*\\|^/ssh:.*" ;reload tramp paths
+           desktop-files-not-to-save   (concat "/su:.*\\|^/sudo:.*\\|^/ssh:.*\\|"  ;reload tramp paths
+                                               (string-replace "." "\\." (no-littering-expand-var-file-name
+                                                                            "gnus/dribble/newsrc-dribble"))
+                                               "\\|"  ;; don't restore Gnu's newsrc dribble
+                                               (string-replace "." "\\." (no-littering-expand-var-file-name "bbdb.el"))
+                                               ;; don't restore bbdb file
+                                               )
            desktop-load-locked-desktop t)
      ;; Not sure if these hooks are still needed. Lets keep them after some
      ;; testing when using desktop-save without them
