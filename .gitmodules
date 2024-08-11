@@ -295,8 +295,8 @@
 	url = git@github.com:magit/ghub.git
 [submodule "git-email"]
 	path = lib/git-email
-	no-byte-compile = git-mu4e.el
-	no-byte-compile = git-notmuch.el
+	no-byte-compile = git-email-mu4e.el
+	no-byte-compile = git-email-notmuch.el
 	url = git@codeberg.org:mekeor/git-email.git
 [submodule "git-modes"]
 	path = lib/git-modes
