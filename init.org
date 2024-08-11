@@ -3387,8 +3387,8 @@ Smart region guesses what you want to select by one command:
 
      ;; Small helper to launch Magit with yadm
      (defun yadm-magit-status ()
-       "Like `magit-status' but for `(man)yadm 1'"
        (interactive)
+       "Like `magit-status' but for `(man)yadm 1'"
        (magit-status-setup-buffer "/yadm::"))
 
      ;; Sh ow magit status in the same window
