@@ -2318,7 +2318,10 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+begin_src emacs-lisp
    (use-package with-editor
      ;; Use local Emacs instance as $EDITOR (e.g. in `git commit' or `crontab -e')
-     :hook ((shell-mode eshell-mode vterm-mode term-exec) . with-editor-export-editor))
+     :hook (((shell-mode eshell-mode vterm-mode term-exec) .
+             with-editor-export-editor)
+            ;; Close frame opened when visiting buffer opened by with-editor
+            ((with-editor-post-finish with-editor-post-cancel) . delete-frame)))
    #+end_src
 
 ** White space butler
