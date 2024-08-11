@@ -619,6 +619,14 @@
    (auto-compression-mode t)
    #+end_src
 
+** Dir-locals
+   :PROPERTIES:
+   :CREATED:  [2024-08-11 Sun 23:42]
+   :END:
+   #+begin_src emacs-lisp
+   (setopt enable-remote-dir-locals t)
+   #+end_src
+
 ** Printing
    #+begin_src emacs-lisp
    (use-package printing)
@@ -2950,6 +2958,17 @@ Smart region guesses what you want to select by one command:
                     (tramp-remote-shell "/bin/sh")
                     (tramp-remote-shell-args ("-c"))))
 
+     ;; Setup directory class for yadm tramp method so we don't so down magit with all the untracked and ignore files
+     (dir-locals-set-class-variables 'magit-yadm
+                                     '((magit-status-mode .
+                                                          ((magit-disabled-section-inserters . (magit-insert-untracked-files
+                                                                                                magit-insert-ignored-files))))))
+     (dir-locals-set-directory-class "/yadm::" 'magit-yadm)
+     ;; Add /yadm:: to directories that are always considered as safe ([[help:safe-local-variable-directories]])
+     (setq safe-local-variable-directories (cl-union
+                                            safe-local-variable-directories
+                                            '("/yadm::")))
+
      ;; Backup tramp files like local files and don't litter the remote
      ;; file system with my emacs backup files
      (setopt tramp-backup-directory-alist backup-directory-alist)
@@ -3364,7 +3383,8 @@ Smart region guesses what you want to select by one command:
 
 
      ;; Small helper to launch Magit with yadm
-     (defun yadm ()
+     (defun yadm-magit-status ()
+       "Like `magit-status' but for `(man)yadm 1'"
        (interactive)
        (magit-status-setup-buffer "/yadm::"))
 
