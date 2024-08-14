@@ -240,6 +240,7 @@
 	recursive-byte-compile = true
 	build-step = make
 	build-step = make emms-print-metadata
+	build-step = borg-makeinfo
 	info-path = doc
 [submodule "emojify"]
 	path = lib/emojify
