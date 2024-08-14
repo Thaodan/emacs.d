@@ -6206,7 +6206,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             ("s-h b" . emms-browser))
      :hook ((emms-playlist . hl-line-mode)
             (emms-browser . hl-line-mode)
-            (emms-browser-filter-changed . toggle-album-display)
+            (emms-browser-filter-changed . emms-browser-toggle-album-display)
             (emms-player-started . emms-last-played-update-current))
      :demand t
      :config
@@ -6299,14 +6299,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; https://www.gnu.org/software/emms/manual/#Changing-Looks
      ;; The following code displays artist->track instead of artist->album->track
      ;; when you switch to the ’singles’ filter:
-     (define-advice emms-browser-next-mapping-type (:after (current-mapping) no-album)
-       (when (eq ad-return-value 'info-album)
-         (setq ad-return-value 'info-title)))
+     (define-advice emms-browser-next-mapping-type (:filter-return (returned-mapping) emms-browser-next-mapping-type-articles-noalbum)
+       (when (eq returned-mapping 'info-album)
+         (setq returned-mapping 'info-title))
+       returned-mapping)
 
-     (defun toggle-album-display ()
+     (defun emms-browser-toggle-album-display ()
        (if (string= emms-browser-current-filter-name "singles")
-           (ad-activate 'emms-browser-next-mapping-type)
-         (ad-deactivate 'emms-browser-next-mapping-type)))
+           (advice-add 'emms-browser-next-mapping-type :filter-return #'emms-browser-next-mapping-type-articles-noalbum)
+         (advice-remove 'emms-browser-next-mapping-type #'emms-browser-next-mapping-type-articles-noalbum)))
 
      (defun track-title-from-file-name (file)
        "For using with EMMS description functions. Extracts the track
