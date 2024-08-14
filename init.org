@@ -506,6 +506,18 @@
      (Info-persist-history-mode))
    #+end_src
 
+** Man: Browse UNIX manual pages
+   :PROPERTIES:
+   :CREATED:  [2024-08-14 Wed 14:27]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package man
+     :bind (("C-h M" . man))
+     :config
+     (setopt Man-support-remote-systems t)
+     (setopt Man-switches "-a"))
+   #+end_src
+
 ** Goto-addr: Buttonize URLs and e-mail addresses in the current buffer
 #+begin_src emacs-lisp
 (use-package goto-addr
