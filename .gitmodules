@@ -634,6 +634,7 @@
 	url = git@github.com:milkypostman/powerline.git
 [submodule "projectile"]
 	path = lib/projectile
+	remote = "Thaodan git@github.com:Thaodan/projectile.git"
 	url = git@github.com:bbatsov/projectile.git
 [submodule "pythonic"]
 	path = lib/pythonic
