@@ -2943,6 +2943,26 @@ Smart region guesses what you want to select by one command:
      (treemacs-load-theme "nerd-icons"))
    #+end_src
 
+** Bug-Trackers: Modes related to bug- and issue trackers
+   :PROPERTIES:
+   :CREATED:  [2024-08-20 Tue 12:07]
+   :END:
+
+*** Bug-Reference: Buttonize bug references
+    :PROPERTIES:
+    :CREATED:  [2024-08-20 Tue 12:14]
+    :END:
+ #+begin_src emacs-lisp
+ ;; Highlight and link issue IDs to website
+ ;; bug-reference-url-format has to be set in dir-locals (S-p E)
+ ;; E.g. for github: (bug-reference-url-format . "https://github.com/atomx/api/issues/%s")
+ (use-package bug-reference
+   :hook (prog-mode . bug-reference-prog-mode)
+   :config
+   ;; (setopt bug-reference-bug-regexp "#\\(?2:[0-9]+\\)")
+   (setopt bug-reference-bug-regexp "\\(\\b\\(?:[Bb]ug ?#?\\|[Ii]ssue ?#\\|[Pp]atch ?#\\|RFE ?#\\|PR [a-z+-]+/\\)\\([0-9]+\\(?:#[0-9]+\\)?\\)\\)"))
+ #+end_src
+
 * Shell relating things
 
 ** Tramp
@@ -3456,15 +3476,6 @@ Smart region guesses what you want to select by one command:
      (setopt ediff-window-setup-function 'ediff-setup-windows-plain)
      ;; Split ediff windows horizontally by default
      (setopt ediff-split-window-function 'split-window-horizontally))
-
-   ;; Highlight and link issue IDs to website
-   ;; bug-reference-url-format has to be set in dir-locals (S-p E)
-   ;; E.g. for github: (bug-reference-url-format . "https://github.com/atomx/api/issues/%s")
-   (use-package bug-reference
-     :hook (prog-mode . bug-reference-prog-mode)
-     :config
-     ;; (setopt bug-reference-bug-regexp "#\\(?2:[0-9]+\\)")
-     (setopt bug-reference-bug-regexp "\\(\\b\\(?:[Bb]ug ?#?\\|[Ii]ssue ?#\\|[Pp]atch ?#\\|RFE ?#\\|PR [a-z+-]+/\\)\\([0-9]+\\(?:#[0-9]+\\)?\\)\\)"))
    #+end_src
 
 ** VC-OSC
