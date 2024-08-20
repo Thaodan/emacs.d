@@ -167,15 +167,26 @@
                            :use-authinfo t
                            )))
    #+end_src
-** Bug-Mode
-   :PROPERTIES:
-   :CREATED:  [2024-07-20 Sat 21:21]
-   :END:
-   #+begin_src emacs-lisp :noweb-ref bug_mode_private
-   (setq bug-instance-plist '(:work
-                              (:url "https://bz.company.com" :type bz-rpc
-                                    :login "user"
-                                    :authinfo 'password-store)))
 
-   (setq bug-default-instance :work)
-   #+end_src
+** Project Management
+   :PROPERTIES:
+   :CREATED:  [2024-08-20 Tue 14:17]
+   :END:
+
+** Bug-Trackers
+   :PROPERTIES:
+   :CREATED:  [2024-08-20 Tue 14:17]
+   :END:
+
+*** Bug-Mode
+    :PROPERTIES:
+    :CREATED:  [2024-07-20 Sat 21:21]
+    :END:
+    #+begin_src emacs-lisp :noweb-ref bug_mode_private
+    (setq bug-instance-plist '(:work
+                               (:url "https://bz.company.com" :type bz-rpc
+                                     :login "user"
+                                     :authinfo 'password-store)))
+
+    (setq bug-default-instance :work)
+    #+end_src

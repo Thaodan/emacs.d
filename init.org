@@ -103,8 +103,10 @@
       - autocrypt_private
   - * Elfeed
     - elfeed_protocol_private
-  - * Bug-Mode
-    - bug_mode_private
+  - * Project-Management
+    - * Bug-Trackers
+      - * Bug-Mode
+        - bug_mode_private
 
   Items starting with /*/ are sections not noweb-references.
 
@@ -2962,6 +2964,32 @@ Smart region guesses what you want to select by one command:
    ;; (setopt bug-reference-bug-regexp "#\\(?2:[0-9]+\\)")
    (setopt bug-reference-bug-regexp "\\(\\b\\(?:[Bb]ug ?#?\\|[Ii]ssue ?#\\|[Pp]atch ?#\\|RFE ?#\\|PR [a-z+-]+/\\)\\([0-9]+\\(?:#[0-9]+\\)?\\)\\)"))
  #+end_src
+
+*** Bug-mode: A mode to interface with bug/issue tracking systems from within Emacs
+     #+begin_src emacs-lisp
+     (use-package bug-mode
+       :defer t
+       :config
+       ;;(require 'bug-mode-autoloads)
+       (require 'bug-custom)
+       (require 'bug-persistent-data)
+       (setopt bug-default-instance :work)
+
+       (bug--read-data-file)
+
+       <<bug_mode_private>>)
+
+     (use-package bug-auth
+       :after bug-mode
+       :commands (bug-login bug-logout))
+
+     (use-package bug-backend-bz-rpc)
+
+     (use-package bug-comment-mode)
+
+     (use-package org-bug
+       :after bug-mode)
+     #+end_src
 
 * Shell relating things
 
@@ -6796,32 +6824,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    		 ("v" . 'yeetube-mpv-toggle-video)
    		 ("V" . 'yeetube-mpv-toggle-no-video-flag)
    		 ("k" . 'yeetube-remove-saved-video)))
-   #+end_src
-
-* Bug-mode
-   #+begin_src emacs-lisp
-   (use-package bug-mode
-     :defer t
-     :config
-     ;;(require 'bug-mode-autoloads)
-     (require 'bug-custom)
-     (require 'bug-persistent-data)
-     (setopt bug-default-instance :work)
-
-     (bug--read-data-file)
-
-     <<bug_mode_private>>)
-
-   (use-package bug-auth
-     :after bug-mode
-     :commands (bug-login bug-logout))
-
-   (use-package bug-backend-bz-rpc)
-
-   (use-package bug-comment-mode)
-
-   (use-package org-bug
-     :after bug-mode)
    #+end_src
 
 * Post Initialization
