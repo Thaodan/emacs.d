@@ -190,3 +190,11 @@
 
     (setq bug-default-instance :work)
     #+end_src
+
+*** Debbugs
+    :PROPERTIES:
+    :CREATED:  [2024-08-20 Tue 14:19]
+    :END:
+    #+begin_src emacs-lisp
+    (setopt debbugs-gnu-trunk-directory "~/dev/emacs/emacs")
+    #+end_src

@@ -107,6 +107,8 @@
     - * Bug-Trackers
       - * Bug-Mode
         - bug_mode_private
+      - * Debbbugs
+        - debbugs_private
 
   Items starting with /*/ are sections not noweb-references.
 
@@ -2990,6 +2992,24 @@ Smart region guesses what you want to select by one command:
      (use-package org-bug
        :after bug-mode)
      #+end_src
+
+*** Debbugs: SOAP library to access debbugs servers
+    :PROPERTIES:
+    :CREATED:  [2024-08-20 Tue 12:51]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package debbugs
+      :config
+      (setopt debbugs-show-progress t))
+
+    (use-package debbugs-gnu
+      :commands (debbugs-gnu
+                 debuggs-gnu-search)
+      :config
+      (setopt debbugs-gnu-trunk-directory "~/dev/emacs/emacs")
+
+      (setopt debbugs-gnu-apply-patch-prefers-magit t))
+    #+end_src
 
 * Shell relating things
 
