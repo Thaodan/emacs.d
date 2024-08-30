@@ -6824,6 +6824,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (elfeed-autotag))
    #+end_src
 
+** Nov: Featureful EPUB reader mode
+   :PROPERTIES:
+   :CREATED:  [2024-08-30 Fri 19:40]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package nov
+     :mode ("\\.epub\\'" . nov-mode))
+   #+end_src
+
 ** Yeetube
    :PROPERTIES:
    :CREATED:  [2024-06-16 Sun 01:26]

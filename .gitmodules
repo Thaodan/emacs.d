@@ -136,6 +136,9 @@
 [submodule "crux"]
 	path = lib/crux
 	url = git@github.com:bbatsov/crux.git
+[submodule "csv-mode"]
+	path = lib/csv-mode
+	url = git@github.com:emacsmirror/csv-mode.git
 [submodule "cursor-chg"]
 	path = lib/cursor-chg
 	url = git@github.com:emacsmirror/cursor-chg.git
@@ -252,6 +255,9 @@
 	path = lib/erlang
 	load-path = lib/tools/emacs
 	url = https://github.com/erlang/otp
+[submodule "esxml"]
+	path = lib/esxml
+	url = https://github.com/tali713/esxml
 [submodule "evil"]
 	path = lib/evil
 	url = git@github.com:emacs-evil/evil.git
@@ -527,6 +533,9 @@
 [submodule "no-littering"]
 	path = lib/no-littering
 	url = git@github.com:emacscollective/no-littering.git
+[submodule "nov"]
+	path = lib/nov
+	url = https://depp.brause.cc/nov.el.git
 [submodule "org"]
 	path = lib/org
 	url = https://git.savannah.gnu.org/git/emacs/org-mode.git
