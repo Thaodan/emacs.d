@@ -198,3 +198,11 @@
     #+begin_src emacs-lisp
     (setopt debbugs-gnu-trunk-directory "~/dev/emacs/emacs")
     #+end_src
+
+** Projectile
+   :PROPERTIES:
+   :CREATED:  [2024-08-31 Sat 04:25]
+   :END:
+   #+begin_src emacs-lisp :noweb-ref projectile_private
+   (setopt projectile-project-search-path '(("~/dev" . 1)))
+   #+end_src

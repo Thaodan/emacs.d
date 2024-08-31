@@ -109,6 +109,8 @@
         - bug_mode_private
       - * Debbbugs
         - debbugs_private
+    - * Projectile
+      - projectile_private
 
   Items starting with /*/ are sections not noweb-references.
 
@@ -2860,6 +2862,12 @@ Smart region guesses what you want to select by one command:
      ;;     ad-do-it))
 
      ;; (counsel-projectile-mode)
+
+
+     ;; Insert private projectile configuration here
+     ;; E.g. to set projectile-project-search-path
+     <<projectile_private>>
+
      ;; cache projectile project files
      ;; projectile-find-files will be much faster for large projects.
      ;; C-u C-c p f to clear cache before search.
