@@ -195,7 +195,7 @@
     :PROPERTIES:
     :CREATED:  [2024-08-20 Tue 14:19]
     :END:
-    #+begin_src emacs-lisp
+    #+begin_src emacs-lisp :noweb-ref debbugs_private
     (setopt debbugs-gnu-trunk-directory "~/dev/emacs/emacs")
     #+end_src
 

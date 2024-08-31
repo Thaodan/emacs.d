@@ -3016,6 +3016,8 @@ Smart region guesses what you want to select by one command:
       :config
       (setopt debbugs-gnu-trunk-directory "~/dev/emacs/emacs")
 
+      <<debbbugs_private>>
+
       (setopt debbugs-gnu-apply-patch-prefers-magit t))
     #+end_src
 
