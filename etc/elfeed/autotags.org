@@ -46,6 +46,14 @@
      :PROPERTIES:
      :CREATED:  [2023-09-16 Sat 21:04]
      :END:
+*** GamersNexus                                                   :gamersnexus:
+    :PROPERTIES:
+    :CREATED:  [2024-09-03 Tue 07:39]
+    :END:
+**** feed-url: gamersnexus.net
+     :PROPERTIES:
+     :CREATED:  [2024-09-03 Tue 07:39]
+     :END:
 ** Software Development                                                   :dev:
 *** C++                                                               :cxx:dev:
     :PROPERTIES:
