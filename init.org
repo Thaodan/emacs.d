@@ -276,21 +276,9 @@
     :config
     ;; /etc is version controlled and I want to store mc-lists in git
     (setopt mc/list-file (no-littering-expand-etc-file-name "mc-list.el"))
-    ;; Keep custom variables in /etc for dir-locals save variables and so on
-    (setopt custom-file (no-littering-expand-etc-file-name "custom.el"))
     ;; Put the auto-save files in the var directory to the other data files
     (setopt auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-
-  (use-package custom
-    :config
-    ;; We don't use custom and don't have to set custom-file even
-    ;; in the case when we "accidentally" click save in a custom buffer,
-    ;; `init.el' would get modified which gets overwrite the next time
-    ;; we run `make'.
-
-    ;; Treat all themes as safe
-    (setf custom-safe-themes t))
   #+end_src
 
 * Userdata
@@ -663,6 +651,26 @@
    Open files which are read-only in ~view-mode~.
    #+begin_src emacs-lisp
    (setopt view-read-only t)
+   #+end_src
+
+** Custom
+   :PROPERTIES:
+   :CREATED:  [2024-09-06 Fri 16:09]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package custom
+     :config
+     ;; We don't use custom and don't have to set custom-file even
+     ;; in the case when we "accidentally" click save in a custom buffer,
+     ;; `init.el' would get modified which gets overwrite the next time
+     ;; we run `make'.
+
+     ;; Keep custom variables in /etc for dir-locals save variables and so on
+     ;; The file isn't actually used except for testing purposes
+     (setopt custom-file (no-littering-expand-etc-file-name "custom.el"))
+
+     ;; Treat all themes as safe
+     (setf custom-safe-themes t))
    #+end_src
 
 * Set some early UI settings
