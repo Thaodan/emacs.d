@@ -3102,6 +3102,7 @@ Smart region guesses what you want to select by one command:
      ;; Include the title in vterm and multi-vterm buffers
      ;; setting multi-vterm-buffer-name isn't enough.
      (setopt vterm-buffer-name-string "*vterm %s*")
+     (setopt vterm-clear-scrollback-when-clearing t)
      (setopt vterm-tramp-shells '(("docker" .  "/bin/sh")
                                   ("ssh" . "/bin/zsh"))))
    #+end_src
