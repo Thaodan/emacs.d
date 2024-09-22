@@ -3094,7 +3094,9 @@ Smart region guesses what you want to select by one command:
    #+begin_src emacs-lisp
    (use-package vterm
      :bind (:map vterm-mode-map
-                 ("C-s" . isearch-forward))
+                 ("C-s" . isearch-forward)
+                 ("S-<home>" . beginning-of-buffer)
+                 ("S-<end>" . end-of-buffer))
      :config
      (setopt vterm-max-scrollback 100000)
      ;; Include the title in vterm and multi-vterm buffers
