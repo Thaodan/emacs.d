@@ -3102,10 +3102,56 @@ Smart region guesses what you want to select by one command:
      ;; Include the title in vterm and multi-vterm buffers
      ;; setting multi-vterm-buffer-name isn't enough.
      (setopt vterm-buffer-name-string "*vterm %s*")
+     (defun thao/vterm-eval-cmd-to-sh-list ()
+       "Return list of cmds in `vterm-eval-cmds' to be used in `vterm-environment'
+   for shells to export and parse as aliases."
+       (let ((cmd-list)
+              (cmd-list-sh))
+         (dolist (cmd vterm-eval-cmds)
+           (cl-pushnew (car cmd) cmd-list))
+         (dolist (cmd cmd-list)
+           (setq cmd-list-sh (concat cmd-list-sh cmd " "))) cmd-list-sh))
+
+     ;; Allow vterm to evoke some elisp functions
+     ;; e.g. to replace commands with Emacs function
+     ;; Requires that there's an alias to the replaced command
+     ;; from the wrapper e.g
+     ;; if [ $INSIDE_EMACS ] ; then
+     ;;   alias man='vterm_cmd man'
+     ;; fi
+     ;; Can also be done automatically see below.
+     (setopt vterm-eval-cmds '(("find-file" find-file)
+                               ("message" message)
+                               ("vterm-clear-scrollback" vterm-clear-scrollback)
+                               ("man" man)))
+     ;; Define commands which should be repalced with Emacs functions using aliases
+     (setopt vterm-environment `(,(concat  "VTERM_EVAL_CMD_ALIASES=" (thao/vterm-eval-cmd-to-sh-list)"")))
      (setopt vterm-clear-scrollback-when-clearing t)
      (setopt vterm-tramp-shells '(("docker" .  "/bin/sh")
                                   ("ssh" . "/bin/zsh"))))
    #+end_src
+
+
+  Instead of defining aliases manually you can also use the environment variable ~VTERM_EVAL_CMD_ALIASES~ shown above
+  to define aliases like this in your shell:
+  #+begin_src sh :tangle no
+  if [ $INSIDE_EMACS ] ; then
+
+      if [ -n "${ZSH_VERSION}" ] ; then
+          setopt sh_word_split
+      fi
+
+      for alias in $VTERM_EVAL_CMD_ALIASES ; do
+          alias $alias="vterm_cmd $alias"
+      done
+      unset alias
+
+      if [ -n "${ZSH_VERSION}" ] ; then
+          setopt +sh_word_split
+      fi
+
+  fi
+  #+end_src
 
 ** Multi-Vterm
    #+begin_src emacs-lisp
