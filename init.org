@@ -3047,7 +3047,7 @@ Smart region guesses what you want to select by one command:
              :map eshell-mode-map
              ("M-P" . eshell-previous-prompt)
              ("C-d" . thao/eshell-quit-or-delete-char)
-             ("C-r" . consult-history)
+         ;;    ("C-r" . consult-history)
              ("M-N" . eshell-next-prompt)
              ("M-R" . eshell-list-history)
              ("<DEL>" . eshell-delete-backward-char)
@@ -3300,6 +3300,16 @@ Smart region guesses what you want to select by one command:
                      :test 'string=))
         (sorted t)))
 
+    #+end_src
+
+*** Aweshell: Awesome shell extension base on eshell with wonderful features!
+    :PROPERTIES:
+    :CREATED:  [2024-09-23 Mon 07:20]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package aweshell
+      :config
+      (setopt aweshell-search-history-key "C-r"))
     #+end_src
 
 *** Prompt: Display extra information for your eshell prompt

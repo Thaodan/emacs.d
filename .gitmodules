@@ -50,6 +50,9 @@
 [submodule "avy"]
 	path = lib/avy
 	url = git@github.com:abo-abo/avy.git
+[submodule "aweshell"]
+	path = lib/aweshell
+	url = git@github.com:manateelazycat/aweshell.git
 [submodule "back-button"]
 	path = lib/back-button
 	url = git@github.com:rolandwalker/back-button.git
