@@ -3308,7 +3308,28 @@ Smart region guesses what you want to select by one command:
     :END:
     #+begin_src emacs-lisp
     (use-package aweshell
+      :after eshell
       :config
+      ;; Synchronal buffer name by directory change.
+      (defun aweshell-sync-dir-buffer-name ()
+        "Change aweshell buffer name by directory change."
+        (when (equal major-mode 'eshell-mode)
+          (rename-buffer (format "*Eshell: [%s*]%%" (epe-fish-path default-directory))
+                         t)))
+
+      (remove-hook 'eshell-directory-change-hook #'aweshell-sync-dir-buffer-name)
+      (remove-hook 'eshell-mode-hook #'aweshell-sync-dir-buffer-name)
+
+      ;; Synchronal buffer name by directory change.
+      (defun thao/aweshell-sync-dir-buffer-name ()
+        "Change aweshell buffer name by directory change."
+        (when (derived-mode-p 'eshell-mode)
+          (rename-buffer (format "*Eshell: [%s*]%%" (epe-fish-path default-directory))
+                         t)))
+
+      (add-hook 'eshell-directory-change-hook #'thao/aweshell-sync-dir-buffer-name)
+      (add-hook 'eshell-mode-hook #'thao/aweshell-sync-dir-buffer-name)
+
       (setopt aweshell-search-history-key "C-r"))
     #+end_src
 
