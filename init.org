@@ -3330,6 +3330,15 @@ Smart region guesses what you want to select by one command:
       (add-hook 'eshell-directory-change-hook #'thao/aweshell-sync-dir-buffer-name)
       (add-hook 'eshell-mode-hook #'thao/aweshell-sync-dir-buffer-name)
 
+      (defun thao/aweshell-dedicated-pop-window ()
+        "Pop aweshell dedicated window if it exists.
+    Modified to not use a side-window"
+        (setq aweshell-dedicated-window (display-buffer (car (aweshell-get-buffer-names)) `(display-buffer)))
+        (select-window aweshell-dedicated-window)
+        (set-window-buffer aweshell-dedicated-window aweshell-dedicated-buffer)
+        (set-window-dedicated-p (selected-window) t))
+      (advice-add 'aweshell-dedicated-pop-window :override #'thao/aweshell-dedicated-pop-window)
+
       (setopt aweshell-search-history-key "C-r"))
     #+end_src
 
