@@ -3031,6 +3031,309 @@ Smart region guesses what you want to select by one command:
 
 * Shell relating things
 
+** Eshell
+   :PROPERTIES:
+   :CREATED:  [2024-09-22 Sun 22:59]
+   :END:
+
+*** Base-Settings
+    :PROPERTIES:
+    :CREATED:  [2024-09-23 Mon 06:49]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package eshell
+      :bind (("C-x m" . eshell)
+             ("C-x M" . thao/eshell-split)
+             :map eshell-mode-map
+             ("M-P" . eshell-previous-prompt)
+             ("C-d" . thao/eshell-quit-or-delete-char)
+             ("C-r" . consult-history)
+             ("M-N" . eshell-next-prompt)
+             ("M-R" . eshell-list-history)
+             ("<DEL>" . eshell-delete-backward-char)
+             ([remap eshell-pcomplete] . completion-at-point)
+             ;; ([remap eshell-pcomplete] . helm-esh-pcomplete)
+             )
+      :hook ((eshell-mode . thao/eshell-config-hook)
+             (eshell-pre-command . eshell-append-history))
+      :config
+      (require 'esh-mode)
+      ;; Always show file size in human readable format
+      (setopt eshell-ls-initial-args "-h")
+
+      ;; Config for xterm-color
+      (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
+      (setopt eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
+      (setenv "TERM" "xterm-256color")
+
+      (defun thao/eshell-split (&optional arg)
+        "Like eshell but use pop-to-buffer to display."
+        (interactive "P")
+        (let ((cur-buf (buffer-name))
+              (eshell-buf (eshell arg)))
+          (pop-to-buffer-same-window cur-buf)
+          (pop-to-buffer eshell-buf)))
+
+      ;; Don't print the welcome banner and
+      ;; use native 'sudo', system sudo asks for password every time.
+      (require 'em-tramp)
+      (setopt eshell-modules-list
+            '(eshell-alias
+              eshell-basic
+              eshell-cmpl
+              eshell-dirs
+              eshell-glob
+              eshell-hist
+              eshell-ls
+              eshell-pred
+              eshell-prompt
+              eshell-script
+              eshell-term
+              eshell-tramp
+              eshell-unix))
+
+      (require 'em-smart)
+      (setq-default eshell-where-to-jump 'begin)
+      (setq-default eshell-review-quick-commands nil)
+      (setq-default eshell-smart-space-goes-to-end t)
+
+      (require 'em-hist)
+      ;; Some ideas from https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org
+      (setq-default eshell-scroll-to-bottom-on-input 'all
+                    eshell-error-if-no-glob t
+                    eshell-hist-ignoredups t
+                    eshell-visual-commands '("ptpython" "ipython" "pshell" "tail" "vi" "vim" "watch"
+                                             "nmtui" "dstat" "mycli" "pgcli" "vue" "ngrok"
+                                             "castnow" "mitmproxy" "rmapi"
+                                             "tmux" "screen" "top" "htop" "less" "more" "ncftp")
+                    eshell-prefer-lisp-functions nil)
+
+      ;; Fix eshell overwriting history.
+      ;; From https://emacs.stackexchange.com/a/18569/15023.
+      (setopt eshell-save-history-on-exit nil)
+      (defun eshell-append-history ()
+        "Call `eshell-write-history' with the `append' parameter set to `t'."
+        (when eshell-history-ring
+          (let ((newest-cmd-ring (make-ring 1)))
+            (ring-insert newest-cmd-ring (car (ring-elements eshell-history-ring)))
+            (let ((eshell-history-ring newest-cmd-ring))
+              (eshell-write-history eshell-history-file-name t)))))
+
+      ;; Increase eshell history size from default of only 128
+      (setopt eshell-history-size 8192)
+
+      ;; Used to C-d exiting from a shell? Want it to keep working, but still allow deleting a character?
+      ;; We can have it both
+      (require 'em-prompt)
+      (defun thao/eshell-quit-or-delete-char (arg)
+        (interactive "p")
+        ;; Somehow eshell-finge-status-mode adds an additional (not visible?)
+        ;; character to eol since Emacs 30.
+        ;; Just quit eshell if point is at the last or last but one position.
+        (if (and (>= (point) (1- (point-max)))
+                 (looking-back eshell-prompt-regexp nil))
+            (progn
+              (eshell-life-is-too-much) ; Why not? (eshell/exit)
+              (ignore-errors
+                (when (= arg 4)  ; With prefix argument, also remove eshell frame/window
+                  (progn
+                    ;; Remove frame if eshell is only window (otherwise just close window)
+                    (if (one-window-p)
+                        (delete-frame)
+                      (delete-window))))))
+          (delete-char arg)))
+
+      (defun eshell-delete-backward-char (n)
+        "Only call `(delete-backward-char N)' when not at beginning of prompt."
+        (interactive "p")
+        (if (looking-back eshell-prompt-regexp nil)
+            (message "Beginning of prompt")
+          (delete-char (- n))))
+
+      ;; Fixme eshell-mode-map maps to global keybindings? Check "C-d"
+      ;; Issue: https://github.com/jwiegley/use-package/issues/332
+      (defun thao/eshell-config-hook ()
+        ;; Support imenu
+        (setq-local imenu-generic-expression `(("Prompt" ,eshell-prompt-regexp 1)))
+        ;; Support outline (e.g. consult-outline)
+        (setq-local outline-regexp eshell-prompt-regexp)
+
+        ;;(eshell-smart-initialize)
+        ;; Emacs bug where * gets removed
+        ;; See https://github.com/company-mode/company-mode/issues/218
+        ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=18951
+        ;;(require 'company)
+        ;;(setq-local company-idle-delay 0.1)
+        ;;(setq-local company-backends '(company-capf company-eshell-autosuggest))
+        ;; (setq-local company-backends '(company-capf))
+        ;; (setq-local company-frontends '(company-preview-frontend))
+
+        ;; Disable overwriting the history on eshell exit
+        ;; See eshell-append-history above
+        (remove-hook 'eshell-exit-hook #'eshell-write-history t)
+
+        (setq xterm-color-preserve-properties t)
+
+        (setq-local company-backends '((company-eshell-history
+                                        company-shell
+                                        company-shell-env
+                                        company-files
+                                        company-dabbrev-code
+                                        company-capf
+                                        company-yasnippet)))
+        )
+
+      ;; Functions starting with `eshell/' can be called directly from eshell
+      ;; with only the last part. E.g. (eshell/foo) will call `$ foo'
+      (defun eshell/d (&optional dir)
+        "Open dired in current directory."
+        (dired (or dir ".")))
+
+      (defun eshell/ccat (file)
+        "Like `cat' but output with Emacs syntax highlighting."
+        (with-temp-buffer
+          (insert-file-contents file)
+          (let ((buffer-file-name file))
+            (delay-mode-hooks
+              (set-auto-mode)
+              (if (fboundp 'font-lock-ensure)
+                  (font-lock-ensure)
+                (with-no-warnings
+                  (font-lock-fontify-buffer)))))
+          (buffer-string)))
+
+      (defun eshell/lcd (&optional directory)
+        "Like regular 'cd' but don't jump out of a tramp directory.
+    When on a remote directory with tramp don't jump 'out' of the server.
+    So if we're connected with sudo to 'remotehost'
+    '$ lcd /etc' would go to '/sudo:remotehost:/etc' instead of just
+    '/etc' on localhost."
+        (setq directory (or directory "~/"))
+        (unless (file-remote-p directory)
+          (setq directory (concat (file-remote-p default-directory) directory)))
+        (eshell/cd directory))
+
+      (defun eshell/gst (&rest args)
+        (magit-status-setup-buffer (or (pop args) default-directory))
+        (eshell/echo))   ;; The echo command suppresses output
+
+      (defun eshell/f (filename &optional dir try-count)
+        "Searches for files matching FILENAME in either DIR or the
+    current directory. Just a typical wrapper around the standard
+    `find' executable.
+
+    Since any wildcards in FILENAME need to be escaped,
+    this wraps the shell command.
+
+    If not results were found, it calls the `find' executable up to
+    two more times, wrapping the FILENAME pattern in wildcard
+    matches. This seems to be more helpful to me."
+        (let* ((cmd (concat
+                     (executable-find "find")
+                     " " (or dir ".")
+                     "      -not -path '*/.git*'"
+                     " -and -not -path '*node_modules*'"
+                     " -and -not -path '*classes*'"
+                     " -and "
+                     " -type f -and "
+                     "-iname '" filename "'"))
+               (results (shell-command-to-string cmd)))
+
+          (if (not (s-blank-str? results))
+              results
+            (cond
+             ((or (null try-count) (= 0 try-count))
+              (eshell/f (concat filename "*") dir 1))
+             ((or (null try-count) (= 1 try-count))
+              (eshell/f (concat "*" filename) dir 2))
+             (t "")))))
+
+      (defun eshell/ef (filename &optional dir)
+        "Searches for the first matching filename and loads it into a
+    file to edit."
+        (let* ((files (eshell/f filename dir))
+               (file (car (s-split "\n" files))))
+          (find-file file)))
+
+      (defun eshell/find (&rest args)
+        "Wrapper around the ‘find’ executable."
+        (let ((cmd (concat "find " (string-join args " "))))
+          (shell-command-to-string cmd)))
+
+      (defun execute-command-on-file-buffer (cmd)
+        "Execute command on current buffer file."
+        (interactive "sCommand to execute: ")
+        (let* ((file-name (buffer-file-name))
+               (full-cmd (concat cmd " " file-name)))
+          (shell-command full-cmd)))
+
+      (defun execute-command-on-file-directory (cmd)
+        "Execute command on current buffer directory."
+        (interactive "sCommand to execute: ")
+        (let* ((dir-name (file-name-directory (buffer-file-name)))
+               (full-cmd (concat "cd " dir-name "; " cmd)))
+          (shell-command full-cmd))))
+
+    (use-package eshell-bookmark
+      :hook (eshell-mode . eshell-bookmark-setup)
+      :after eshell)
+    #+end_src
+
+*** Company Eshell-Completition-backend
+    :PROPERTIES:
+    :CREATED:  [2024-09-23 Mon 07:06]
+    :END:
+    #+begin_src emacs-lisp
+    (defun company-eshell-history (command &optional arg &rest ignored)
+      (interactive (list 'interactive))
+      (cl-case command
+        (interactive (company-begin-backend 'company-eshell-history))
+        (prefix (and (eq major-mode 'eshell-mode)
+                     (let ((word (company-grab-word)))
+                       (save-excursion
+                         (beginning-of-line)
+                         (and (looking-at-p (s-concat word "$")) word)))))
+        (candidates (cl-remove-duplicates
+                     (->> (ring-elements eshell-history-ring)
+                          (cl-remove-if-not (lambda (item) (s-prefix-p arg item)))
+                          (mapcar 's-trim))
+                     :test 'string=))
+        (sorted t)))
+
+    #+end_src
+
+*** Prompt: Display extra information for your eshell prompt
+    :PROPERTIES:
+    :CREATED:  [2024-09-23 Mon 06:49]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package eshell-prompt-extras
+      :after esh-opt
+      :config
+      (autoload 'epe-theme-dakrone "eshell-prompt-extras")
+      (setopt eshell-highlight-prompt nil
+              eshell-prompt-function 'epe-theme-dakrone))
+
+    #+end_src
+
+*** Eshell-up: Quickly go to a specific parent directory in eshell
+    :PROPERTIES:
+    :CREATED:  [2024-09-23 Mon 06:54]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package eshell-up
+      :after eshell)
+    #+end_src
+
+*** Z: cd to frequent directory
+    :PROPERTIES:
+    :CREATED:  [2024-09-23 Mon 06:52]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package eshell-z
+      :after eshell)
+    #+end_src
+
 ** Tramp
    #+begin_src emacs-lisp
    (use-package tramp

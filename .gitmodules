@@ -255,6 +255,18 @@
 	path = lib/erlang
 	load-path = lib/tools/emacs
 	url = https://github.com/erlang/otp
+[submodule "eshell-bookmark"]
+	path = lib/eshell-bookmark
+	url = https://github.com/Fuco1/eshell-bookmark
+[submodule "eshell-prompt-extras"]
+	path = lib/eshell-prompt-extras
+	url = https://github.com/zwild/eshell-prompt-extras
+[submodule "eshell-up"]
+	path = lib/eshell-up
+	url = https://github.com/peterwvj/eshell-up
+[submodule "eshell-z"]
+	path = lib/eshell-z
+	url = https://github.com/xuchunyang/eshell-z
 [submodule "esxml"]
 	path = lib/esxml
 	url = https://github.com/tali713/esxml
