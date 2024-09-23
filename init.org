@@ -3334,6 +3334,17 @@ Smart region guesses what you want to select by one command:
       :after eshell)
     #+end_src
 
+*** Eshell-Vterm: Vterm for visual commands in eshell
+    :PROPERTIES:
+    :CREATED:  [2024-09-22 Sun 23:05]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package eshell-vterm
+      :after eshell
+      :config
+      (eshell-vterm-mode))
+    #+end_src
+
 ** Tramp
    #+begin_src emacs-lisp
    (use-package tramp

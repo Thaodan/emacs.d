@@ -264,6 +264,9 @@
 [submodule "eshell-up"]
 	path = lib/eshell-up
 	url = https://github.com/peterwvj/eshell-up
+[submodule "eshell-vterm"]
+	path = lib/eshell-vterm
+	url = https://github.com/iostapyshyn/eshell-vterm
 [submodule "eshell-z"]
 	path = lib/eshell-z
 	url = https://github.com/xuchunyang/eshell-z
