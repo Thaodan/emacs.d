@@ -3540,7 +3540,7 @@ Smart region guesses what you want to select by one command:
       unset alias
 
       if [ -n "${ZSH_VERSION}" ] ; then
-          setopt +sh_word_split
+          unsetopt sh_word_split
       fi
 
   fi
