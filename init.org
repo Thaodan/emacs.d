@@ -2338,7 +2338,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                ("t" alpha-background-frame-toggle
                 :description ,(transient-toggle-description-function-p
                                "toggle transparency"
-                               alpha-background-frame-opaque-p))]
+                               alpha-background-frame-opaque-p))
+               ("c" centered-window-mode
+                :description ,(transient-toggle-description "centered-window" centered-window-mode))]
               ["Text"
                ("f" auto-fill-mode :description
                 ,(transient-toggle-description "fill-mode" auto-fill-mode))
