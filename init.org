@@ -2182,6 +2182,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    :END:
    #+begin_src emacs-lisp
    (use-package hydra
+     :disabled t
      :bind (("C-c S" . hydra-scratchpad/body)
             ("C-x t" . hydra-toggle-stuff/body)
             ("C-x l" . hydra-emacs-launcher/body))
@@ -2304,12 +2305,141 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    :CREATED:  [2024-10-04 Fri 13:02]
    :END:
    #+begin_src emacs-lisp
+   (use-package use-package-transient)
+
+   (defmacro transient-toggle-description (text toggle)
+     `(lambda ()
+        (if (bound-and-true-p ,toggle)
+            (format "[x] %s" ,text)
+          (format "[ ] %s" ,text))))
+   (defmacro transient-toggle-description-function-p
+       (text toggle-function)
+     `(lambda ()
+        (if (,toggle-function)
+            (format "[ ] %s" ,text)
+          (format "[x] %s" ,text))))
+
    (use-package transient
-     :defer t
+     :bind (("C-c S" . thao/transient-scratchpad)
+            ("C-x t" . thao/transient-toggle-stuff)
+            ("C-x l" . thao/transient-emacs-launcher))
+     :transient-prefix
+     (thao/transient-toggle-stuff ()
+      "Toggle"
+      [:class transient-columns
+              ["Misc"
+               ("a" abbrev-mode :description ,(transient-toggle-description
+                                               "abbrev" abbrev-mode))
+               ("d" toggle-debug-on-error :description
+                ,(transient-toggle-description "debug-on-error" debug-on-error))
+               ("s" sticky-buffer-mode
+                :description ,(transient-toggle-description
+                               "Sticky buffer mode" sticky-buffer-mode))
+               ("t" alpha-background-frame-toggle
+                :description ,(transient-toggle-description-function-p
+                               "toggle transparency"
+                               alpha-background-frame-opaque-p))]
+              ["Text"
+               ("f" auto-fill-mode :description
+                ,(transient-toggle-description "fill-mode" auto-fill-mode))
+               ;;     ("F" web-server-file-file-server-toggle :description
+               ;; ,(transient-toggle-description "Toggle file-server"
+               ;;                               web-server-file-server))
+               ("w" whitespace-mode :description
+                ,(transient-toggle-description "whitespace-mode" whitespace-mode))
+               ("l" toggle-truncate-lines :description
+                ,(transient-toggle-description "truncate-lines" truncate-lines))]
+              ["Org-mode"
+               :if-derived org-mode
+               ("ol" org-toggle-link-display :description
+                ,(transient-toggle-description "org link-display"
+                                               org-descriptive-links))
+               ("op" org-toggle-pretty-entities :description
+                ,(transient-toggle-description "org pretty-entries"
+                                               org-pretty-entities))
+               ("oi" org-toggle-inline-images :description
+                ,(transient-toggle-description "org inline-images"
+                                               org-inline-image-overlays))]])
+     (thao/transient-scratchpad ()
+      "Open selected scratchpad buffer"
+      ["Open Scratchbuffer"
+       [("p" "Python"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*python*scratchpad.py")))
+        ("e" "Elisp"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*elisp*scratchpad.el")))
+        ("s" "SQL"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*sql*scratchpad.sql")))
+        ("g" "Go"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*python*scratchpad.go")))]
+       [("j" "JavaScript"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*js*scratchpad.js")))
+        ("t" "TypeScript"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*ts*scratchpad.ts")))
+        ("r" "Rust"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*rust*scratchpad.rs")))
+        ("R" "Rest-Client"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*rest*scratchpad.rest")))]
+       [("h" "HTML"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*html*scratchpad.html")))
+        ("o" "Org-Mode"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*org*scratchpad.org")))
+        ("T" "Text"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*text*scratchpad.txt")))
+        ("m" "Markdown"
+         (lambda ()
+           (interactive)
+           (switch-to-buffer "*markdown*scratchpad.md")))]])
+     (thao/transient-emacs-launcher ()
+       "Launch emacs package"
+       ["Launch emacs packaged"
+        ["Apps"
+         ("i" "Circe - IRC" circe)
+         ("I" "Circe - IRC (connect all)" circe-connect-all)
+         ("e" "Elfeed - RSS/Atom Newsreader" elfeed-summary)
+         ;; ("t" "Transmission - Torrent" transmission)
+         ("g" "Gnus - Mail/Newsreader" gnus-other-frame)
+         ("m" "Mastodon.el - Mastodon" mastodon)
+         ("p" "proced" proced)]
+        ["Utils"
+         ("c" "calc - Quick calc" quick-calc)
+         ;; ("d" "docker" docker)
+         ("C" "calendar" calendar)
+         ("T" "time - Display world time" world-clock)
+         ;; ("s" "Systemctl" thao/transient-systemctl)
+         ("j" "Journalctl" journalctl)]
+        ["Misc"
+         ("t" "Vterm" multi-vterm)
+         ;; ("b" "Brain.fm - Stream music" brain-fm-play)
+         ("E" "elisp-index-search" elisp-index-search)
+         ;; ("S" "Screenshot with scrot" scrot)
+         ("w" "woman - Man page viewer" man)]])
      :config
      ;; Display transient buffer below current window
      ;; and not bottom of the complete frame (minibuffer like)
-     (setopt transient-display-buffer-action '(display-buffer-below-selected)))
+     (setopt transient-display-buffer-action
+             '(display-buffer-below-selected)))
    #+end_src
 
 * Editor

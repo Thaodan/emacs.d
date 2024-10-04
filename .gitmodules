@@ -760,6 +760,9 @@
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "use-package-transient"]
+	path = lib/use-package-transient
+	url = git@github.com:Thaodan/use-package-transient.git
 [submodule "uuidgen"]
 	path = lib/uuidgen
 	url = git@github.com:kanru/uuidgen-el.git
