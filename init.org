@@ -2299,6 +2299,19 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 
    #+end_src
 
+** Transient
+   :PROPERTIES:
+   :CREATED:  [2024-10-04 Fri 13:02]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package transient
+     :defer t
+     :config
+     ;; Display transient buffer below current window
+     ;; and not bottom of the complete frame (minibuffer like)
+     (setopt transient-display-buffer-action '(display-buffer-below-selected)))
+   #+end_src
+
 * Editor
 
 ** Move-Text
@@ -3799,13 +3812,6 @@ Smart region guesses what you want to select by one command:
     		               (eq m 'text-mode)
     		               (eq m 'git-commit-elisp-text-mode))))
      :config (setopt git-commit-major-mode 'git-commit-gfm-mode))
-
-   (use-package transient
-     :defer t
-     :config
-     ;; Display transient buffer below current window
-     ;; and not bottom of the complete frame (minibuffer like)
-     (setopt transient-display-buffer-action '(display-buffer-below-selected)))
    #+end_src
 
    #+begin_src emacs-lisp
