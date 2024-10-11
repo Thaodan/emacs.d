@@ -2359,6 +2359,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                ("op" org-toggle-pretty-entities :description
                 ,(transient-toggle-description "org pretty-entries"
                                                org-pretty-entities))
+               ("om" org-modern-mode :description
+                ,(transient-toggle-description "org-modern-mode"
+                                               org-modern-mode))
                ("oi" org-toggle-inline-images :description
                 ,(transient-toggle-description "org inline-images"
                                                org-inline-image-overlays))]])
