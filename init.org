@@ -6120,6 +6120,21 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (advice-add #'po-subedit-abort :after #'thao/po-subedit-abort-kill-frame)))
    #+end_src
 
+** CSV
+   :PROPERTIES:
+   :CREATED:  [2024-10-11 Fri 12:45]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package csv-mode
+     :hook ((csv-mode . csv-align-mode))
+     :config
+     (setopt csv-separators '("," ";" ":")))
+
+
+   (use-package rainbow-csv
+     :hook ((csv-mode . rainbow-csv-mode)))
+   #+end_src
+
 * Chat/Socialmedia
   :PROPERTIES:
   :CREATED:  [2024-07-18 Thu 21:58]

@@ -676,6 +676,9 @@
 	path = lib/qt-pro-mode
 	remote = "Thaodan git@github.com:Thaodan/qt-pro-mode.git"
 	url = https://github.com/emacsorphanage/qt-pro-mode
+[submodule "rainbow-csv"]
+	path = lib/rainbow-csv
+	url = git@github.com:emacs-vs/rainbow-csv.git
 [submodule "rainbow-delimiters"]
 	path = lib/rainbow-delimiters
 	url = git@github.com:Fanael/rainbow-delimiters.git
