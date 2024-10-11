@@ -7388,7 +7388,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                        (:filter . "+helsinkitimes")
                                        (:add-default . t))
                                (search (:title  . "Yle News")
-                                       (:filter . "yle")
+                                       (:filter . "+yle")
                                        (:add-default . t))
                                (search (:title  . "News")
                                        (:filter . "+news")
