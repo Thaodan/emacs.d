@@ -2350,6 +2350,8 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                ;;                               web-server-file-server))
                ("w" whitespace-mode :description
                 ,(transient-toggle-description "whitespace-mode" whitespace-mode))
+               ("v" view-mode :description
+                ,(transient-toggle-description "view-mode" view-mode))
                ("l" toggle-truncate-lines :description
                 ,(transient-toggle-description "truncate-lines" truncate-lines))]
               ["Org-mode"
