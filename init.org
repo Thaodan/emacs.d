@@ -215,30 +215,53 @@
     (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
     (require 'borg)
     (borg-initialize)
+    (require 'magit-remote)
 
     ;; From https://github.com/dakra/dmacs/blob/c27a0638c75f3a77b675d1b214295c444546d085/init.org#unsortet-stuff-in-no-packages
     (defun borg-sync-drone-urls ()
       "Offer to update outdated upstream urls of all drones."
       (interactive)
       (let (moved)
-	(dolist (drone (borg-clones))
-	  (let ((a (borg-get drone "url"))
-		(b (ignore-errors (oref (epkg drone) url))))
-	    (when (and a b (not (forge--url-equal a b))
-		       (yes-or-no-p (format "Move %s: %s => %s" drone a b)))
-	      (push (list drone a b) moved))))
-	(when (and moved
-		   (yes-or-no-p
-		    (concat (mapconcat (pcase-lambda (`(,drone ,a ,b))
-					 (format "%s: %s => %s" drone a b))
-				       moved "\n")
-			    "\n\nThese upstream repositories appear to have moved."
-			    "\s\sUpdate local configuration accordingly? ")))
-	  (let ((default-directory borg-user-emacs-directory))
-	    (pcase-dolist (`(,drone ,_ ,b) moved)
-	      (process-file "git" nil nil nil "config" "-f" ".gitmodules"
-			    (format "submodule.%s.url" drone) b))
-	    (process-file "git" nil nil nil "submodule" "sync")))))
+        (dolist (drone (borg-clones))
+          (let ((a (borg-get drone "url"))
+    	        (b (ignore-errors (oref (epkg drone) url))))
+            (when (and a b (not (forge--url-equal a b))
+    	               (yes-or-no-p (format "Move %s: %s => %s" drone a b)))
+              (push (list drone a b) moved))))
+        (when (and moved
+    	           (yes-or-no-p
+    	            (concat (mapconcat (pcase-lambda (`(,drone ,a ,b))
+    				                     (format "%s: %s => %s" drone a b))
+    			                       moved "\n")
+    		                "\n\nThese upstream repositories appear to have moved."
+    		                "\s\sUpdate local configuration accordingly? ")))
+          (let ((default-directory borg-user-emacs-directory))
+            (pcase-dolist (`(,drone ,_ ,b) moved)
+              (process-file "git" nil nil nil "config" "-f" ".gitmodules"
+    		                (format "submodule.%s.url" drone) b))
+            (process-file "git" nil nil nil "submodule" "sync")))))
+
+    (defun borg-sync-drone-remotes (&optional drone)
+      "Sync drone remotes with optional DRONE.
+    Add remote from submodule.DRONE.remote to DRONE and set as default."
+      (interactive (list (if current-prefix-arg
+                             (read-from-minibuffer "Drone: ")
+                           nil)))
+      (let (remote-added)
+        (dolist (drone (or drone
+                           (borg-clones)))
+          (let* ((drone-remote (borg-get drone "remote"))
+                 (drone-remote-str (if drone-remote
+                                       (split-string drone-remote " "))))
+            (if drone-remote-str
+                (let* ((drone-remote-name (car drone-remote-str))
+                       (drone-remote-url (cadr drone-remote-str))
+                       (default-directory (borg-worktree drone))
+                       (magit-remote-add-set-remote.pushDefault drone-remote-name))
+                  (if (file-exists-p default-directory)
+                      (if (not (magit-remote-p drone-remote-name))
+                          (magit-remote-add (car drone-remote-str) (cadr drone-remote-str)))
+                    (message (format "Drone %s is not active, populate first" drone)))))))))
     #+end_src
 
 *** Use-Package
