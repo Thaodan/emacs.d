@@ -3504,7 +3504,6 @@ Smart region guesses what you want to select by one command:
     :END:
     #+begin_src emacs-lisp
     (use-package eshell-prompt-extras
-      :after esh-opt
       :config
       (defun thao/epe-theme-pipeline ()
         "A eshell-prompt theme with full path, smiliar to oh-my-zsh theme.
