@@ -192,8 +192,13 @@
     #+BEGIN_SRC emacs-lisp
     (setq package-enable-at-startup nil)
     ;; (package-initialize)
-    (setopt load-prefer-newer t)
     #+END_SRC
+    Prefer newer to avoid Emacs loading older byte-compiled files and accidentally
+    old code to end up in depending files that are about to be byte-compiled.
+    #+begin_src emacs-lisp
+    (setopt load-prefer-newer t)
+    #+end_src
+
 
 *** System-packages
     Load some Emacs packages installed by the system package manager
