@@ -213,6 +213,7 @@
 	url = git@github.com:rejeep/el-mock.el.git
 [submodule "elfeed"]
 	path = lib/elfeed
+	remote = "Thaodan git@github.com:thaodan/elfeed.git"
 	url = git@github.com:skeeto/elfeed.git
 [submodule "elfeed-autotag"]
 	path = lib/elfeed-autotag
