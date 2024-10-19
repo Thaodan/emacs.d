@@ -2370,7 +2370,10 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                ("c" centered-window-mode
                 :description ,(transient-toggle-description "centered-window" centered-window-mode))]
               ["Text"
-               :if-derived (prog-mode text-mode)
+               ;; Enabled for text related modes
+               ;; logview-mode falls into that category but doesn't
+               ;; derive from text- or prog-mode
+               :if-derived (prog-mode text-mode logview-mode)
                ("f" auto-fill-mode :description
                 ,(transient-toggle-description "fill-mode" auto-fill-mode))
                ;;     ("F" web-server-file-file-server-toggle :description
