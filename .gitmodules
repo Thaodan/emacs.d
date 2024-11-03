@@ -617,6 +617,9 @@
 [submodule "ov"]
 	path = lib/ov
 	url = https://github.com/emacsorphanage/ov
+[submodule "ox-bb"]
+	path = lib/ox-bb
+	url = https://github.com/mmitch/ox-bb
 [submodule "pass"]
 	path = lib/pass
 	url = https://github.com/NicolasPetton/pass
