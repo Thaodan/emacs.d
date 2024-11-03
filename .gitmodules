@@ -322,6 +322,7 @@
 	url = git@github.com:leoliu/ggtags.git
 [submodule "ghub"]
 	path = lib/ghub
+	remote = "Thaodan git@github.com:thaodan/ghub.git"
 	url = git@github.com:magit/ghub.git
 [submodule "git-email"]
 	path = lib/git-email
