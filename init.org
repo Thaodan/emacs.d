@@ -1690,7 +1690,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
             ("y"   . dirvish-yank-menu)
             ("s"   . dirvish-quicksort)    ; remapped `dired-sort-toggle-or-edit'
             ("v"   . dirvish-vc-menu)      ; remapped `dired-view-file'
-            ("TAB" . dirvish-subtree-toggle)
+        ;;    ("TAB" . dirvish-subtree-toggle)
             ("M-f" . dirvish-history-go-forward)
             ("M-b" . dirvish-history-go-backward)
             ("M-l" . dirvish-ls-switches-menu)
