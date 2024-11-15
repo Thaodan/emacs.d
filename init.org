@@ -398,7 +398,7 @@
 
   ;; Increase the limit to catch infinite recursions.
   ;; Large scala files need sometimes more and this value can safely be increased.
-  (setopt max-lisp-eval-depth 25068)
+  (setopt max-lisp-eval-depth 10068)
   #+end_src
 
   Allow some commands as safe by default
