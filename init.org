@@ -4738,8 +4738,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                '(company-capf :with company-dabbrev))
 
                   (setopt completion-at-point-functions
-                        '(org-completion-symbols
-                          ora-cap-filesystem))))
+                          '(org-completion-symbols
+                            ora-cap-filesystem))))
       :config
       (require 'xdg)
       ;; Insead of "..." show "…" when there's hidden folded content
@@ -4750,7 +4750,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       (defun org-clock-in-or-list (&optional select start-time)
         "Like org-clock-in but show list of recent clocks when not in org buffer.
-      Show clock history when not in org buffer or when called with prefix argument."
+        Show clock history when not in org buffer or when called with prefix argument."
         (interactive "P")
         (if (and (eq major-mode 'org-mode) (not (equal select '(4))))
             (org-clock-in select start-time)
@@ -4791,24 +4791,24 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; global Effort estimate values
       ;; global STYLE property values for completion
       (setopt org-global-properties (quote (("Effort_ALL" . "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")
-                                          ("STYLE_ALL" . "habit"))))
+                                            ("STYLE_ALL" . "habit"))))
 
       ;; Tags with fast selection keys
       (setopt org-tag-alist (quote ((:startgroup)
-                                  ("WAITING" . ?w)
-                                  ("HOLD" . ?h)
-                                  ("MEETING" . ?m)
-                                  ("REVIEW" . ?r)
-                                  ("NOTE" . ?n)
-                                  (:endgroup)
-                                  ("PERSONAL" . ?P)
-                                  ("work" . ?W)
-                                  ("crypt" . ?c)
-                                  ("FLAGGED" . ??)
-                                  ("home" . ??)
-                                  ("shopping" . ??)
-                                  ("routine" . ??)
-                                  ("email" . ??))))
+                                    ("WAITING" . ?w)
+                                    ("HOLD" . ?h)
+                                    ("MEETING" . ?m)
+                                    ("REVIEW" . ?r)
+                                    ("NOTE" . ?n)
+                                    (:endgroup)
+                                    ("PERSONAL" . ?P)
+                                    ("work" . ?W)
+                                    ("crypt" . ?c)
+                                    ("FLAGGED" . ??)
+                                    ("home" . ??)
+                                    ("shopping" . ??)
+                                    ("routine" . ??)
+                                    ("email" . ??))))
 
       ;; Allow setting single tags without the menu
       (setopt org-fast-tag-selection-single-key (quote expert))
@@ -4850,8 +4850,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; Add org-directory and its sub-directories
       (setopt org-directory `,(append (list (concat (xdg-user-dir "DOCUMENTS") "/org"))
-                                    (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
-                                                   nil t)))
+                                      (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
+                                                     nil t)))
 
       ;; Log time when we re-schedule a task
       (setopt org-log-reschedule 'time)
@@ -4939,7 +4939,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
       (setopt org-refile-targets '((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9)))
+                                   (org-agenda-files :maxlevel . 9)))
 
       ;; Allow refile to create parent tasks with confirmation
       (setopt org-refile-allow-creating-parent-nodes (quote confirm))
@@ -4955,63 +4955,63 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; Automatically change the list bullets when you change list levels
       (setopt org-list-demote-modify-bullet '(("+" . "-")
-                                            ("*" . "-")
-                                            ("1." . "-")
-                                            ("1)" . "-")
-                                            ("A)" . "-")
-                                            ("B)" . "-")
-                                            ("a)" . "-")
-                                            ("b)" . "-")
-                                            ("A." . "-")
-                                            ("B." . "-")
-                                            ("a." . "-")
-                                            ("b." . "-")))
+                                              ("*" . "-")
+                                              ("1." . "-")
+                                              ("1)" . "-")
+                                              ("A)" . "-")
+                                              ("B)" . "-")
+                                              ("a)" . "-")
+                                              ("b)" . "-")
+                                              ("A." . "-")
+                                              ("B." . "-")
+                                              ("a." . "-")
+                                              ("b." . "-")))
 
       (setopt org-todo-keywords
-            (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                    (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")
-                    (type "PHONE" "LESSON" "EXAM" "SHIFT" "MEETING" "|" "CANCELLED(c@/!)"))))
+              (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                      (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")
+                      (type "PHONE" "LESSON" "EXAM" "SHIFT" "MEETING" "|" "CANCELLED(c@/!)"))))
 
       (setopt org-todo-keyword-faces
-            (quote (;; Generic TODO's
-                    ("TODO"
-                     :inverse-video t :weight semibold :height 1.0 :inherit
-                     (org-todo))
-                    ;;:inherit (org-modern-todo))
-                    ("NEXT" :foreground "blue" :weight semibold :inverse-video t )
-                    ;; ("DONE" ((default (:inherit (org-modern-label)))
-                    ;;         (((background light)) (:foreground "black" :background "gray90"))
-                    ;;        (t (:foreground "white" :background "gray20"))))
-                    ;; Using org-modern default here
-                    ("WAITING" :foreground "orange" :weight semibold :inverse-video t )
-                    ("HOLD" :foreground "magenta" :weight semibold :inverse-video t )
-                    ("CANCELLED" :foreground "forest green" :weight semibold :inverse-video t )
-                    ;; Types of meetings or events
-                    ("LESSON" :foreground  "light green" :weight semibold :inverse-video t )
-                    ("EXAM" :foreground "dark green" :weight semibold :inverse-video t )
-                    ("SHIFT" :foreground "steel blue" :weight semibold :inverse-video t )
-                    ("MEETING" :foreground "forest green" :weight semibold :inverse-video t )
-                    ("PHONE" :foreground "forest green" :weight semibold :inverse-video t))))
+              (quote (;; Generic TODO's
+                      ("TODO"
+                       :inverse-video t :weight semibold :height 1.0 :inherit
+                       (org-todo))
+                      ;;:inherit (org-modern-todo))
+                      ("NEXT" :foreground "blue" :weight semibold :inverse-video t )
+                      ;; ("DONE" ((default (:inherit (org-modern-label)))
+                      ;;         (((background light)) (:foreground "black" :background "gray90"))
+                      ;;        (t (:foreground "white" :background "gray20"))))
+                      ;; Using org-modern default here
+                      ("WAITING" :foreground "orange" :weight semibold :inverse-video t )
+                      ("HOLD" :foreground "magenta" :weight semibold :inverse-video t )
+                      ("CANCELLED" :foreground "forest green" :weight semibold :inverse-video t )
+                      ;; Types of meetings or events
+                      ("LESSON" :foreground  "light green" :weight semibold :inverse-video t )
+                      ("EXAM" :foreground "dark green" :weight semibold :inverse-video t )
+                      ("SHIFT" :foreground "steel blue" :weight semibold :inverse-video t )
+                      ("MEETING" :foreground "forest green" :weight semibold :inverse-video t )
+                      ("PHONE" :foreground "forest green" :weight semibold :inverse-video t))))
       ;;  If a task moves to CANCELLED state then it gets a CANCELLED tag.
       ;; Moving a CANCELLED task back to TODO removes the CANCELLED tag.
       ;; http://doc.norang.ca/org-mode.html#ToDoStateTriggers
       (setopt org-todo-state-tags-triggers
-            (quote (("CANCELLED" ("CANCELLED" . t))
-                    ("WAITING" ("WAITING" . t))
-                    ("HOLD" ("WAITING") ("HOLD" . t))
-                    (done ("WAITING") ("HOLD"))
-                    ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-                    ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-                    ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+              (quote (("CANCELLED" ("CANCELLED" . t))
+                      ("WAITING" ("WAITING" . t))
+                      ("HOLD" ("WAITING") ("HOLD" . t))
+                      (done ("WAITING") ("HOLD"))
+                      ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                      ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                      ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
 
       (defun ivy-completion-common-length (str)
         "Return the amount of characters that match in  STR.
-    `completion-all-completions' computes this and returns the result
-    via text properties.
-    The first non-matching part is propertized:
-    - either with: (face (completions-first-difference))
-    - or: (font-lock-face completions-first-difference)."
+      `completion-all-completions' computes this and returns the result
+      via text properties.
+      The first non-matching part is propertized:
+      - either with: (face (completions-first-difference))
+      - or: (font-lock-face completions-first-difference)."
         (let ((char-property-alias-alist '((face font-lock-face)))
               (i (1- (length str))))
           (catch 'done
@@ -5073,15 +5073,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; set org-mode link abbrevs
       (setopt org-link-abbrev-alist
-               '(("google"    . "http://www.google.com/search?q=")
-               ("gmap"      . "http://maps.google.com/maps?q=%s")
-               ("omap"      . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")
-               ("wpen"      . "http://en.wikipedia.org/wiki/%s")
-               ("wpde"      . "http://de.wikipedia.org/wiki/%s")
-               ("mane"      . "http://man.he.net/?topic=%s&section=all")))
+              '(("google"    . "http://www.google.com/search?q=")
+                ("gmap"      . "http://maps.google.com/maps?q=%s")
+                ("omap"      . "http://nominatim.openstreetmap.org/search?q=%s&polygon=1")
+                ("wpen"      . "http://en.wikipedia.org/wiki/%s")
+                ("wpde"      . "http://de.wikipedia.org/wiki/%s")
+                ("mane"      . "http://man.he.net/?topic=%s&section=all")))
       (setopt org-link-abbrev-alist
-            (append org-link-abbrev-alist
-                    org-link-abbrev-alist-private)))
+              (append org-link-abbrev-alist
+                      org-link-abbrev-alist-private)))
     #+end_src
 
 *** Outorg
