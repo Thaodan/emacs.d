@@ -4737,9 +4737,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                   (add-to-list 'company-backends
                                '(company-capf :with company-dabbrev))
 
-                  (setopt completion-at-point-functions
+                  (setq-local completion-at-point-functions
                           '(org-completion-symbols
-                            ora-cap-filesystem))))
+                            org-cap-filesystem))))
       :config
       (require 'xdg)
       ;; Insead of "..." show "…" when there's hidden folded content
@@ -5004,25 +5004,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                       ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                       ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
-
-      (defun ivy-completion-common-length (str)
-        "Return the amount of characters that match in  STR.
-      `completion-all-completions' computes this and returns the result
-      via text properties.
-      The first non-matching part is propertized:
-      - either with: (face (completions-first-difference))
-      - or: (font-lock-face completions-first-difference)."
-        (let ((char-property-alias-alist '((face font-lock-face)))
-              (i (1- (length str))))
-          (catch 'done
-            (while (>= i 0)
-              (when (equal (get-text-property i 'face str)
-                           '(completions-first-difference))
-                (throw 'done i))
-              (cl-decf i))
-            (throw 'done (length str)))))
-
-
       ;; Auto completion for symbols in org-mode
       ;; https://oremacs.com/2017/10/04/completion-at-point/
       (defun org-completion-symbols ()
@@ -5037,14 +5018,24 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                 cands))
             (when cands
               (list (match-beginning 0) (match-end 0) cands)))))
-      (defun ora-cap-filesystem ()
-        (let (path)
-          (when (setq path (ffap-string-at-point))
-            (let ((compl
-                   (all-completions path #'read-file-name-internal)))
-              (when compl
-                (let ((offset (ivy-completion-common-length (car compl))))
-                  (list (- (point) offset) (point) compl)))))))
+
+      (require 'ffap)
+      (defun org-cap-filesystem ()
+        (interactive)
+        (when-let* ((path (ffap-string-at-point)))
+          (when (string-match "\\`file:\\(.*\\)\\'" path)
+            (setq path (match-string 1 path)))
+          (when-let* ((compl (all-completions path #'read-file-name-internal)))
+            (let* ((str (car compl))
+                   (offset
+                    (let ((i 0)
+                          (len (length str)))
+                      (while (and (< i len)
+                                  (equal (get-text-property i 'face str)
+                                         'completions-common-part))
+                        (cl-incf i))
+                      i)))
+              (list (- (point) offset) (point) compl)))))
 
       ;; Custom org-sort to sort by TODO and then by priority
       ;; See: https://emacs.stackexchange.com/a/9588/12559
