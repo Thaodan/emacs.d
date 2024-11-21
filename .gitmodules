@@ -255,6 +255,7 @@
 	info-path = doc
 [submodule "emojify"]
 	path = lib/emojify
+	remote = "Thaodan git@github.com:thaodan/emacs-emojify.git"
 	url = git@github.com:iqbalansari/emacs-emojify.git
 [submodule "epkg"]
 	path = lib/epkg
