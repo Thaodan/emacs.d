@@ -117,7 +117,7 @@
 	url = git@github.com:pythonic-emacs/company-anaconda.git
 [submodule "company-emoji"]
 	path = lib/company-emoji
-	url = git@github.com:dunn/company-emoji.git
+	url = git@codeberg.org:egirl/company-emoji.git
 [submodule "company-irony"]
 	path = lib/company-irony
 	url = git@github.com:Sarcasm/company-irony.git
