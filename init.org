@@ -6787,6 +6787,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    (use-package message
      :config
+     ;; Kill message buffer after sending a message.
+     (setopt message-kill-buffer-on-exit t)
      (setopt message-subscribed-address-functions
              '(gnus-find-subscribed-addresses)))
 
