@@ -6571,13 +6571,84 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    (use-package gnus-sum
      :after gnus
-     :hook ((gnus-summary-mode . hl-line-mode))
+     :hook ((gnus-summary-mode . hl-line-mode)
+            (gnus-summary-mode . thao/gnus-archive-to-refer-thread-search))
      :bind (:map gnus-summary-mode-map
                  ("M M d d" . thao/gnus-summary-mark-article-read))
      :config
      (defun thao/gnus-summary-mark-article-read()
        (interactive)
        (gnus-summary-mark-article nil gnus-read-mark))
+
+     (defun thao/gnus-archive-to-refer-thread-search (&optional group)
+       "Add the archive of GROUP to `gnus-refer-thread-use-search' list.
+   If GROUP isn't given default to current group.
+   If GROUP is a `nnselect' group add the archive of the group contained to list."
+       (let* ((group (or group
+                         gnus-newsgroup-name))
+              (group-method (car (gnus-find-method-for-group group)))
+              (real-group (if (eq group-method
+                                  'nnselect)
+                              ;; In case we have a nnselect method
+                              ;; take the name of the group used
+                              ;; from the list element
+                              ;; see: (info "(gnus) Selection Groups")
+                              (car (car (gnus-group-get-parameter group
+                                                                  'nnselect-artlist
+                                                                  t)))
+                            (gnus-info-group (gnus-get-info group))))
+              (archive-group gnus-message-archive-group)
+                                           ; taken from gnus-msg.el gnus
+              result
+              (groups
+   	        (cond
+   	         ((null gnus-message-archive-method)
+   	          ;; Ignore.
+   	          nil)
+   	         ((stringp archive-group)
+   	          ;; Just a single group.
+   	          (list archive-group))
+   	         ((null archive-group)
+   	          ;; We don't want this.
+   	          nil)
+   	         ((and (listp archive-group) (stringp (car archive-group)))
+   	          ;; A list of groups.
+   	          archive-group)
+   	         ((functionp archive-group)
+   	          ;; A function.
+   	          (funcall archive-group real-group))
+   	         (real-group
+   	          ;; An alist of regexps/functions/forms.
+   	          (while (and archive-group
+   			              (not
+   			               (setq result
+   			                     (cond
+   				                  ((and real-group
+   				                        (stringp (caar archive-group)))
+   				                   ;; Regexp.
+   				                   (when (string-match (caar archive-group) real-group)
+   				                     (cdar archive-group)))
+   				                  ((and real-group
+   				                        (functionp (car archive-group)))
+   				                   ;; Function.
+   				                   (funcall (car archive-group) real-group))
+   				                  (t
+   				                   (eval (car archive-group) t))))))
+   	            (setq archive-group (cdr archive-group)))
+   	          result)))
+              name)
+         (when groups
+           (make-local-variable 'gnus-refer-thread-use-search)
+           (when (stringp groups)
+             (setq groups (list groups)))
+           (while (setq name (pop groups))
+             (let* ((group-prefixed-name (if (string-search ":" name)
+                                             name
+                                           (gnus-group-prefixed-name name
+                                                                     gnus-message-archive-method)))
+                    (group-method (gnus-info-method (gnus-get-info group-prefixed-name))))
+               (cl-pushnew (list group-method group-prefixed-name) gnus-refer-thread-use-search :test #'equal))))))
+
 
 
      (setopt gnus-fetch-old-headers 'some)
