@@ -6419,6 +6419,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; Belongs to gnus-start
      (setopt gnus-read-newsrc-file nil)
      (setopt gnus-select-method '(nnnil ""))
+     (setopt gnus-refer-article-method
+             '(current
+               (nnregistry)
+               (nnweb "google"
+                      (nnweb-type google))))
      ;; (setopt gnus-secondary-select-methods '((nntp "Gmane"
      ;;                                             (nntp-address "news.gmane.io"))))
 
@@ -6826,6 +6831,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
              ;; gnus-no-mark 9723;; ◻
              gnus-not-empty-thread-mark 11015;; ⬇ , maybe 🔽 instead?
              ))
+
+   (use-package gnus-registry
+     :config
+     (setopt gnus-registry-max-entries 5000)
+     (setopt gnus-registry-ignored-grous '(("nntp" t)
+                                           ("nnrss" t)
+                                           ("spam" t)))
+     (setopt gnus-registry-track-extra '(sender subject))
+     (gnus-registry-initialize))
 
    (use-package gnus-ml
      :hook (((gnus-summary-mode . turn-on-gnus-mailing-list-mode))))
