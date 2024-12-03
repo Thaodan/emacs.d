@@ -1347,14 +1347,6 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       :commands (helm-ag helm-ag-this-file helm-do-ag helm-do-ag-this-file helm-do-ag-project-root))
     #+end_src
 
-*** Helm-descbinds
-    #+begin_src emacs-lisp
-    (use-package helm-descbinds
-      :disabled t
-      :after helm
-      :bind (("C-h b" . helm-descbinds)))
-    #+end_src
-
 *** Helm-Projectile
     #+begin_src emacs-lisp
     (use-package helm-projectile
