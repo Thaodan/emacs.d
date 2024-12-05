@@ -1290,7 +1290,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
               ("C-h C-l" . helm-locate_library)
               ("C-x r b" . helm-filtered-bookmarks)  ; Use helm bookmarks
               ("C-c f r" . helm-recentf)
-              ("C-c j"   . helm-imenu)
+              ;; Override standard imenu
+              ;; Similar to standard imenu plus flimenu-mode
+              ("M-g i"   . helm-imenu)
               ("C-c C-r" . helm-resume)
               ("C-c h"   . helm-command-prefix)
               :map helm-map
@@ -1314,7 +1316,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
             helm-recentf-fuzzy-match    t)
       (setopt helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
       (setopt helm-semantic-fuzzy-match t
-            helm-imenu-fuzzy-match    t)
+            helm-imenu-fuzzy-match    t
+            ;; Just use a plain "/" as delimer and not " / "
+            helm-imenu-imenu-delimiter "/")
       (setopt helm-apropos-fuzzy-match t)
       (setopt helm-lisp-fuzzy-completion t)
       (setopt helm-autoresize-max-height 0)
