@@ -3880,7 +3880,9 @@ Smart region guesses what you want to select by one command:
             (pdf-view-mode . pdf-misc-context-menu-minor-mode)))
 
    (use-package pdf-outline
-     :hook (pdf-view-mode . pdf-outline-minor-mode))
+     :hook (pdf-view-mode . pdf-outline-minor-mode)
+     :config
+     (setopt pdf-outline-imenu-use-flat-menus t))
 
    (use-package pdf-annot
      :hook (pdf-view-mode . pdf-annot-minor-mode))
