@@ -2713,24 +2713,55 @@ Smart region guesses what you want to select by one command:
 	    ("M-Z" . zop-to-char)))
    #+end_src
 
-** Hideshow: Cycle outline and code visibility
-   #+begin_src emacs-lisp
-   ;; Minor mode to selectively hide/show code and comment blocks
-   (use-package hideshow
-     :hook (prog-mode  . hs-minor-mode)
-     :bind (:map hs-minor-mode-map
-		 ([C-tab] . hs-toggle-hiding)))
+** Outline-mode and related
+   :PROPERTIES:
+   :CREATED:  [2024-12-05 Thu 22:53]
+   :END:
 
-   (use-package outline
-     :hook ((prog-mode message-mode markdown-mode) . outline-minor-mode))
+*** Outline-Mode: a for editing in outline-format
+    :PROPERTIES:
+    :CREATED:  [2024-12-05 Thu 22:54]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package outline
+      :hook ((prog-mode message-mode markdown-mode) . outline-minor-mode)
+      :config
+      (setopt outline-minor-mode-cycle t)
+      (setopt outline-minor-mode-highlight nil))
+    #+end_src
 
-   (use-package bicycle
-     :disabled t
-     :after outline
-     :bind (:map outline-minor-mode-map
-		 ([C-tab] . bicycle-cycle)
-		 ([backtab] . bicycle-cycle-global)))
-   #+end_src
+*** Bicycle: Cycle outline and code visibility
+    :PROPERTIES:
+    :CREATED:  [2024-12-05 Thu 22:00]
+    :END:
+    #+begin_src emacs-lisp
+    ;; Minor mode to selectively hide/show code and comment blocks
+    (use-package bicycle
+      :after outline
+      :bind (:map outline-minor-mode-map
+                  ([C-tab] . bicycle-cycle)
+                  ([S-tab] . bicycle-cycle-global)))
+    #+END_src
+
+*** Outline-Minor-Faces: Highlight only section headings
+    :PROPERTIES:
+    :CREATED:  [2024-12-05 Thu 22:00]
+    :END:
+    #+BEGIN_src emacs-lisp 
+    (use-package outline-minor-faces
+      :after outline
+      :hook (outline-minor-mode . outline-minor-faces-mode))
+    #+end_src
+
+*** Backline: Preserve appearance of collapsed outline headings until right window edge 
+    :PROPERTIES:
+    :CREATED:  [2024-12-05 Thu 22:00]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package backline
+      :after outline
+      :config (advice-add 'outline-flag-region :after 'backline-update))
+    #+end_src
 
 ** edit-indirect: Edit a region in a separate buffer
    #+begin_src emacs-lisp

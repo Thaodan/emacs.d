@@ -56,6 +56,9 @@
 [submodule "back-button"]
 	path = lib/back-button
 	url = git@github.com:rolandwalker/back-button.git
+[submodule "backline"]
+	path = lib/backline
+	url = https://github.com/tarsius/backline
 [submodule "bbdb"]
 	path = lib/bbdb
 	build-step = make -C lisp -f makefile-temp
@@ -610,6 +613,9 @@
 [submodule "orgit-forge"]
 	path = lib/orgit-forge
 	url = git@github.com:magit/orgit-forge.git
+[submodule "outline-minor-faces"]
+	path = lib/outline-minor-faces
+	url = https://github.com/tarsius/outline-minor-faces
 [submodule "outorg"]
 	path = lib/outorg
 	url = git@github.com:alphapapa/outorg.git
@@ -644,6 +650,10 @@
 [submodule "pfuture"]
 	path = lib/pfuture
 	url = git@github.com:Alexander-Miller/pfuture.git
+[submodule "piem"]
+	path = lib/piem
+	no-bytecompile = piem-notmuch.el
+	url = https://git.kyleam.com/piem
 [submodule "piper"]
 	path = lib/piper
 	url = https://gitlab.com/howardabrams/emacs-piper.git
