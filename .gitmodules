@@ -309,6 +309,9 @@
 [submodule "flim"]
 	path = lib/flim
 	url = git@github.com:wanderlust/flim.git
+[submodule "flimenu"]
+	path = lib/flimenu
+	url = https://github.com/IvanMalison/flimenu
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
@@ -429,6 +432,10 @@
 [submodule "iedit"]
 	path = lib/iedit
 	url = git@github.com:victorhge/iedit.git
+[submodule "imenu-list"]
+	path = lib/imenu-list
+	remote = "Thadoan git@github.com:thaodan/imenu-list.git"
+	url = git@github.com:bmag/imenu-list
 [submodule "info+"]
 	path = lib/info+
 	url = git@github.com:emacsmirror/info-plus.git

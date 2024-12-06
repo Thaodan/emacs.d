@@ -2477,6 +2477,18 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
              '(display-buffer-below-selected)))
    #+end_src
 
+** Imenu-List
+   :PROPERTIES:
+   :CREATED:  [2024-12-06 Fri 02:33]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package imenu-list
+     :after imenu
+     :config
+     :bind
+     ("C-," . imenu-list))
+   #+end_src
+
 * Editor
 
 ** Move-Text
