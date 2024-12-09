@@ -4818,6 +4818,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; Show inline images by default
       (setopt org-startup-with-inline-images t)
 
+      ;; Display remotes images
+      (setopt org-display-remote-inline-images 'cache)
+
       ;; Add more levels to headlines that get displayed with imenu
       (setopt org-imenu-depth 5)
 
