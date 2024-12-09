@@ -2482,8 +2482,11 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :config
      ;; Display transient buffer below current window
      ;; and not bottom of the complete frame (minibuffer like)
-     (setopt transient-display-buffer-action
-             '(display-buffer-below-selected)))
+     ;; Keep stock setting to avoid:
+     ;; https://github.com/magit/transient/issues/338
+     ;; (setopt transient-display-buffer-action
+     ;;        '(display-buffer-below-selected))
+     )
    #+end_src
 
 ** Imenu-List
