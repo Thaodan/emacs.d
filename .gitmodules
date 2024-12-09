@@ -602,6 +602,10 @@
 [submodule "org-ql"]
 	path = lib/org-ql
 	url = https://github.com/alphapapa/org-ql
+[submodule "org-remoteimg"]
+	path = lib/org-remoteimg
+	remote = "Thaodan git@github.com:thaodan/org-remoteimg.git"
+	url = git@github.com:gaoDean/org-remoteimg.git
 [submodule "org-sidebar"]
 	path = lib/org-sidebar
 	url = https://github.com/alphapapa/org-sidebar
