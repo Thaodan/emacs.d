@@ -158,6 +158,14 @@
     (setopt autocrypt-accounts)
     #+end_src
 
+#+begin_src emacs-lisp :noweb-ref piem_private
+(setopt piem-inboxes '(("gdb"
+                        :url "https://inbox.sourceware.org/gdb/"
+                        :address "gdb@sourceware.org"
+                        :listid "<gdb.sourceware.org>"
+                        ;; :coderepo
+                        )))
+#+end_src
 ** Elfeed
    :PROPERTIES:
    :CREATED:  [2024-07-20 Sat 22:29]

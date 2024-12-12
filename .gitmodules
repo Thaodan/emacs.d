@@ -663,7 +663,8 @@
 	url = git@github.com:Alexander-Miller/pfuture.git
 [submodule "piem"]
 	path = lib/piem
-	no-bytecompile = piem-notmuch.el
+	no-byte-compile = piem-notmuch.el
+	info-path = Documentation
 	url = https://git.kyleam.com/piem
 [submodule "piper"]
 	path = lib/piper

@@ -101,6 +101,7 @@
       - gnus_private
       - gnus_alias_private
       - autocrypt_private
+      - piem_private
   - * Elfeed
     - elfeed_protocol_private
   - * Project-Management
@@ -7042,6 +7043,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; "x"  - May contain hardcore sexual imagery or extremely
      ;;        disturbing violence.
      (setopt gravatar-rating "x"))
+
+   (use-package piem
+     :config
+     <<piem_private>>)
    #+end_src
 
 ** Khardel
