@@ -6917,6 +6917,27 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      (setopt gnus-permanently-visible-groups "INBOX")
 
+     (defvar thao/gnus-group-get-new-news-group-level 4
+       "The level of which groups should be checked during `gnus-group-get-new-news'
+   The purpose of this level is to have groups which are only fetched on demand.
+   However the groups above this level should be still visible unless hidden
+   on purpose.")
+
+     (defun thao/gnus-group-get-new-news(&optional args)
+       "Like `gnus-group-get-new-news' but with default value for ARG.
+   `thao/gnus-group-get-new-news-group-level'"
+       (let ((level (pop args)))
+         (list (or level
+                   thao/gnus-group-get-new-news-group-level) args)))
+     (advice-add 'gnus-group-get-new-news :filter-args #'thao/gnus-group-get-new-news)
+
+     (defun thao/gnus-group-get-new-news-no-group-level (&optional args)
+       "Make `gnus-group-get-new-news' not do '`gnus-group-list-level'"
+       (if (not (or (equal last-command 'gnus-group-get-new-news)
+                    (equal this-command 'gnus-group-get-new-news)))
+           t))
+     (advice-add 'gnus-group-list-groups :before-while #'thao/gnus-group-get-new-news-no-group-level)
+
      ;; {{ press "o" to view all groups
      (defun thao/gnus-group-list-subscribed-groups()
        "List all subscribed groups with or without un-read messages"
