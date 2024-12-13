@@ -6931,7 +6931,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                    thao/gnus-group-get-new-news-group-level) args)))
      (advice-add 'gnus-group-get-new-news :filter-args #'thao/gnus-group-get-new-news)
 
-     (defun thao/gnus-group-get-new-news-no-group-level (&optional args)
+     (defun thao/gnus-group-get-new-news-no-group-level (&optional LEVEL UNREAD LOWEST UPDATE-LEVEL)
        "Make `gnus-group-get-new-news' not do '`gnus-group-list-level'"
        (if (not (or (equal last-command 'gnus-group-get-new-news)
                     (equal this-command 'gnus-group-get-new-news)))
