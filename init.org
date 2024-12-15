@@ -2776,7 +2776,9 @@ Smart region guesses what you want to select by one command:
     :END:
     #+BEGIN_src emacs-lisp 
     (use-package outline-minor-faces
-      :after outline
+      ;; I don't know why it breaks non lisp modes but disabling
+      ;; is the best fix at the moment.
+      :disabled t
       :hook (outline-minor-mode . outline-minor-faces-mode))
     #+end_src
 
