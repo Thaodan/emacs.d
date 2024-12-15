@@ -2531,7 +2531,6 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    Installing editorconfig-core-c is not a hard requirement but recommended.
    #+begin_src emacs-lisp
    (use-package editorconfig
-     :ensure t
      :config
      (editorconfig-mode 1))
    #+end_src
