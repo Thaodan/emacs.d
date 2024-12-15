@@ -4327,8 +4327,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Meson-mode
    #+begin_src emacs-lisp
    (use-package meson-mode
-     :config
-     (add-hook 'meson-mode-hook 'company-mode))
+     :hook (meson-mode . company-mode))
    #+end_src
 
 ** LSP: Language Server Protocol
