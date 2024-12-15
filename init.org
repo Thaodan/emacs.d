@@ -621,6 +621,7 @@
    #+begin_src emacs-lisp
    (use-package desktop
      :demand t
+     :if (daemonp)
      :init
      (require 'no-littering)
      ;; Automatically save and restore sessions
