@@ -7093,20 +7093,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Emms
    #+begin_src  emacs-lisp
    (use-package emms
-     :bind (("s-h p" . emms-playlist-mode-go)
-            ("s-h b" . emms-browser))
-     :hook ((emms-playlist . hl-line-mode)
-            (emms-browser . hl-line-mode)
-            (emms-browser-filter-changed . emms-browser-toggle-album-display)
-            (emms-player-started . emms-last-played-update-current))
+     :hook ((emms-player-started . emms-last-played-update-current))
      :config
      (require 'xdg)
+     ;; FIXME
+     ;; These explicit requires shouldn't be required.
      (require 'emms-source-file)
      (require 'emms-source-playlist)
      (require 'emms-info)
      (require 'emms-info-libtag)
      (require 'emms-info-native)
-     (require 'emms-playlist-mode)
      ;; (require 'emms-info-mp3info)
      ;; (require 'emms-info-ogginfo)
      ;; (require 'emms-info-opusinfo)
@@ -7116,7 +7112,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (require 'emms-info-libtag)
      (require 'emms-info-native)
      (require 'emms-cache)
-     (require 'emms-mode-line)
      (require 'emms-mark)
      (require 'emms-tag-editor)
      (require 'emms-tag-tracktag)
@@ -7124,25 +7119,23 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (require 'emms-streams)
      (require 'emms-lyrics)
      (require 'emms-playing-time)
-     (require 'emms-player-mpd)
+     ;;(require 'emms-player-mpd)
      (require 'emms-playlist-sort)
-     (require 'emms-browser)
-     (require 'emms-mode-line-icon)
      (require 'emms-cue)
      (require 'emms-bookmarks)
      (require 'emms-last-played)
      (require 'emms-metaplaylist-mode)
      (require 'emms-stream-info)
      (require 'emms-score)
-     (require 'emms-history)
      (require 'emms-i18n)
      (require 'emms-volume)
+     ;; FIXME END
 
      ;; https://www.reddit.com/r/emacs/comments/qg2d0k/comment/hi47dh5/?context=3
      (defun thao/emms-track-description (track)
        "Return a description of TRACK, for EMMS, but try to cut just
-   the track name from the file name, and just use the file name too
-   rather than the whole path."
+      the track name from the file name, and just use the file name too
+      rather than the whole path."
        (let ((artist (emms-track-get track 'info-artist))
              (title (emms-track-get track 'info-title))
              (tracknumber (emms-track-get track 'info-tracknumber))
@@ -7162,29 +7155,43 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                (t (emms-track-simple-description track)))))
 
 
-     (setopt emms-playlist-default-major-mode #'emms-playlist-mode)
      (add-to-list 'emms-track-initialize-functions #'emms-info-initialize-track)
      (setopt emms-player-list '(emms-player-mpd))
      (setopt emms-info-functions '(emms-info-mpd
-                                 emms-info-native
-                                 emms-info-cueinfo
-                                 emms-info-libtag))
+                                   emms-info-native
+                                   emms-info-cueinfo
+                                   emms-info-libtag))
      (setopt emms-score-enabled-p t)
      (setopt emms-source-file-default-directory (xdg-user-dir "MUSIC"))
      (setopt emmms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
      (setopt emms-info-libtag-program-name (concat user-emacs-directory
-                                                 "lib/emms/src/emms-print-metadata"))
-     (setopt emms-browser-covers #'emms-browser-cache-thumbnail-async)
+                                                   "lib/emms/src/emms-print-metadata"))
 
      (setopt emms-track-description-function 'thao/emms-track-description)
-     (setopt emms-playlist-insert-track-function #'emms-playlist-mode-insert-track)
 
      (setopt emms-info-libtag-known-extensions
-           (regexp-opt '("mp3" "mp4" "m4a" "ogg" "flac" "spx" "wma" "aif")))
+             (regexp-opt '("mp3" "mp4" "m4a" "ogg" "flac" "spx" "wma" "aif")))
 
      (emms-cache 1)
      (emms-score 1)
 
+     (defun track-title-from-file-name (file)
+       "For using with EMMS description functions. Extracts the track
+      title from the file name FILE, which just means a) taking only
+      the file component at the end of the path, and b) removing any
+      file extension."
+       (with-temp-buffer
+         (save-excursion (insert (file-name-nondirectory (directory-file-name file))))
+         (ignore-error search-failed
+           (search-forward-regexp (rx "." (+ alnum) eol))
+           (delete-region (match-beginning 0) (match-end 0)))
+         (buffer-string))))
+
+   (use-package emms-browser
+     :bind (("s-h b" . emms-browser))
+     :hook ((emms-browser . hl-line-mode)
+            (emms-browser-filter-changed . emms-browser-toggle-album-display))
+     :config
      ;; Source mpd manual section 17.4
      ;; https://www.gnu.org/software/emms/manual/#Changing-Looks
      ;; The following code displays artist->track instead of artist->album->track
@@ -7199,22 +7206,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
            (advice-add 'emms-browser-next-mapping-type :filter-return #'emms-browser-next-mapping-type-articles-noalbum)
          (advice-remove 'emms-browser-next-mapping-type #'emms-browser-next-mapping-type-articles-noalbum)))
 
-     (defun track-title-from-file-name (file)
-       "For using with EMMS description functions. Extracts the track
-   title from the file name FILE, which just means a) taking only
-   the file component at the end of the path, and b) removing any
-   file extension."
-       (with-temp-buffer
-         (save-excursion (insert (file-name-nondirectory (directory-file-name file))))
-         (ignore-error search-failed
-           (search-forward-regexp (rx "." (+ alnum) eol))
-           (delete-region (match-beginning 0) (match-end 0)))
-         (buffer-string))))
+     (setopt emms-browser-covers #'emms-browser-cache-thumbnail-async))
 
    (use-package emms-history
-     :after emms-mpd
-     :config
-     (emms-history-load))
+     :config (emms-history-load))
 
    ;; (use-package emms-player-mpv
    ;;   :after (:any emms dired)
@@ -7230,13 +7225,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :config
      (emms-playing-time-mode 1))
 
+   (use-package emms-playlist-mode
+     :bind (("s-h p" . emms-playlist-mode-go))
+     :config
+     (setopt emms-playlist-insert-track-function #'emms-playlist-mode-insert-track))
+
    (use-package emms-player-mpd
-     :after emms
-     :after emms-cache
      :config
      (require 'xdg)
      (setopt emms-player-mpd-server-name (concat (xdg-runtime-dir)
-                                               "/mpd/socket"))
+                                                 "/mpd/socket"))
      (setopt emms-player-mpd-server-port nil)
      (setopt emms-player-mpd-music-directory (xdg-user-dir "MUSIC"))
      (emms-player-mpd-connect)
@@ -7244,12 +7242,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (emms-cache-set-from-mpd-all))
 
    (use-package helm-emms
-     :after emms
      :bind ("s-h h" . helm-emms)
      :config
      (setopt helm-emms-default-sources '(helm-source-emms-dired
-                                       helm-source-emms-files
-                                       helm-source-emms-streams)))
+                                         helm-source-emms-files
+                                         helm-source-emms-streams)))
 
    ;; (use-package emms-dbus
    ;;   :config
