@@ -4581,6 +4581,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    #+begin_src emacs-lisp
    (use-package anaconda-mode
      :after company
+     :after python
      :hook
      (((python-mode python-ts-mode) . anaconda-mode)
       ((python-mode python-ts-mode) . anaconda-eldoc-mode))
