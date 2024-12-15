@@ -4593,12 +4593,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    #+begin_src emacs-lisp
    (use-package sh-script
      :mode "\\.\\(\\(ba\\)sh|\\zsh\\)\\'"
+     :hook (sh-script-mode . thao/sh-script-inc-file-shell-rpm)
      :config
-     (add-hook 'sh-mode-hook
-               (lambda ()
-    	          (if (not (eq nil buffer-file-name))
-    	              (if (string-match "\\.inc$" buffer-file-name)
-    		              (sh-set-shell "rpm"))))))
+     (defun thao/sh-script-inc-file-shell-rpm()
+       "Set shell to rpm if `shell-script-mode' is enabled for an inc file"
+       (if (not (eq nil buffer-file-name))
+    	    (if (string-match "\\.inc$" buffer-file-name)
+    		    (sh-set-shell "rpm" nil t)))))
    #+end_src
 
 ** Lua
