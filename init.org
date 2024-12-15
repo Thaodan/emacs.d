@@ -7196,7 +7196,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; https://www.gnu.org/software/emms/manual/#Changing-Looks
      ;; The following code displays artist->track instead of artist->album->track
      ;; when you switch to the ’singles’ filter:
-     (define-advice emms-browser-next-mapping-type (:filter-return (returned-mapping) emms-browser-next-mapping-type-articles-noalbum)
+     (defun emms-browser-next-mapping-type-articles-noalbum (returned-mapping)
        (when (eq returned-mapping 'info-album)
          (setq returned-mapping 'info-title))
        returned-mapping)
