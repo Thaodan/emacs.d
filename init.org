@@ -7097,7 +7097,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             (emms-browser . hl-line-mode)
             (emms-browser-filter-changed . emms-browser-toggle-album-display)
             (emms-player-started . emms-last-played-update-current))
-     :demand t
      :config
      (require 'xdg)
      (require 'emms-source-file)
