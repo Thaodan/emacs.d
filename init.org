@@ -4659,9 +4659,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Elixir
    #+begin_src emacs-lisp
    (use-package elixir-mode
-     :mode "\\.\\(ex\\([s]\\)\\|elixir\\)\\'"
-     :defer t)
+     :mode "\\.\\(ex\\([s]\\)\\|elixir\\)\\'")
    #+end_src
+
 ** PlantUML
    :PROPERTIES:
    :CREATED:  [2024-02-21 Wed 19:01]
