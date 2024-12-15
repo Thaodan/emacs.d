@@ -673,13 +673,11 @@
 
 ** Printing
    #+begin_src emacs-lisp
-   (use-package printing)
-   #+end_src
-
-   Make sure we use localhost as cups server
-   #+begin_src emacs-lisp
-   (setenv "CUPS_SERVER" "localhost")
-   (pr-update-menus t)
+   (use-package printing
+     :config
+     ;; Make sure we use localhost as cups server
+     (setenv "CUPS_SERVER" "localhost")
+     (pr-update-menus t))
    #+end_src
 
 ** View
