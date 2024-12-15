@@ -3665,36 +3665,47 @@ Smart region guesses what you want to select by one command:
      (setopt tramp-default-method "ssh")
 
      ;; Only for debugging slow tramp connections
-     ;;(setopt tramp-verbose 7)
+     ;; (setopt tramp-verbose 3)
 
      ;; Skip version control for tramp files
      (setopt vc-ignore-dir-regexp
-           (format "\\(%s\\)\\|\\(%s\\)"
-                   vc-ignore-dir-regexp
-                   tramp-file-name-regexp))
+             (format "\\(%s\\)\\|\\(%s\\)"
+                     vc-ignore-dir-regexp
+                     tramp-file-name-regexp))
 
      ;; Use ControlPath from .ssh/config
      ;;(setopt tramp-ssh-controlmaster-options nil)
 
      ;; Add tramp method for yadm
-     (add-to-list 'tramp-methods
-                  '("yadm"
-                    (tramp-login-program "yadm")
-                    (tramp-login-args (("enter")))
-                    (tramp-login-env (("SHELL") ("/bin/sh")))
-                    (tramp-remote-shell "/bin/sh")
-                    (tramp-remote-shell-args ("-c"))))
+     (add-to-list  'tramp-methods
+                   '("yadm"
+                     (tramp-login-program "yadm")
+                     (tramp-login-args (;; This is hack to pass the tramp-compute-multi-hops check member %h
+                                        ;; doesn't pass if %h is inside a string next to other characters
+                                        ;; The %% is escape the % character
+                                        ("--yadm-dir" "$(printf \'%%s%%s%%s\\n\'" "~/.local/" "%h" "/etc/yadm)")
+                                        ("--yadm-data" "~/.local/%h/share/yadm")
+                                        ("--yadm-repo" "~/.local/%h/share/yadm/repo.git")
+                                        ("enter")))
+                     (tramp-login-env (("SHELL") ("/bin/sh")))
+                     (tramp-remote-shell "/bin/sh")
+                     (tramp-remote-shell-args ("-c"))))
+     ;; Make it possible to default with empty %h
+     (add-to-list 'tramp-default-host-alist '("yadm" nil ""))
+     (add-to-list 'tramp-completion-multi-hop-methods "yadm")
 
      ;; Setup directory class for yadm tramp method so we don't so down magit with all the untracked and ignore files
      (dir-locals-set-class-variables 'magit-yadm
                                      '((magit-status-mode .
                                                           ((magit-disabled-section-inserters . (magit-insert-untracked-files
                                                                                                 magit-insert-ignored-files))))))
+     (dir-locals-set-directory-class "/yadm:private:" 'magit-yadm)
      (dir-locals-set-directory-class "/yadm::" 'magit-yadm)
      ;; Add /yadm:: to directories that are always considered as safe ([[help:safe-local-variable-directories]])
      (setq safe-local-variable-directories (cl-union
                                             safe-local-variable-directories
-                                            '("/yadm::")))
+                                            '("/yadm::"
+                                              "/yadm:private:")))
 
      ;; Backup tramp files like local files and don't litter the remote
      ;; file system with my emacs backup files
@@ -4154,10 +4165,10 @@ Smart region guesses what you want to select by one command:
 
 
      ;; Small helper to launch Magit with yadm
-     (defun yadm-magit-status ()
-       (interactive)
-       "Like `magit-status' but for `(man)yadm 1'"
-       (magit-status-setup-buffer "/yadm::"))
+     (defun yadm-magit-status (&optional profile)
+       "Like `magit-status', with PROFILE or default, but for `(man)yadm 1'. "
+       (interactive "sProfile: ")
+       (magit-status-setup-buffer (format "/yadm:%s:" profile)))
 
      ;; Sh ow magit status in the same window
      (setopt magit-display-buffer-function #'display-buffer-window-dedicated))
