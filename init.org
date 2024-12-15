@@ -4592,6 +4592,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Shell-Script
    #+begin_src emacs-lisp
    (use-package sh-script
+     :mode "\\.\\(\\(ba\\)sh|\\zsh\\)\\'"
      :config
      (add-hook 'sh-mode-hook
                (lambda ()
