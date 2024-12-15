@@ -7629,12 +7629,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                     (:add-default . t)))))
 
    (use-package elfeed-score
+     :after elfeed
      :config
      (progn
        (elfeed-score-enable)
        (define-key elfeed-search-mode-map "=" elfeed-score-map)))
 
    (use-package elfeed-autotag
+     :after elfeed
      :config
      (defun elfeed-update-call-autotag()
        "Load all feed settings before elfeed is started."
