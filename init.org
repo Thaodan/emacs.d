@@ -6937,13 +6937,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    However the groups above this level should be still visible unless hidden
    on purpose.")
 
-     (defun thao/gnus-group-get-new-news(&optional args)
+     (defun thao/gnus-group-get-new-news(fun &rest args)
        "Like `gnus-group-get-new-news' but with default value for ARG.
    `thao/gnus-group-get-new-news-group-level'"
-       (let ((level (pop args)))
-         (list (or level
-                   thao/gnus-group-get-new-news-group-level) args)))
-     (advice-add 'gnus-group-get-new-news :filter-args #'thao/gnus-group-get-new-news)
+       (let* ((level (pop args))
+              (gnus-group-use-permanent-levels)
+              (new-args (list (or level
+                                  thao/gnus-group-get-new-news-group-level) args)))
+         (apply fun new-args)))
+     (advice-add 'gnus-group-get-new-news :around #'thao/gnus-group-get-new-news)
 
      (defun thao/gnus-group-get-new-news-no-group-level (&optional LEVEL UNREAD LOWEST UPDATE-LEVEL)
        "Make `gnus-group-get-new-news' not do '`gnus-group-list-level'"
