@@ -6944,7 +6944,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               (gnus-group-use-permanent-levels)
               (new-args (list (or level
                                   thao/gnus-group-get-new-news-group-level) args)))
-         (apply fun new-args)))
+         (apply fun new-args)
+         (gnus-group-list-groups (gnus-group-default-level level nil))))
      (advice-add 'gnus-group-get-new-news :around #'thao/gnus-group-get-new-news)
 
      (defun thao/gnus-group-get-new-news-no-group-level (&optional LEVEL UNREAD LOWEST UPDATE-LEVEL)
