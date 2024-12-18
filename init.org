@@ -3123,6 +3123,9 @@ Smart region guesses what you want to select by one command:
      ;; Call magit instead of the default projectile-find-file
      (setopt projectile-switch-project-action 'projectile-vc)
 
+     ;; Use git-grep for git projects
+     (setopt projectile-use-git-grep t)
+
      (projectile-mode))
    #+end_src
 
