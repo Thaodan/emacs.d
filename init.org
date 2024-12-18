@@ -289,6 +289,19 @@
       (setopt native-comp-compiler-options '("-flto" "-O2")))
     #+end_src
 
+*** Auto-compile
+    :PROPERTIES:
+    :CREATED:  [2024-11-04 Mon 11:26]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package auto-compile
+      :config
+      (setopt auto-compile-display-buffer nil
+              auto-compile-source-recreate-deletes-dest t
+              auto-compile-mode-line-counter t
+              auto-compile-toggle-deletes-nonlib-dest t))
+    #+end_src
+
 *** Epkg
     #+begin_src emacs-lisp
     (use-package epkg
