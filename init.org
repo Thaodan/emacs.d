@@ -3062,8 +3062,12 @@ Smart region guesses what you want to select by one command:
      (setq-default projectile-mode-line-prefix "")
      :config
      (require 'projectile)
-     (add-to-list 'projectile-other-file-alist '("py" "sql" "py"))
-     (add-to-list 'projectile-other-file-alist '("sql" "py"))
+     (setopt projectile-other-file-alist
+             (cl-union projectile-other-file-alist
+                       '(("py" "sql" "py")
+                         ("sql" "py")
+                         ;; rpm spec <-> rpm changes file
+                         ("spec" "changes"))))
 
      ;; Register a java project type that uses gradle and has src and test dirs set
      (projectile-register-project-type 'java '("gradlew")
