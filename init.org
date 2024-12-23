@@ -7439,12 +7439,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt elfeed-show-entry-retrieve-content-link
              '("yle.fi"
                "helsinkitimes.fi"
+               ;; Images won't load without JavaScript :/
+               ;; Text works fine though
+               "wowhead.com"
                180))
      (setopt elfeed-show-entry-retrieve-content-link-readability
              '("yle.fi"
                ;; Some of these fail sometimes
                ;; eww-readability might remove the page content breaking the dispaly
-               "helsinkitimes.fi"))
+               "helsinkitimes.fi"
+               "wowhead.com"))
      (cl-defun elfeed-search-youtube-dl (&key slow)
        "Download the current entry with youtube-dl."
        (interactive)
