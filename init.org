@@ -6785,6 +6785,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt gnus-simplify-subject-functions '(gnus-simplify-subject-re ;; Strip the leading ‘Re:’.
                                                ))
 
+     ;; Keep old summary around after leaving in case I go back
+     ;; for example after building a thread using refer thread
+     (setopt gnus-kill-summary-on-exit nil)
+
      ;; Summary formatting
 
      (setopt gnus-treat-buttonize t               ; Add buttons
