@@ -6746,8 +6746,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                (cl-pushnew (list group-method group-prefixed-name) gnus-refer-thread-use-search :test #'equal))))))
 
 
+     ;; Non-nil means that Gnus will try build threads by grabbing old headers
+     ;; (info "(gnus) Filling In Threads")
+     (setopt gnus-fetch-old-headers t)
 
-     (setopt gnus-fetch-old-headers 'some)
+     ;; If non-nil, fill in the gaps in threads.
+     (setopt gnus-build-sparse-threads 'more)
 
      ;; Threads and article sorting
      (define-key gnus-summary-mode-map "-" 'gnus-summary-hide-thread)
