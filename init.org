@@ -6751,7 +6751,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt gnus-fetch-old-headers t)
 
      ;; If non-nil, fill in the gaps in threads.
-     (setopt gnus-build-sparse-threads 'more)
+     (setopt gnus-build-sparse-threads t)
 
      ;; Threads and article sorting
      (define-key gnus-summary-mode-map "-" 'gnus-summary-hide-thread)
@@ -6938,6 +6938,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                            ("nnrss" t)
                                            ("spam" t)))
      (setopt gnus-registry-track-extra '(sender subject))
+     (setopt gnus-registry-register-all t)
      (gnus-registry-initialize))
 
    (use-package gnus-ml
