@@ -6748,7 +6748,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
            ;; We have to add the curent group explicitly here see (Emacs Bug #75305):
            ;; https://mail.gnu.org/archive/html/bug-gnu-emacs/2025-01/msg00420.html
            ;; FIXME: use 'currrent when patch is merged.
-           (cl-pushnew (list (gnus-info-method (gnus-get-info group) group)) :test #'equal))))
+           (cl-pushnew (list (gnus-info-method (gnus-get-info group)) group) gnus-refer-thread-use-search
+                       :test #'equal))))
 
 
      ;; Non-nil means that Gnus will try build threads by grabbing old headers
