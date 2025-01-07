@@ -4773,6 +4773,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    #+end_src
 
 ** Org Packages
+   I know org-mode is not just it's markup syntax but also everything else.
 
 *** Org
     #+begin_src emacs-lisp
