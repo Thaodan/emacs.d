@@ -6275,8 +6275,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
             (plist-get plist k))
           keys)))
       (defun circe-pass-get (host user &optional network)
-        "fooobar
-    \fn(fn host user &optional network)"
+        "Retrieve secrets for USER on HOST optionally for NETWORK."
         (auth-source-forget (list :host host :user user :max 1))
         (when network
       (setopt user (circe--ident user network)))
