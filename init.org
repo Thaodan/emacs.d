@@ -104,6 +104,7 @@
       - piem_private
   - * Elfeed
     - elfeed_protocol_private
+    - elfeed_tube_private
   - * Project-Management
     - * Bug-Trackers
       - * Bug-Mode
@@ -7515,6 +7516,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :config
      ;; (setopt elfeed-tube-auto-save-p nil) ; default value
      ;; (setopt elfeed-tube-auto-fetch-p t)  ; default value
+
+     <<elfeed_tube_private>>
+
      (elfeed-tube-setup)
 
      :bind (:map elfeed-show-mode-map

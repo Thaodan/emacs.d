@@ -176,6 +176,16 @@
                            )))
    #+end_src
 
+   The invidious server available through the server list API don't work or don't provide API access
+   the server discover url should take care of this and some servers advertise the wrong
+   capabilities
+   I recommended setting a specific server here.
+
+   #+begin_src emacs-lisp :noweb-ref elfeed_tube_private
+   ;; (setopt elfeed-tube-invidious-url "")
+
+   #+end_src
+
 ** Project Management
    :PROPERTIES:
    :CREATED:  [2024-08-20 Tue 14:17]
