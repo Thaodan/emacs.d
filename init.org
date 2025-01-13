@@ -4202,6 +4202,8 @@ Smart region guesses what you want to select by one command:
      (magit-wip-mode))
 
    (use-package magit-libgit)
+
+   (use-package magit-patch-changelog)
    #+end_src
 ** Forge
 

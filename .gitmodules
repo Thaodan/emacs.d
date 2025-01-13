@@ -498,6 +498,10 @@
 	load-path = lisp
 	remote = "Thaodan git@github.com:thaodan/magit.git"
 	url = git@github.com:magit/magit.git
+[submodule "magit-patch-changelog"]
+	path = lib/magit-patch-changelog
+	remote = "Thaodan git@github.com:thaodan/magit-patch-changelog.git"
+	url = git@github.com:dickmao/magit-patch-changelog.git
 [submodule "magit-popup"]
 	path = lib/magit-popup
 	url = git@github.com:magit/magit-popup.git
