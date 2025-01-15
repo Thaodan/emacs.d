@@ -239,6 +239,7 @@
 	url = git@github.com:SqrtMinusOne/elfeed-summary.git
 [submodule "elfeed-tube"]
 	path = lib/elfeed-tube
+	remote = "Thaodan git@github.com:thaodan/elfeed-tube.git"
 	url = git@github.com:karthink/elfeed-tube.git
 [submodule "elixir-mode"]
 	path = lib/elixir-mode
