@@ -6642,6 +6642,35 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      ;;  (setopt gnus-show-mime t)
 
+     (setopt gnus-treat-buttonize t               ; Add buttons
+             gnus-treat-buttonize-head 'head      ; Add buttons to the head
+             gnus-treat-emphasize t               ; Emphasize text
+             gnus-treat-fill-article nil          ; Fill the article
+             gnus-treat-strip-cr 'last            ; Remove carriage returns
+             gnus-treat-hide-headers 'head        ; Hide headers
+             gnus-treat-hide-boring-headers t ; -Hide boring headers
+             gnus-treat-hide-signature nil        ; Hide the signature
+             gnus-treat-hide-citation nil         ; Hide cited text
+             ;; Deprecated.
+             ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
+             gnus-treat-strip-pem 'last           ; Strip PEM signatures
+             gnus-treat-highlight-headers 'head   ; Highlight the headers
+             gnus-treat-highlight-citation 'last  ; Highlight cited text
+             gnus-treat-highlight-signature 'last ; Highlight the signature
+             gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
+             gnus-treat-date-local t           ; Display the Date in the local timezone
+             gnus-treat-date-original t        ; Display the date in the original
+                                           ; timezone
+             gnus-treat-display-x-face t
+             gnus-treat-display-face t
+             gnus-treat-display-smileys t
+             gnus-treat-strip-trailing-blank-lines 'last ; Strip trailing blank lines
+             gnus-treat-strip-leading-blank-lines 'last  ; Strip leading blank lines
+             gnus-treat-strip-multiple-blank-lines 'last ; Strip multiple blank lines
+             ;; gnus-treat-strip-blank-lines  nil            ; Strip all blank lines
+             gnus-treat-overstrike 'last)
+
+
      ;; Mime
      (setopt gnus-article-decode-mime-words t
            gnus-article-decode-charset 1
@@ -6798,34 +6827,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt gnus-kill-summary-on-exit nil)
 
      ;; Summary formatting
-
-     (setopt gnus-treat-buttonize t               ; Add buttons
-             gnus-treat-buttonize-head 'head      ; Add buttons to the head
-             gnus-treat-emphasize t               ; Emphasize text
-             gnus-treat-fill-article nil          ; Fill the article
-             gnus-treat-strip-cr 'last            ; Remove carriage returns
-             gnus-treat-hide-headers 'head        ; Hide headers
-             gnus-treat-hide-boring-headers t ; -Hide boring headers
-             gnus-treat-hide-signature nil        ; Hide the signature
-             gnus-treat-hide-citation nil         ; Hide cited text
-             ;; Deprecated.
-             ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
-             gnus-treat-strip-pem 'last           ; Strip PEM signatures
-             gnus-treat-highlight-headers 'head   ; Highlight the headers
-             gnus-treat-highlight-citation 'last  ; Highlight cited text
-             gnus-treat-highlight-signature 'last ; Highlight the signature
-             gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
-             gnus-treat-date-local t           ; Display the Date in the local timezone
-             gnus-treat-date-original t        ; Display the date in the original
-                                           ; timezone
-             gnus-treat-display-x-face t
-             gnus-treat-display-face t
-             gnus-treat-display-smileys t
-             gnus-treat-strip-trailing-blank-lines 'last ; Strip trailing blank lines
-             gnus-treat-strip-leading-blank-lines 'last  ; Strip leading blank lines
-             gnus-treat-strip-multiple-blank-lines 'last ; Strip multiple blank lines
-             ;; gnus-treat-strip-blank-lines nil             ; Strip all blank lines
-             gnus-treat-overstrike 'last)
 
      ;; eye candy
      (copy-face 'font-lock-variable-name-face 'gnus-face-6)
