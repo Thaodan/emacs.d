@@ -6654,8 +6654,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
              ;; Deprecated.
              ;; gnus-treat-strip-pgp 'last     ; Strip PGP signatures
              gnus-treat-strip-pem 'last           ; Strip PEM signatures
-             gnus-treat-highlight-headers 'head   ; Highlight the headers
-             gnus-treat-highlight-citation 'last  ; Highlight cited text
+             gnus-treat-highlight-headers 'head   ; Highlight
+             ;; Highlight cited text
+             ;; Note that `t' is the default setting
+             ;; however I like to explicitly set it here
+             gnus-treat-highlight-citation t
              gnus-treat-highlight-signature 'last ; Highlight the signature
              gnus-treat-date-ut nil               ; Display the Date in UT (GMT)
              gnus-treat-date-local t           ; Display the Date in the local timezone
