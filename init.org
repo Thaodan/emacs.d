@@ -6675,13 +6675,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
 
      ;; Mime
-     (setopt gnus-article-decode-mime-words t
-           gnus-article-decode-charset 1
-           gnus-mime-view-all-parts t        ; View all the MIME parts in current
-                                           ; article
-           gnus-ignored-mime-types '("text/x-vcard")
-           gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
-           gnus-unbuttonized-mime-types '("text/plain"))
+     (setopt gnus-ignored-mime-types '("text/x-vcard")
+             gnus-buttonized-mime-types '("multipart/encrypted" "multipart/signed")
+             gnus-unbuttonized-mime-types '("text/plain"))
      (setopt gnus-inhibit-images nil))
 
    (use-package gnus-agent
