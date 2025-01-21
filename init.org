@@ -6947,13 +6947,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
              ))
 
    (use-package gnus-registry
+     :after gnus-group
      :config
      (setopt gnus-registry-max-entries 5000)
-     (setopt gnus-registry-ignored-grous '(("nntp" t)
-                                           ("nnrss" t)
-                                           ("spam" t)))
      (setopt gnus-registry-track-extra '(sender subject))
-     (setopt gnus-registry-register-all t)
+     ;; Install gnus-registry into all groups
+     (setopt gnus-registry-install t)
+     (setopt gnus-registry-register-all nil)
      (gnus-registry-initialize))
 
    (use-package gnus-ml
