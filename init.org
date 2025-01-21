@@ -6714,6 +6714,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (let* ((group (or group
                          gnus-newsgroup-name))
               (group-method (car (gnus-find-method-for-group group)))
+              (group-method-byname (gnus-info-method (gnus-get-info group)))
+              (group-server (if (stringp group-method-byname)
+                                        group-method-byname
+                                      (gnus-method-to-server group-method-byname)))
               (real-group (if (eq group-method
                                   'nnselect)
                               ;; In case we have a nnselect method
@@ -6773,12 +6777,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                              name
                                            (gnus-group-prefixed-name name
                                                                      gnus-message-archive-method)))
-                    (group-method (gnus-info-method (gnus-get-info group-prefixed-name))))
-               (cl-pushnew (list group-method group-prefixed-name) gnus-refer-thread-use-search :test #'equal)))
+                    (group-method (gnus-info-method (gnus-get-info group-prefixed-name)))
+                    (group-server (if (stringp group-method)
+                                      group-method
+                                    (gnus-method-to-server group-method))))
+               (cl-pushnew (list group-server group-prefixed-name) gnus-refer-thread-use-search :test #'equal)))
            ;; We have to add the curent group explicitly here see (Emacs Bug #75305):
            ;; https://mail.gnu.org/archive/html/bug-gnu-emacs/2025-01/msg00420.html
            ;; FIXME: use 'currrent when patch is merged.
-           (cl-pushnew (list (gnus-info-method (gnus-get-info group)) group) gnus-refer-thread-use-search
+           (cl-pushnew (list group-server group) gnus-refer-thread-use-search
                        :test #'equal))))
 
 
