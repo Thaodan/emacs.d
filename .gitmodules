@@ -560,6 +560,7 @@
 	url = git@github.com:alphapapa/navi.git
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
+	remote = "Thaodan git@github.com:thaodan/nerd-icons.el.git"
 	url = https://github.com/rainstormstudio/nerd-icons.el
 [submodule "nerd-icons-ibuffer"]
 	path = lib/nerd-icons-ibuffer
