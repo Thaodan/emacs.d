@@ -6695,6 +6695,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :bind (:map gnus-summary-mode-map
                  ("M M d d" . thao/gnus-summary-mark-article-read))
      :config
+     (require 'all-the-icons)
      (defun thao/gnus-summary-mark-article-read()
        (interactive)
        (gnus-summary-mark-article nil gnus-read-mark))
