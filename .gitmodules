@@ -366,6 +366,7 @@
 	url = git@github.com:tmalsburg/guess-language.el.git
 [submodule "helm"]
 	path = lib/helm
+	remote = "Thaodan git@github.com:thaodan/helm.git"
 	url = git@github.com:emacs-helm/helm.git
 [submodule "helm-circe"]
 	path = lib/helm-circe
@@ -383,10 +384,6 @@
 [submodule "helm-ext"]
 	path = lib/helm-ext
 	url = git@github.com:cute-jumper/helm-ext.git
-[submodule "helm-icons"]
-	path = lib/helm-icons
-	remote = "Thaodan git@github.com:thaodan/helm-icons.git"
-	url = git@github.com:yyoncho/helm-icons.git
 [submodule "helm-ls-git"]
 	path = lib/helm-ls-git
 	url = git@github.com:emacs-helm/helm-ls-git.git

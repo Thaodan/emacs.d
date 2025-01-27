@@ -1425,14 +1425,6 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       :bind ("\C-s" . swiper-helm))
     #+end_src
 
-*** Helm-icons: Icons in helm-buffers
-    #+begin_src emacs-lisp
-    (use-package helm-icons
-      :init
-      (setopt helm-icons-provider 'nerd-icons)
-      (helm-icons-enable))
-    #+end_src
-
 *** Helm-Descbinds
     #+begin_src  emacs-lisp
     (use-package helm-descbinds
