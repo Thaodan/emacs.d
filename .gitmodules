@@ -775,6 +775,9 @@
 [submodule "toml-mode"]
 	path = lib/toml-mode
 	url = git@github.com:dryman/toml-mode.el.git
+[submodule "tp"]
+	path = lib/tp
+	url = https://codeberg.org/martianh/tp.el
 [submodule "transient"]
 	path = lib/transient
 	url = git@github.com:magit/transient.git
