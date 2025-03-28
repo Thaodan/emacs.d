@@ -4197,6 +4197,19 @@ Smart region guesses what you want to select by one command:
 
    (use-package magit-patch-changelog)
    #+end_src
+** Magit-Todos: Show source files' TODOs (and FIXMEs, etc) in Magit status buffer
+   :PROPERTIES:
+   :CREATED:  [2025-02-16 Sun 23:46]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package magit-todos
+     :after magit
+     :config
+     ;; Do not show TODO's from submodules.
+     (setopt magit-todos-submodule-list nil)
+     (magit-todos-mode 1))
+   #+end_src
+
 ** Forge
 
    #+begin_src emacs-lisp

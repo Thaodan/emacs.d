@@ -406,6 +406,9 @@
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
 	url = git@github.com:DarthFennec/highlight-indent-guides.git
+[submodule "hl-todo"]
+	path = lib/hl-todo
+	url = https://github.com/tarsius/hl-todo
 [submodule "ht"]
 	path = lib/ht
 	url = git@github.com:Wilfred/ht.el.git
@@ -503,6 +506,10 @@
 [submodule "magit-popup"]
 	path = lib/magit-popup
 	url = git@github.com:magit/magit-popup.git
+[submodule "magit-todos"]
+	path = lib/magit-todos
+	remote = "Thaodan git@github.com:thaodan/magit-todos.git"
+	url = https://github.com/alphapapa/magit-todos
 [submodule "marginalia"]
 	path = lib/marginalia
 	url = git@github.com:minad/marginalia.git
@@ -649,6 +656,9 @@
 	path = lib/password-store
 	load-path = contrib/emacs
 	url = https://git.zx2c4.com/password-store
+[submodule "pcre2el"]
+	path = lib/pcre2el
+	url = https://github.com/joddie/pcre2el
 [submodule "peg"]
 	path = lib/peg
 	url = git@github.com:emacsmirror/peg.git
@@ -734,6 +744,9 @@
 [submodule "selected"]
 	path = lib/selected
 	url = git@github.com:Kungsgeten/selected.el.git
+[submodule "separedit"]
+	path = lib/separedit
+	url = https://github.com/twlz0ne/separedit.el
 [submodule "shrink-path"]
 	path = lib/shrink-path
 	url = git@gitlab.com:bennya/shrink-path.el.git
