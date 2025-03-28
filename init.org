@@ -370,6 +370,10 @@
   ;; uses more memory but rather prefer speed.
   (setopt inhibit-compacting-font-caches t)
 
+  ;; Apply the system font dynamically. If this variable is nil
+  ;; Emacs ignores system font-changes.
+  (setopt font-use-system-font t)
+
   ;; Always just use left-to-right text
   ;; This makes Emacs a bit faster for very long lines
   (setq-default bidi-paragraph-direction 'left-to-right)
