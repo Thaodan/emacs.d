@@ -1350,6 +1350,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       (setopt helm-lisp-fuzzy-completion t)
       (setopt helm-autoresize-max-height 0)
       (setopt helm-autoresize-min-height 30)
+      (setopt helm-ff-icon-mode t)
       (helm-autoresize-mode 1)
       (helm-mode)
       :custom-face
