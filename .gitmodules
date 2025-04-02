@@ -484,6 +484,8 @@
 	url = git@github.com:emacs-lsp/lsp-docker.git
 [submodule "lsp-mode"]
 	path = lib/lsp-mode
+	load-path = .
+	load-path = clients
 	url = git@github.com:emacs-lsp/lsp-mode.git
 [submodule "lsp-treemacs"]
 	path = lib/lsp-treemacs
