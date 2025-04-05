@@ -599,6 +599,9 @@
 [submodule "org-contacts"]
 	path = lib/org-contacts
 	url = https://repo.or.cz/org-contacts.git
+[submodule "org-context"]
+	path = lib/org-context
+	url = https://github.com/thisirs/org-context
 [submodule "org-contrib"]
 	path = lib/org-contrib
 	url = https://git.sr.ht/~bzg/org-contrib
