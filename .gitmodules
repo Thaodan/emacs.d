@@ -522,7 +522,7 @@
 	url = git@github.com:jrblevin/markdown-mode.git
 [submodule "mastodon"]
 	path = lib/mastodon
-	remote = "Thaodan git@codeberg.org:Thaodan/mastodon.el"
+	remote = "Thaodan ssh://git@codeberg.org/Thaodan/mastodon.el.git"
 	url = https://codeberg.org/martianh/mastodon.el
 [submodule "memory-usage"]
 	path = lib/memory-usage
