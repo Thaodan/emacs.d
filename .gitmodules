@@ -785,7 +785,7 @@
 	url = git@github.com:wolray/symbol-overlay.git
 [submodule "systemd"]
 	path = lib/systemd
-	remote = "Thaodan git@github.com:thaodan/systemd.git"
+	remote = "Thaodan git@github.com:thaodan/systemd-mode.git"
 	url = git@github.com:holomorph/systemd-mode.git
 [submodule "toml-mode"]
 	path = lib/toml-mode
