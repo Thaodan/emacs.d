@@ -4212,6 +4212,21 @@ Smart region guesses what you want to select by one command:
      :config
      ;; Do not show TODO's from submodules.
      (setopt magit-todos-submodule-list nil)
+
+     ;; Mark the variable to exclude files from being included
+     ;; from the search command for todo files as safe
+     (setopt safe-local-variable-values
+             (cl-union
+              safe-local-variable-values
+              '((magit-todos-exclude-globs
+                 ;; The default setting to ignore the git directory
+                 ".git/"
+                 ;; The customization of the variable
+                 ;; exclude the etc/org/templats files where I store
+                 ;; org-mode capture templates.
+                  "./etc/org/templates/"))
+              :test #'equal))
+
      (magit-todos-mode 1))
    #+end_src
 
