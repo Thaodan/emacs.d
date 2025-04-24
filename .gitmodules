@@ -111,6 +111,7 @@
 	url = git@github.com:emacsmirror/cmake-mode.git
 [submodule "code-review"]
 	path = lib/code-review
+	remote = "Thaodan = git@github.com:wandersoncferreira/code-review.git"
 	url = git@github.com:wandersoncferreira/code-review.git
 [submodule "company"]
 	path = lib/company
@@ -221,6 +222,7 @@
 	url = git@github.com:skeeto/elfeed.git
 [submodule "elfeed-autotag"]
 	path = lib/elfeed-autotag
+	remote = "Thaodan git@github.com:thaodan/elfeed-autotag.git"
 	url = git@github.com:paulelms/elfeed-autotag.git
 [submodule "elfeed-goodies"]
 	path = lib/elfeed-goodies
@@ -420,7 +422,7 @@
 	url = git@github.com:abo-abo/hydra.git
 [submodule "i3"]
 	path = lib/i3
-	url = https://github.com/vava/i3-emacs
+	url = https://github.com/defianceblack/i3-emacs.git
 [submodule "i3wm-config-mode"]
 	path = lib/i3wm-config-mode
 	url = https://github.com/Alexander-Miller/i3wm-Config-Mode
@@ -579,12 +581,14 @@
 	url = git@github.com:ajc/nginx-mode.git
 [submodule "no-littering"]
 	path = lib/no-littering
+	remote = "Thaodan git@github.com:emacscollective/no-littering.git"
 	url = git@github.com:emacscollective/no-littering.git
 [submodule "nov"]
 	path = lib/nov
 	url = https://depp.brause.cc/nov.el.git
 [submodule "org"]
 	path = lib/org
+	remote = "Thaodan https://codeberg.org/Thaodan/org-mode.git"
 	url = https://git.savannah.gnu.org/git/emacs/org-mode.git
 [submodule "org-appear"]
 	path = lib/org-appear
