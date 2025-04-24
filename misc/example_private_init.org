@@ -38,7 +38,7 @@
      :END:
      #+begin_src emacs-lisp :noweb-ref org_private
      (setq org-link-abbrev-alist-private
-           '("BZ"        . "https://bz.company.com/show_bug.cgi?id=%s"))
+           '(("BZ"        . "https://bz.company.com/show_bug.cgi?id=%s")))
 
      #+end_src
 **** Org-Agenda
@@ -55,7 +55,7 @@
      :CREATED:  [2024-07-20 Sat 21:20]
      :END:
      #+begin_src emacs-lisp :noweb-ref org_caldav_private
-     (setopt org-caldav-calendars )
+     (setopt org-caldav-calendars nil)
 
      (setopt org-caldav-url
              "example.com")
@@ -73,7 +73,7 @@
      :CREATED:  [2024-07-20 Sat 22:21]
      :END:
      #+begin_src emacs-lisp :noweb-ref circe_base_private
-     (setopt circe-network-options)
+     (setopt circe-network-options nil)
 
      #+end_src
 *** Mastodon
@@ -155,7 +155,7 @@
     #+end_src
 
     #+begin_src emacs-lisp :noweb-ref autocrypt_private
-    (setopt autocrypt-accounts)
+    (setopt autocrypt-accounts nil)
     #+end_src
 
 #+begin_src emacs-lisp :noweb-ref piem_private
