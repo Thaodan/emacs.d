@@ -6194,7 +6194,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                                (0 "HOLD")
                                                (100 "CANCELLED")
                                                (100 "DONE")))
-      (setopt org-caldav-sync-changes-to-org t)
+      (setopt org-caldav-sync-changes-to-org 'all)
+      (setopt org-caldav-sync-todo t)
       (setopt org-icalendar-timezone "Europe/Helsinki")
       (setopt org-icalendar-include-todo (cl-loop for (x y) in org-caldav-todo-percent-states collect y))
       ;; Don't sync entries which are transient and have thus no use outside of org-mode
