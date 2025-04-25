@@ -288,6 +288,8 @@
 	url = https://github.com/xuchunyang/eshell-z
 [submodule "esxml"]
 	path = lib/esxml
+	# Broken with Emacs 30, not required by any package so far
+	no-byte-compile = css-lite.el
 	url = https://github.com/tali713/esxml
 [submodule "evil"]
 	path = lib/evil
