@@ -773,7 +773,7 @@
 	url = git@github.com:Fuco1/smartparens.git
 [submodule "smartrep"]
 	path = lib/smartrep
-	remote = "Thaodan git@github.com:thaodan/smartrep.git"
+	remote = "Thaodan git@github.com:thaodan/smartrep.el.git"
 	url = git@github.com:myuhe/smartrep.el.git
 [submodule "spinner"]
 	path = lib/spinner
