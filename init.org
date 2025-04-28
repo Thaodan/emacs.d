@@ -6194,7 +6194,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                                (0 "HOLD")
                                                (100 "CANCELLED")
                                                (100 "DONE")))
-      (setopt org-caldav-sync-changes-to-org 'all)
+      ;; FIXME: Change after it's possible to sync location, catergories and todos
+      ;; after it's possible to not change the to label if it is not a todo
+      ;; Read: https://github.com/dengste/org-caldav/issues/329
+      (setopt org-caldav-sync-changes-to-org t)
       (setopt org-caldav-sync-todo t)
       (setopt org-icalendar-timezone "Europe/Helsinki")
       (setopt org-icalendar-include-todo (cl-loop for (x y) in org-caldav-todo-percent-states collect y))
