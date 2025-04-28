@@ -6187,13 +6187,19 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :after org
       :config
       (setopt org-caldav-sync-todo t)
-      (setopt org-caldav-todo-percent-states '((0 "TODO")
+      (setopt org-caldav-todo-percent-states '(;; Put the option which only should be
+                                               ;; set oneway on the top so the option
+                                               ;; with below with the same number
+                                               ;; takes it's place.
+                                               (0 "HOLD")
+                                               (0 "WAITING")
+                                               (0 "TODO")
                                                (1 "NEXT")
                                                (2 "STARTED")
-                                               (0 "WAITING")
-                                               (0 "HOLD")
                                                (100 "CANCELLED")
                                                (100 "DONE")))
+      ;; See also: https://github.com/dengste/org-caldav/issues/331
+
       ;; FIXME: Change after it's possible to sync location, catergories and todos
       ;; after it's possible to not change the to label if it is not a todo
       ;; Read: https://github.com/dengste/org-caldav/issues/329
