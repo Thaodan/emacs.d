@@ -4948,6 +4948,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; C-RET, C-S-RET insert new heading after current task content
       (setopt org-insert-heading-respect-content nil)
 
+      ;; Control how org inserts blank lines before a new entry
+      (setopt org-blank-before-new-entry '(;; Always insert a blank line after a heading.
+                                           ;; Default is auto
+                                           (heading . t)
+                                           ;; Default value
+                                           (plain-list-item . auto)))
+
       ;; Show a little bit more when using sparse-trees
       (setopt org-show-following-heading t)
       (setopt org-show-hierarchy-above t)
