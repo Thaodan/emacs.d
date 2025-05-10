@@ -6487,6 +6487,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (use-package mastodon-async)
    #+end_src
 
+** Ement
+   :PROPERTIES:
+   :CREATED:  [2025-05-10 Sat 08:34]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package ement
+     :config
+     (setopt ement-save-sessions t)
+     (setopt ement-notify-sound "message-new-instant"))
+   #+end_src
+
 * Email/PIM
   :PROPERTIES:
   :CREATED:  [2024-07-18 Thu 21:55]

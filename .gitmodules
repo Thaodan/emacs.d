@@ -251,6 +251,9 @@
 	path = lib/emacsql
 	url = git@github.com:magit/emacsql.git
 	no-byte-compile = emacsql-pg.el
+[submodule "ement"]
+	path = lib/ement
+	url = https://github.com/alphapapa/ement.el
 [submodule "emms"]
 	path = lib/emms
 	url = git@github.com:emacsmirror/emms.git
@@ -698,6 +701,9 @@
 	path = lib/plantuml-mode
 	remote = "Thaodan git@github.com:Thaodan/plantuml-mode"
 	url = https://github.com/skuro/plantuml-mode
+[submodule "plz"]
+	path = lib/plz
+	url = https://github.com/alphapapa/plz.el
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
@@ -784,6 +790,9 @@
 [submodule "ssh-config-mode"]
 	path = lib/ssh-config-mode
 	url = git@github.com:jhgorrell/ssh-config-mode-el.git
+[submodule "svg-lib"]
+	path = lib/svg-lib
+	url = https://github.com/rougier/svg-lib
 [submodule "swiper-helm"]
 	path = lib/swiper-helm
 	url = git@github.com:abo-abo/swiper-helm.git
@@ -794,6 +803,12 @@
 	path = lib/systemd
 	remote = "Thaodan git@github.com:thaodan/systemd-mode.git"
 	url = git@github.com:holomorph/systemd-mode.git
+[submodule "taxy"]
+	path = lib/taxy
+	url = https://github.com/alphapapa/taxy.el
+[submodule "taxy-magit-section"]
+	path = lib/taxy-magit-section
+	url = https://github.com/alphapapa/taxy.el
 [submodule "toml-mode"]
 	path = lib/toml-mode
 	url = git@github.com:dryman/toml-mode.el.git
