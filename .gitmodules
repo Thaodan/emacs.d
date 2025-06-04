@@ -808,7 +808,7 @@
 	url = https://github.com/alphapapa/taxy.el
 [submodule "taxy-magit-section"]
 	path = lib/taxy-magit-section
-	url = https://github.com/alphapapa/taxy.el
+	url = https://github.com/emacsmirror/taxy-magit-section.git
 [submodule "toml-mode"]
 	path = lib/toml-mode
 	url = git@github.com:dryman/toml-mode.el.git
