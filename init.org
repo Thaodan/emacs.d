@@ -4496,12 +4496,19 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    (use-package ccls
      :hook ((c++-mode c-mode objc-mode) . ccls-lsp-init)
+     :init
+     (setopt grep-find-ignored-directories
+             (cl-union
+              grep-find-ignored-directories
+              '(".ccls-cache")))
+     (grep-compute-defaults)
      :config
      (defun ccls-lsp-init ()
        "We need to require ccls before loading lsp in a C buffer.
    Otherwise lsp would use the default clangd backend.
    use-package will load ccls for us simply by calling this function."
        (lsp-deferred)))
+
    (use-package dap-lldb :after ccls)
    #+end_src
 
