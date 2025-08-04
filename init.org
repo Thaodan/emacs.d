@@ -126,6 +126,11 @@
   ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
   #+END_SRC
 
+  Same for early init.
+  #+BEGIN_SRC emacs-lisp :comments nil :tangle early-init.el
+  ;;; early-init.el --- user-init-file                    -*- lexical-binding: t -*-
+  #+END_SRC
+
   Show a few messages with timestamps to get a better overview of how fast
   Emacs is loading certain packages.
   #+BEGIN_SRC emacs-lisp
