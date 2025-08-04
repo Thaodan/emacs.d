@@ -172,6 +172,14 @@
  (setopt warning-suppress-types '((lexical-binding)))
  #+end_src
 
+ Suppress EIEIO backwards compatibility warnings at the moment.
+ Have to update packages or switch to those not using legacy EIEIO features in the long run.
+ #+begin_src emacs-lisp
+ (setq eieio-backward-compatibility
+       ;; Set to 'warn to see warnings
+       t)
+ #+end_src
+
 ** Package Management
 *** Org config tangle
     There is no ~emacs.el~ in this repo. It will automatically created for you
