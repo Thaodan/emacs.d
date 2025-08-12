@@ -413,6 +413,7 @@
 	url = git@github.com:emacs-helm/helm-pass.git
 [submodule "helm-projectile"]
 	path = lib/helm-projectile
+	remote = "Thaodan git@github.com:thaodan/helm-projectile.git"
 	url = git@github.com:bbatsov/helm-projectile.git
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
