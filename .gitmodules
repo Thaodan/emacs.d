@@ -417,6 +417,12 @@
 [submodule "hl-todo"]
 	path = lib/hl-todo
 	url = https://github.com/tarsius/hl-todo
+[submodule "hledger-mode"]
+	path = lib/hledger-mode
+	url = https://github.com/narendraj9/hledger-mode
+[submodule "hledger-rules-mode"]
+	path = lib/hledger-rules-mode
+	url = ssh://git@codeberg.org/Thaodan/emacs-hledger-rules-mode.git
 [submodule "ht"]
 	path = lib/ht
 	url = git@github.com:Wilfred/ht.el.git
@@ -469,6 +475,9 @@
 [submodule "khardel"]
 	path = lib/khardel
 	url = git@github.com:DamienCassou/khardel.git
+[submodule "ledger-mode"]
+	path = lib/ledger-mode
+	url = https://github.com/ledger/ledger-mode
 [submodule "levenshtein"]
 	path = lib/levenshtein
 	url = git@github.com:emacsorphanage/levenshtein.git
