@@ -741,6 +741,19 @@
      (setf custom-safe-themes t))
    #+end_src
 
+** Proceed: operate on system processes like dired
+   :PROPERTIES:
+   :CREATED:  [2025-08-29 Fri 01:37]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package proced
+     :config
+      ;; on-nil means Proced should display some process attributes with color
+     (setopt proced-enable-color-flag t
+             ;; Auto update visible proced buffers
+             proced-auto-update-flag 'visible))
+   #+end_src
+
 * Set some early UI settings
   Disable Tool- and Menubar in the early-init file via
   =default-frame-alist=. This is slightly faster than first loading the
