@@ -6340,6 +6340,57 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :hook ((csv-mode . rainbow-csv-mode)))
    #+end_src
 
+** Ledger: Accounting
+   :PROPERTIES:
+   :CREATED:  [2025-08-19 Tue 10:33]
+   :END:
+#+begin_src emacs-lisp
+(use-package ledger-mode
+  ;;:disabled t  ;; try hledger
+  :mode "\\.ledger\\'"
+  :init
+  ;; http://unconj.ca/blog/using-hledger-with-ledger-mode.html
+  ;; Required to use hledger instead of ledger itself.
+  ;;(setq ledger-mode-should-check-version nil
+  ;;      ledger-report-links-in-register nil
+  ;;      ledger-binary-path "hledger")
+
+  :config
+
+  ;; ledger-mode for bookkeeping
+  ;; (defun ledger-mode-outline-hook ()
+  ;;   (outline-minor-mode)
+  ;;   (setq-local outline-regexp "[#;]+"))
+
+  (setopt ledger-reports
+          '(("Balance (this year)" "%(binary) -f %(ledger-file) bal -p 'this year'")
+            ("Balance (last year)" "%(binary) -f %(ledger-file) bal -p 'last year'")
+            ("Balance (all time)" "%(binary) -f %(ledger-file) bal")
+            ("Register (this year)" "%(binary) -f %(ledger-file) reg -p 'this year'")
+            ("Register (last year)" "%(binary) -f %(ledger-file) reg -p 'last year'")
+            ("Account (this year)" "%(binary) -f %(ledger-file) reg %(account) -p 'this year'")
+            ("Account (last year)" "%(binary) -f %(ledger-file) reg %(account) -p 'last year'")
+            ("Account (all time)" "%(binary) -f %(ledger-file) reg %(account)")
+            ("Payee" "%(binary) -f %(ledger-file) reg @%(payee)")))
+
+  (setopt ledger-mode-should-check-version nil)
+  (setopt ledger-report-links-in-register nil)
+  (setopt ledger-report-auto-width nil)
+  (setopt ledger-report-native-highlighting-arguments '("--color=always"))
+  (setopt ledger-highlight-xact-under-point nil
+          ledger-binary-path "hledger")
+
+  (setopt ledger-use-iso-dates t)  ; Use YYYY-MM-DD format
+
+  ;;(add-to-list 'ledger-reports
+  ;;             (list "monthly expenses"
+  ;;                   (concat "%(binary) -f %(ledger-file) balance expenses "
+  ;;                           "--tree --no-total --row-total --average --monthly")))
+  (setopt ledger-post-amount-alignment-column 60))
+
+(use-package flycheck-ledger
+  :after (flycheck ledger-mode))
+#+end_src
 * Chat/Socialmedia
   :PROPERTIES:
   :CREATED:  [2024-07-18 Thu 21:58]
