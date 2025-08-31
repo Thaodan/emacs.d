@@ -141,6 +141,9 @@
 [submodule "compat"]
 	path = lib/compat
 	url = https://github.com/emacs-compat/compat
+[submodule "cond-let"]
+	path = lib/cond-let
+	url = https://github.com/tarsius/cond-let
 [submodule "copy-as-format"]
 	path = lib/copy-as-format
 	url = git@github.com:sshaw/copy-as-format.git
@@ -214,9 +217,6 @@
 [submodule "eimp"]
 	path = lib/eimp
 	url = git@github.com:nicferrier/eimp.git
-[submodule "elisp-autofmt"]
-	path = lib/elisp-autofmt
-	url = ssh://git@codeberg.org/ideasman42/emacs-elisp-autofmt.git
 [submodule "el-mock"]
 	path = lib/el-mock
 	url = git@github.com:rejeep/el-mock.el.git
@@ -247,6 +247,9 @@
 	path = lib/elfeed-tube
 	remote = "Thaodan git@github.com:thaodan/elfeed-tube.git"
 	url = git@github.com:karthink/elfeed-tube.git
+[submodule "elisp-autofmt"]
+	path = lib/elisp-autofmt
+	url = ssh://git@codeberg.org/ideasman42/emacs-elisp-autofmt.git
 [submodule "elixir-mode"]
 	path = lib/elixir-mode
 	url = https://github.com/elixir-editors/emacs-elixir
