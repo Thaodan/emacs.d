@@ -854,9 +854,6 @@
 [submodule "undercover"]
 	path = lib/undercover
 	url = git@github.com:undercover-el/undercover.el.git
-[submodule "use-package"]
-	path = lib/use-package
-	url = git@github.com:jwiegley/use-package.git
 [submodule "use-package-transient"]
 	path = lib/use-package-transient
 	url = git@github.com:Thaodan/use-package-transient.git
