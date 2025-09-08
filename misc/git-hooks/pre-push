@@ -2,4 +2,16 @@
 
 # Run make init-build before pushing to make init.el is in a working state
 
-make init-build
+call_me_maybe()
+{
+    ctime=$(command date -d "$(command stat -c '%z' ${1})" +'%s')
+    now=$(command date -d now +'%s')
+    if [ $((now - ctime)) -lt ${2:-10} ]  ; then
+        return 1
+    fi
+    return 0
+}
+
+if call_me_maybe init.elc 60|| ! call_me_maybe init.org ; then
+    make init-build
+fi
