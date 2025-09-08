@@ -4286,7 +4286,9 @@ Smart region guesses what you want to select by one command:
    (use-package diff-mode
      :config
      ;; Shorten file headers like Magit's diff format.
-     (setopt diff-font-lock-prettify t))
+     (setopt diff-font-lock-prettify t)
+     ;; Make diff-mode buffers by default read-only.
+     (setopt diff-default-read-only t))
 
    (use-package ediff
      :defer t
