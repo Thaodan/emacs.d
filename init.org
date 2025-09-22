@@ -4911,7 +4911,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
         "Like org-clock-in but show list of recent clocks when not in org buffer.
         Show clock history when not in org buffer or when called with prefix argument."
         (interactive "P")
-        (if (and (eq major-mode 'org-mode) (not (equal select '(4))))
+        (if (and (derived-mode-p 'org-mode) (not (equal select '(4))))
             (org-clock-in select start-time)
           ;; FIXME: add functionality of (counsel-org-clock-history) to consult
           ;; Use variable org-clock-history with list of markers
