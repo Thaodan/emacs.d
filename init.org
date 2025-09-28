@@ -2081,6 +2081,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       :config
       (setopt vertico-multiform-categories
               '((file
+                 ;; Show directories first in find-file
+                 (vertico-sort-function . vertico-sort-directories-first)
+
                  ;; Provide Ido-like or Helm-like navigation commands
                  (:keymap . vertico-directory-map))))
 
