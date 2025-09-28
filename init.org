@@ -2075,6 +2075,16 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
       ;; (setq vertico-cycle t)
       )
+
+    (use-package vertico-multiform
+      :after vertico
+      :config
+      (setopt vertico-multiform-categories
+              '((file
+                 ;; Provide Ido-like or Helm-like navigation commands
+                 (:keymap . vertico-directory-map))))
+
+      (vertico-multiform-mode))
     #+end_src
 
 *** Consult
