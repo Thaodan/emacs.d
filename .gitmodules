@@ -601,6 +601,9 @@
 	path = lib/nerd-icons
 	remote = "Thaodan git@github.com:thaodan/nerd-icons.el.git"
 	url = https://github.com/rainstormstudio/nerd-icons.el
+[submodule "nerd-icons-completion"]
+	path = lib/nerd-icons-completion
+	url = https://github.com/rainstormstudio/nerd-icons-completion
 [submodule "nerd-icons-ibuffer"]
 	path = lib/nerd-icons-ibuffer
 	url = https://github.com/seagle0128/nerd-icons-ibuffer

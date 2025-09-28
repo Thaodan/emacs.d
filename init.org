@@ -2419,6 +2419,18 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
    #+end_src
 
+** nerd-icons-completion: Use nerd-icons for completion
+   :PROPERTIES:
+   :CREATED:  [2025-09-26 Fri 00:31]
+   :END:
+   #+begin_src emacs-lisp
+    (use-package nerd-icons-completion
+   ;;   :after marginalia
+      :hook
+      (marginalia-mode . nerd-icons-completion-marginalia-setup)
+      :init
+      (nerd-icons-completion-mode))
+   #+end_src
 * Navigation
 
   #+begin_src emacs-lisp
