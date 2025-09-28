@@ -2085,8 +2085,8 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                  (vertico-sort-function . vertico-sort-directories-first)
 
                  ;; Provide Ido-like or Helm-like navigation commands
-                 (:keymap . vertico-directory-map))))
-
+                 (:keymap . vertico-directory-map))
+                (symbol (vertico-sort-function . vertico-sort-history-alpha))))
       (vertico-multiform-mode))
     #+end_src
 
