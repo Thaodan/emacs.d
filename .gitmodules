@@ -147,6 +147,9 @@
 [submodule "consult"]
 	path = lib/consult
 	url = https://github.com/minad/consult
+[submodule "consult-dir"]
+	path = lib/consult-dir
+	url = https://github.com/karthink/consult-dir
 [submodule "copy-as-format"]
 	path = lib/copy-as-format
 	url = git@github.com:sshaw/copy-as-format.git

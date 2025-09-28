@@ -2229,6 +2229,20 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 
     #+end_src
 
+**** consult-dir: insert paths into minibuffer prompts in Emacs
+     :PROPERTIES:
+     :CREATED:  [2025-09-25 Thu 09:48]
+     :END:
+     #+begin_src emacs-lisp
+     (use-package consult-dir
+       :bind (("C-x d" . consult-dir)
+              :map minibuffer-local-completion-map
+              ("C-x C-d" . consult-dir)
+              ("C-x C-j" . consult-dir-jump-file))
+       :config
+       (setopt consult-dir-project-list-function #'consult-dir-projectile-dirs))
+     #+end_src
+
 *** Marginalia in the minibuffer
     Enable richer annotations using the Marginalia package.
 
