@@ -250,6 +250,22 @@
                        (apply #'format
                               "git@%s:%s/%s.git" epkg-drone-url-split)))
             (when (and borg-drone-url epkg-drone-url-https
+                       ;; FIXME: Take the following cases into account
+                       ;; - Elpa: Each drone from that source is from the same
+                       ;;         git repository but with a different branch.
+                       ;; - Emacsmirror: User uses Emacsmirror instead of upstream.
+                       ;;                Explicit choice, i.e. in the case of taxy-magit-section
+                       ;;                where the repository struxcture of upstream is incompatible.
+                       ;; - Emacs: packages builtin to Emacs.git but also updated in Emacsmirror and/or Elpa.
+                       (not (or
+                             ;; Don't change the url to drones where the mirror is emacsattic.
+                             ;; Drones where epkg has a different url then borg but the mirror
+                             ;; still Emacsattic most likely mean that the drone wasn't changed
+                             ;; to a new URL but is still the old URL where the user's drone points
+                             ;; to Emacsattic where the drone can receive updates even when
+                             ;; the upstream is inactive.
+                             (string-prefix-p "https://github.com/emacsattic/" borg-drone-url)
+                             (string-prefix-p "git@github.com:emacsattic/" borg-drone-url)))
                        (not
                         (or (equal borg-drone-url epkg-drone-url-https)
                             (equal borg-drone-url epkg-drone-url-ssh)
