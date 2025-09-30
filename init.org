@@ -238,11 +238,33 @@
       (interactive)
       (let (moved)
         (dolist (drone (borg-clones))
-          (let ((a (borg-get drone "url"))
-    	        (b (ignore-errors (oref (epkg drone) url))))
-            (when (and a b (not (forge--url-equal a b))
-    	               (yes-or-no-p (format "Move %s: %s => %s" drone a b)))
-              (push (list drone a b) moved))))
+          (when-let* ((borg-drone-url (borg-get drone "url"))
+                      (epkg-drone (epkg drone))
+    	              (epkg-drone-url-https (oref epkg-drone url))
+                      (epkg-drone-url-split (forge--split-forge-url
+                                             epkg-drone-url-https))
+                      (epkg-drone-url-ssh-uri (apply #'format
+                                                     "ssh://git@%s/%s/%s.git"
+                                                     epkg-drone-url-split))
+                      (epkg-drone-url-ssh
+                       (apply #'format
+                              "git@%s:%s/%s.git" epkg-drone-url-split)))
+            (when (and borg-drone-url epkg-drone-url-https
+                       (not
+                        (or (equal borg-drone-url epkg-drone-url-https)
+                            (equal borg-drone-url epkg-drone-url-ssh)
+                            (equal borg-drone-url epkg-drone-url-ssh-uri))))
+    	      (let ((borg-drone-url-new
+                     (cond ((string-prefix-p "ssh://" borg-drone-url)
+                            epkg-drone-url-ssh-uri)
+                           ((string-prefix-p "git@" borg-drone-url)
+                            epkg-drone-url-ssh)
+                           (t
+                            epkg-drone-url-https))))
+                (when (yes-or-no-p (format "Move %s: %s => %s?" drone
+                                           borg-drone-url
+                                           borg-drone-url-new))
+                  (push (list drone borg-drone-url borg-drone-url-new) moved))))))
         (when (and moved
     	           (yes-or-no-p
     	            (concat (mapconcat (pcase-lambda (`(,drone ,a ,b))
