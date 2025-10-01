@@ -3484,6 +3484,10 @@ Smart region guesses what you want to select by one command:
      ;; C-u C-c p f to clear cache before search.
      (setopt projectile-enable-caching t)
 
+     ;; Whether to discover projects when project switching commands are invoked.
+     ;; Makes `projectile-switch-project' have a delay each time it's invoked.
+     (setopt projectile-auto-discover nil)
+
      ;; Enable CMake preset support
      (setopt projectile-enable-cmake-presets t)
 
