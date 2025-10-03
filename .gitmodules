@@ -144,6 +144,12 @@
 [submodule "cond-let"]
 	path = lib/cond-let
 	url = https://github.com/tarsius/cond-let
+[submodule "consult"]
+	path = lib/consult
+	url = https://github.com/minad/consult
+[submodule "consult-dir"]
+	path = lib/consult-dir
+	url = https://github.com/karthink/consult-dir
 [submodule "copy-as-format"]
 	path = lib/copy-as-format
 	url = git@github.com:sshaw/copy-as-format.git
@@ -257,6 +263,9 @@
 	path = lib/emacsql
 	url = git@github.com:magit/emacsql.git
 	no-byte-compile = emacsql-pg.el
+[submodule "embark"]
+	path = lib/embark
+	url = https://github.com/oantolin/embark
 [submodule "ement"]
 	path = lib/ement
 	url = https://github.com/alphapapa/ement.el
@@ -595,6 +604,9 @@
 	path = lib/nerd-icons
 	remote = "Thaodan git@github.com:thaodan/nerd-icons.el.git"
 	url = https://github.com/rainstormstudio/nerd-icons.el
+[submodule "nerd-icons-completion"]
+	path = lib/nerd-icons-completion
+	url = https://github.com/rainstormstudio/nerd-icons-completion
 [submodule "nerd-icons-ibuffer"]
 	path = lib/nerd-icons-ibuffer
 	url = https://github.com/seagle0128/nerd-icons-ibuffer
@@ -608,6 +620,9 @@
 [submodule "nov"]
 	path = lib/nov
 	url = https://depp.brause.cc/nov.el.git
+[submodule "orderless"]
+	path = lib/orderless
+	url = https://github.com/oantolin/orderless
 [submodule "org"]
 	path = lib/org
 	remote = "Thaodan https://codeberg.org/Thaodan/org-mode.git"
@@ -866,6 +881,11 @@
 [submodule "vdirel"]
 	path = lib/vdirel
 	url = git@github.com:DamienCassou/vdirel.git
+[submodule "vertico"]
+	path = lib/vertico
+	load-path = .
+	load-path = extensions
+	url = https://github.com/minad/vertico
 [submodule "vim-modeline"]
 	path = lib/vim-modeline
 	remote = "Thaodan git@github.com:thaodan:vim-modeline.git"
