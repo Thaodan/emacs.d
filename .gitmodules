@@ -673,7 +673,7 @@
 	url = git@github.com:takaxp/org-tree-slide.git
 [submodule "org-vcard"]
 	path = lib/org-vcard
-	url = git@github.com:flexibeast/org-vcard.git
+	url = git@github.com:pinoaffe/org-vcard.git
 [submodule "orgit"]
 	path = lib/orgit
 	url = git@github.com:magit/orgit.git
