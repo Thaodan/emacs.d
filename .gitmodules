@@ -294,7 +294,7 @@
 	url = https://github.com/Fuco1/eshell-bookmark
 [submodule "eshell-prompt-extras"]
 	path = lib/eshell-prompt-extras
-	url = https://github.com/zwild/eshell-prompt-extras
+	url = https://github.com/suzzvv/eshell-prompt-extras
 [submodule "eshell-up"]
 	path = lib/eshell-up
 	url = https://github.com/peterwvj/eshell-up
@@ -584,7 +584,7 @@
 	url = git@github.com:ryuslash/mode-icons.git
 [submodule "modus-themes"]
 	path = lib/modus-themes
-	url = https://git.sr.ht/~protesilaos/modus-themes
+	url = https://github.com/protesilaos/modus-themes
 [submodule "move-text"]
 	path = lib/move-text
 	url = git@github.com:emacsfodder/move-text.git
@@ -823,7 +823,7 @@
 	url = git@github.com:Malabarba/spinner.el.git
 [submodule "ssh-config-mode"]
 	path = lib/ssh-config-mode
-	url = git@github.com:jhgorrell/ssh-config-mode-el.git
+	url = git@github.com:peterhoeg/ssh-config-mode-el.git
 [submodule "svg-lib"]
 	path = lib/svg-lib
 	url = https://github.com/rougier/svg-lib
