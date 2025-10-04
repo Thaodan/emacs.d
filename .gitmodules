@@ -444,7 +444,7 @@
 	url = git@github.com:Wilfred/ht.el.git
 [submodule "htmlize"]
 	path = lib/htmlize
-	url = git@github.com:hniksic/emacs-htmlize.git
+	url = git@github.com:emacsorphanage/htmlize.git
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
