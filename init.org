@@ -2223,6 +2223,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       ;;;; 2. projectile.el (projectile-project-root)
       ;; (autoload 'projectile-project-root "projectile")
       (defun consult-projectile-root (may-ask)
+        (require 'projectile)
         (declare-function projectile-acquire-root "ext:projectile")
         (or (projectile-project-root default-directory)
             (and may-ask
