@@ -388,42 +388,54 @@
 	path = lib/guess-language
 	url = git@github.com:tmalsburg/guess-language.el.git
 [submodule "helm"]
+	disabled = true
 	path = lib/helm
 	remote = "Thaodan git@github.com:thaodan/helm.git"
 	url = git@github.com:emacs-helm/helm.git
 [submodule "helm-circe"]
+	disabled = true
 	path = lib/helm-circe
 	url = git@github.com:lesharris/helm-circe.git
 [submodule "helm-descbinds"]
+	disabled = true
 	path = lib/helm-descbinds
 	url = git@github.com:emacs-helm/helm-descbinds.git
 [submodule "helm-dired-history"]
+	disabled = true
 	path = lib/helm-dired-history
 	remote = "Thaodan git@github.com:thaodan/helm-dired-history.git"
 	url = https://github.com/jixiuf/helm-dired-history
 [submodule "helm-emms"]
+	disabled = true
 	path = lib/helm-emms
 	url = git@github.com:emacs-helm/helm-emms.git
 [submodule "helm-ext"]
+	disabled = true
 	path = lib/helm-ext
 	url = git@github.com:cute-jumper/helm-ext.git
 [submodule "helm-ls-git"]
+	disabled = true
 	path = lib/helm-ls-git
 	url = git@github.com:emacs-helm/helm-ls-git.git
 [submodule "helm-make"]
+	disabled = true
 	path = lib/helm-make
 	url = git@github.com:abo-abo/helm-make.git
 [submodule "helm-org"]
+	disabled = true
 	path = lib/helm-org
 	url = https://github.com/emacs-helm/helm-org
 [submodule "helm-org-rifle"]
+	disabled = true
 	path = lib/helm-org-rifle
 	remote = "Thaodan git@github.com:thaodan/org-rifle.git"
 	url = git@github.com:alphapapa/org-rifle.git
 [submodule "helm-pass"]
+	disabled = true
 	path = lib/helm-pass
 	url = git@github.com:emacs-helm/helm-pass.git
 [submodule "helm-projectile"]
+	disabled = true
 	path = lib/helm-projectile
 	remote = "Thaodan git@github.com:thaodan/helm-projectile.git"
 	url = git@github.com:bbatsov/helm-projectile.git
@@ -828,6 +840,7 @@
 	path = lib/svg-lib
 	url = https://github.com/rougier/svg-lib
 [submodule "swiper-helm"]
+	disabled = true
 	path = lib/swiper-helm
 	url = git@github.com:abo-abo/swiper-helm.git
 [submodule "symbol-overlay"]
