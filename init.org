@@ -860,7 +860,8 @@
     (setopt auth-source-pass-extra-query-keywords t)
     (auth-source-pass-enable))
 
-  (use-package helm-pass)
+  (use-package helm-pass
+    :disabled t)
   #+end_src
 
 * Ui
@@ -1755,7 +1756,8 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
     :CREATED:  [2024-03-09 Sat 00:58]
     :END:
     #+begin_src emacs-lisp
-    (use-package helm-dired-history)
+    (use-package helm-dired-history
+      :disabled t)
     #+end_src
 
 *** Dirvish
@@ -4991,6 +4993,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 ** Perl
    #+begin_src emacs-lisp
    (use-package perl-completion
+     :disabled t
      :config
      (perl-completion-mode t))
 
@@ -6631,6 +6634,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     #+begin_src emacs-lisp
     (use-package helm-org-rifle
       :after helm-source
+      :disabled
       :bind (
              ("C-c g o" . helm-org-rifle)
              ("C-c g f" . helm-org-rifle-current-buffer)
@@ -6830,6 +6834,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
     #+begin_src emacs-lisp
     (use-package helm-circe
+      :disabled t
       :demand t
       ;; Handy to have a binding to helm-circe-new-activity
       :bind (("C-c C-x i" . helm-circe)
@@ -7589,6 +7594,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    (use-package gnus-notes-helm
      :after gnus-notes
+     :disabled t
      :bind (("C-c g m" . gnus-notes-helm)))
 
    ;; (use-package all-the-icons-gnus
@@ -7788,6 +7794,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (emms-cache-set-from-mpd-all))
 
    (use-package helm-emms
+     :disabled t
      :bind ("s-h h" . helm-emms)
      :config
      (setopt helm-emms-default-sources '(helm-source-emms-dired
