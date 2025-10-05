@@ -3430,7 +3430,6 @@ Smart region guesses what you want to select by one command:
    #+begin_src emacs-lisp
    (use-package projectile
      :defer nil
-     :after helm
      :bind-keymap
      ;;(("s-p p"   . projectile-command-map)
      ("C-x p" . projectile-command-map)
