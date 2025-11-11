@@ -92,7 +92,7 @@
 	url = git@github.com:cdominik/cdlatex.git
 [submodule "centered-window"]
 	path = lib/centered-window
-	url = git@github.com:anler/centered-window-mode.git
+	url = ssh://git@codeberg.org/Thaodan/centered-window-mode.git
 [submodule "circe"]
 	path = lib/circe
 	remote = "Thaodan git@github.com:thaodan/circe.git"
