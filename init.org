@@ -28,7 +28,7 @@
   #+LANGUAGE: en_US
   #+BABEL: :cache yes
   #+PROPERTY: header-args :tangle yes
-  #+PROPERTY: header-args:emacs-lisp :comments link :noweb yes
+  #+PROPERTY: header-args:emacs-lisp :comments noweb :noweb yes
   #+SELECT_TAGS: export
   #+EXCLUDE_TAGS: noexport
 
