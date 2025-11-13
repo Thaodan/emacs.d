@@ -907,6 +907,7 @@
     #+begin_src emacs-lisp
     (use-package modus-themes
       :unless noninteractive
+      :hook (enable-theme-functions . thao/modus-themes-custom-faces)
       :init
       (setopt modus-themes-italic-constructs t
               modus-themes-bold-constructs t
@@ -984,6 +985,12 @@
       ;; (2 . (rainbow overline 1.1))
       ;; (t . (semibold))))
       :config
+      (defun thao/modus-themes-custom-faces (&rest _)
+        "Customize faces with modus-themes colors after enabling theme."
+        (modus-themes-with-colors
+          (custom-set-faces
+           ;; Add a blue background to Gnus's buttons
+           `(gnus-button ((t :background ,bg-blue-nuanced))))))
       (modus-themes-load-theme 'modus-vivendi))
     #+end_src
 
