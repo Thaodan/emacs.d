@@ -900,6 +900,11 @@
      :config (load-theme 'ir-black t))
    #+end_src
 
+   Make paren-match bolder:
+   #+begin_src emacs-lisp
+   (set-face-bold 'show-paren-match t)
+   #+end_src
+
 *** Custom Theme
     :PROPERTIES:
     :CREATED:  [2025-10-04 Sat 18:05]
