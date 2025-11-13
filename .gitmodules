@@ -520,7 +520,7 @@
 	url = git@gitlab.com:Thaodan/emacs.d-lisp.git
 [submodule "llama"]
 	path = lib/llama
-	url = git@github.com:emacsmirror/llama.git
+	url = git@github.com:tarsius/llama.git
 [submodule "logview"]
 	path = lib/logview
 	url = git@github.com:doublep/logview.git
