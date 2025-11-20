@@ -13,7 +13,7 @@ native: init-tangle
 init-build: init-tangle
 quick: init-tangle
 
-all:: init-tangle
+all:: init-build
 
 init.org: etc/private/init.org
 
