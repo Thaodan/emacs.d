@@ -912,6 +912,7 @@
     #+begin_src emacs-lisp
     (use-package modus-themes
       :unless noninteractive
+      :demand t
       :hook (enable-theme-functions . thao/modus-themes-custom-faces)
       :init
       (setopt modus-themes-italic-constructs t
