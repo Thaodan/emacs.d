@@ -932,8 +932,6 @@
     #+begin_src emacs-lisp
     (use-package modus-themes
       :unless noninteractive
-      :demand t
-      :hook (enable-theme-functions . thao/modus-themes-custom-faces)
       :init
       (setopt modus-themes-italic-constructs t
               modus-themes-bold-constructs t
@@ -1026,6 +1024,7 @@
            `(gnus-group-mail-2-empty ((t :foreground ,magenta-cooler)))
            `(gnus-group-mail-3 ((t :foreground ,magenta-cooler)))
            `(gnus-group-mail-3-empty ((t :foreground ,magenta-cooler))))))
+      (add-hook 'enable-theme-functions #'thao/modus-themes-custom-faces)
       (modus-themes-load-theme 'modus-vivendi))
     #+end_src
 
