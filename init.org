@@ -5401,6 +5401,27 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                             ; Use the current window for indirect buffer display
       (setopt org-indirect-buffer-display 'current-window)
 
+      ;; Display org-mode buffers and org-agenda in a new window
+      ;; i.e. when calling `org-agenda' or following a link to another
+      ;; org-file.
+      (setq display-buffer-alist
+            (cl-union
+             display-buffer-alist
+             '(((or (derived-mode . org-mode) (derived-mode . org-agenda-mode))
+                (display-buffer-reuse-window
+                 display-buffer-pop-up-frame)
+                (dedicated . t)
+                ;; FIXME: visible? doesn't seem to work
+                ;; how is visible determined?
+                ;; does not seem to use (visible-frame-list)
+                (reusable-frames . 0)
+                ;; With this option below two frames with the buffer will exist which can be handy
+                ;; but doesn't work as well when the frame contained another window for an indirect edit
+                ;;(inhibit-same-window . t)
+                ))
+             :test #'equal))
+
+
 
       ;; FIXME: Merge with org mode org-cycle-hide-drawers
       ;;        Using only this would always show all drawers expanded by default
