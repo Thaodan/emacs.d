@@ -5367,6 +5367,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       (require 'smartparens-org)  ;; Additional org sp-local-pairs
 
+      ;; Include the ~ character into the org-mode-syntax table so electric pair
+      ;; also works for org-mode blocks.
+      ;; See-also: (info "(org) Emphasis and Monospace")
+      ;; FIXME: Submit this change to org-mode.
+      (modify-syntax-entry ?~ "$~" org-mode-syntax-table)
+
       ;; Add org-directory and its sub-directories
       (setopt org-directory `,(append (list (concat (xdg-user-dir "DOCUMENTS") "/org"))
                                       (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
