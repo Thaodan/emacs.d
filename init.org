@@ -5404,8 +5404,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       (setopt org-default-notes-file (concat (car org-directory) "/inbox.org"))
 
-                                            ; Use the current window for indirect buffer display
-      (setopt org-indirect-buffer-display 'current-window)
+      ;; Use the other-window window for indirect buffer display
+      ;; Creates another Emacs window and closes it right after.
+      (setopt org-indirect-buffer-display 'other-window)
 
       ;; Display org-mode buffers and org-agenda in a new window
       ;; i.e. when calling `org-agenda' or following a link to another
