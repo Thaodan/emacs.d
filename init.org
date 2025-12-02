@@ -2735,6 +2735,21 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
             (format "[ ] %s" ,text)
           (format "[x] %s" ,text))))
 
+   ;; (defun thao/org-toggle-focus-writing-on
+   (define-minor-mode thao/org-toggle-focus-writing
+     "Toggle settings for focused writing."
+     :init-value nil
+     :global t
+     (if thao/org-toggle-focus-writing
+         (progn
+           (centered-window-mode +1)
+           (display-time-mode +1)
+           (alpha-background-frame-toggle))
+       (progn
+         (centered-window-mode -1)
+         (display-time-mode -1)
+         ( alpha-background-frame-toggle))))
+
    (use-package transient
      :bind (("C-c S" . thao/transient-scratchpad)
             ("C-x t" . thao/transient-toggle-stuff)
@@ -2775,6 +2790,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                 ,(transient-toggle-description "truncate-lines" truncate-lines))]
               ["Org-mode"
                :if-derived org-mode
+               ("of" thao/org-toggle-focus-writing :description
+               ,(transient-toggle-description "org toggle focus writing"
+                                              thao/org-toggle-focus-writing))
                ("ol" org-toggle-link-display :description
                 ,(transient-toggle-description "org link-display"
                                                org-descriptive-links))
