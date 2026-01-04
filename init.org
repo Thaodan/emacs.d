@@ -5738,8 +5738,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                ;; ...other commands here
                ))
       (setopt org-agenda-custom-commands
-            (append
-             org-agenda-custom-commands org-agenda-custom-commands-private))
+            (cl-union
+             org-agenda-custom-commands org-agenda-custom-commands-private
+             :test #'equal))
 
       ;; Overwrite the current window with the agenda
       (setopt org-agenda-window-setup 'other-frame)
