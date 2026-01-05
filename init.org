@@ -5691,56 +5691,154 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package org-agenda
       :defer t
       :after org
+      :init
+      (defun thao/group-target-files-merge (&rest target-lists)
+        "Merge TARGET-LISTS together.
+    Traverse through each TARGET-LIST, merge each entry unless it already exists.
+    Return filtered TARGET-LIST"
+        (let* ((target-list-copy (copy-tree target-lists))
+               (filtered-list (pop target-list-copy))
+               target-list)
+          (while target-list-copy
+            (setq target-list (pop target-list-copy))
+            (while-let ((pair (pop target-list))
+                        (pair-key (car pair))
+                        (pair-value (cdr pair)))
+              (if-let* ((value-files (cdr-safe (assq pair-key filtered-list))))
+                  ;; Merging strategy:
+                  ;; string list -> (list string) list -> list
+                  ;; string string -> string
+                  ;; list string -> (list string) list -> list
+                  ;; Each choice is passed through cl-union to avoid duplication
+                  (cond ((and (stringp pair-value)
+                              (stringp value-files))
+                         (if (not (equal value-files pair-value))
+                             (setf (alist-get pair-key filtered-list) pair-value)))
+                        ((and (stringp pair-value)
+                              (listp value-files))
+                         (setf (alist-get pair-key filtered-list) (cl-union (list pair-value) value-files :test #'equal)))
+                        ((and (listp pair-value)
+                              (stringp value-files))
+                         (setf (alist-get pair-key filtered-list) (cl-union (list value-files) pair-value :test #'equal)))
+                        ((and (listp pair-value)
+                              (listp value-files))
+                         (setf (alist-get pair-key filtered-list) (cl-union pair-value value-files :test #'equal))))
+                (setq filtered-list (cl-acons pair-key pair-value filtered-list)))))
+          filtered-list))
+
+      (defmacro thao/cl-adjoin-if-file-exists (file list directory)
+        `(let ((expanded-file (expand-file-name ,file ,directory)))
+           (if (file-exists-p expanded-file)
+               (setq ,list (cl-adjoin expanded-file ,list)))))
+
+      (require 'cond-let)
+
+      (defun thao/group-target-files-from-type (target-list &optional directory &rest types)
+        "Return a list of files of TYPES from TARGET-LIST.
+    Each TYPE might contain a file or list of files.
+    A TYPE might also be a file which is then returned if it exists.
+
+    Files are resolved relative to DIRECTORY or `default-directory' with `expand-file-name'."
+        ;; Example variable:
+        ;; (setq foo-testvar '(;; Entry with list of files
+        ;;                     (foo . ("testfile" "another-test-file"))
+        ;;                     ;; Entry with a file
+        ;;                     (bar . "testfilebar")))
+        ;; ;; FIXME: Also handle directory?
+        (if (and target-list types)
+            (let* (listed-files
+                   (directory (or directory
+                                  default-directory)))
+              (dolist (type types)
+                (cond-let* ((stringp type)
+                            (thao/cl-adjoin-if-file-exists type listed-files directory))
+                           ([target-list-type (alist-get type target-list)]
+                            (cond ((listp target-list-type)
+                                   (dolist (file-of-target-list target-list-type)
+                                     (thao/cl-adjoin-if-file-exists file-of-target-list listed-files directory)))
+                                  ((stringp target-list-type)
+                                   (thao/cl-adjoin-if-file-exists target-list-type listed-files directory))))))
+              listed-files)))
+      (defun thao/org-agenda-custom-command-target-list-files (target-list &rest types)
+        "Return a list of agenda-file TYPES from TARGET-LIST relative to the car of `org-directory'.
+    TYPES might be a file name itself or a type of file.
+    Each type might be a file or a list of files."
+        (apply #'thao/group-target-files-from-type target-list (car org-directory) types))
+
+      (defvar thao/org-agenda-file-types-alist nil
+        "A list of org-agenda file types and their associated files.
+    Has to be a alist with with file types each a symbol that include a file-string or a list of such.
+    To be used with `thao/org-agenda-custom-command-target-list-files'")
+      ;; FIXME convert to defcustom once if this goes into a package.
+
+      (defvar thao/org-agenda-file-types-alist-private nil
+        "Same as `thao/org-agenda-custom-command-files-alist' but private.
+    To be defined in org_agenda_private outside of the public init.org.")
+
+      (defun thao/org-agenda-custom-command-files (&rest types)
+        "Return list of files matching TYPE in TYPES.
+    The list of types is based of `thao/org-agenda-file-types-alist.'"
+        (apply #'thao/org-agenda-custom-command-target-list-files thao/org-agenda-file-types-alist types))
       :config
       ;; org-org-directory and subdirectories
       (setopt org-agenda-files  `,(append (list (concat (xdg-user-dir "DOCUMENTS")"/org" ))
-                                        (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
-                                                       nil t)))
+                                          (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
+                                                         nil t)))
 
-      (defun org-agenda-custom-command-for (file)
+      (defun org-agenda-custom-command-for (&rest types)
         "Return list usable in org-agenda-custom-commands with agenda and all TODOs for FILE and inbox-FILE."
-        (list '((tags "REFILE") (agenda "") (alltodo "")) `((org-agenda-files '(,(expand-file-name "inbox.org" (car org-directory))
-                                                                                ,(expand-file-name (concat "caldav-inbox-" file ".org") (car org-directory))
-                                                                                ,(expand-file-name "gemeinsam-inbox.org" (car org-directory))
-                                                                                ,(expand-file-name "gemeinsam.org" (car org-directory))
-                                                                                ,(expand-file-name "refile.org" (car org-directory))
-                                                                                ,(expand-file-name "lexis-work.org" (car org-directory))
-                                                                                ,(expand-file-name "lexis-work-inbox.org" (car org-directory))
-                                                                                ,(expand-file-name "lexis-school.org" (car org-directory))
-                                                                                ,(expand-file-name "lexis-school-inbox.org" (car org-directory))
-                                                                                ,(expand-file-name (concat file ".org") (car org-directory)))))))
-      (defun org-agenda-custom-command-for-work (file)
-        "Return list usable in org-agenda-custom-commands with agenda and all TODOs for FILE and work inbox."
-        (list '((tags "REFILE") (agenda "") (alltodo ""))  `((org-agenda-files '(,(expand-file-name "inbox.org" (car org-directory))
-                                                                                 ,(expand-file-name "caldav-inbox-arbeit.org" (car org-directory))
-                                                                                 ,(expand-file-name "refile.org" (car org-directory))
-                                                                                 ,(expand-file-name (concat file ".org") (car org-directory)))))))
+        (list '((tags "REFILE") (agenda "") (alltodo "")) `((org-agenda-files '(,@(apply #'thao/org-agenda-custom-command-files types))))))
+
+      (setq thao/org-agenda-file-types-alist
+            '((common . ("inbox.org"
+                         "refile.org"))
+              (work . ("caldav-inbox-arbeit.org"))
+              (jolla . ("jolla/"
+                        "jolla.org"))
+              (personal . ("personal.org"
+                           "personal/"
+                           "caldav-inbox-personal.org"))
+              (lexis . ("lexis-work.org"
+                        "lexis-work-inbox.org"
+                        "lexis-school.org"
+                        "lexis-school-inbox.org"))
+              (gemeinsam . ("gemeinsam-inbox.org"
+                            "gemeinsam.org"
+                            "gemeinsam/"))))
 
       (setopt org-clocked-in-project "jolla")
 
       <<org_agenda_private>>
 
+      ;; Merge public and private org-agenda file types.
+      (when thao/org-agenda-file-types-alist-private
+        (setq thao/org-agenda-file-types-alist (thao/group-target-files-merge thao/org-agenda-file-types-alist
+                                                                              thao/org-agenda-file-types-alist-private)))
+
       (setopt org-agenda-custom-commands
-             `(
-               ("A" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-               (" " "Current Project Agenda and TODOs" ,@(org-agenda-custom-command-for-work org-clocked-in-project))
-               ("j" "Jolla Agenda and TODOs" ,@(org-agenda-custom-command-for-work "jolla"))
-               ("p" "Personal Agenda and TODOs" ,@(org-agenda-custom-command-for "personal"))
-               ;;("t" "PTapp Agenda and TODOs" ,@(org-agenda-custom-command-for "ptapp"))
-               ;;("S" "Skor Agenda and TODOs" ,@(org-agenda-custom-command-for "skor"))
-               ("W" "Weekly Review"
-                ((agenda "" ((org-agenda-span 7))); review upcoming deadlines and appointments
+              `(
+                ("A" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+                (" " "Current Project Agenda and TODOs" ,@(org-agenda-custom-command-for
+                                                           'common 'work
+                                                           (make-symbol org-clocked-in-project)))
+                ("j" "Jolla Agenda and TODOs" ,@(org-agenda-custom-command-for 'comm 'work 'jolla))
+                ("p" "Personal Agenda and TODOs" ,@(org-agenda-custom-command-for
+                                                    'common 'personal 'gemeinsam 'lexis))
+                ;;("t" "PTapp Agenda and TODOs" ,@(org-agenda-custom-command-for "ptapp"))
+                ;;("S" "Skor Agenda and TODOs" ,@(org-agenda-custom-command-for "skor"))
+                ("W" "Weekly Review"
+                 ((agenda "" ((org-agenda-span 7))); review upcoming deadlines and appointments
                                             ; type "l" in the agenda to review logged items
-                 (stuck "") ; review stuck projects as designated by org-stuck-projects
-                 (todo "PROJECT") ; review all projects (assuming you use todo keywords to designate projects)
-                 (todo "MAYBE") ; review someday/maybe items
-                 (todo "WAITING"))) ; review waiting items
-               ;; ...other commands here
-               ))
+                  (stuck "") ; review stuck projects as designated by org-stuck-projects
+                  (todo "PROJECT") ; review all projects (assuming you use todo keywords to designate projects)
+                  (todo "MAYBE") ; review someday/maybe items
+                  (todo "WAITING"))) ; review waiting items
+                ;; ...other commands here
+                ))
       (setopt org-agenda-custom-commands
-            (cl-union
-             org-agenda-custom-commands org-agenda-custom-commands-private
-             :test #'equal))
+              (cl-union
+               org-agenda-custom-commands org-agenda-custom-commands-private
+               :test #'equal))
 
       ;; Overwrite the current window with the agenda
       (setopt org-agenda-window-setup 'other-frame)
