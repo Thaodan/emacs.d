@@ -6950,26 +6950,29 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
 ** Mastodon
    #+begin_src emacs-lisp
-      (use-package mastodon
-        :bind (:map mastodon-mode-map
-               ("q" . mastodon-kill-window))
-        :config
-        (setopt mastodon-toot--enable-custom-instance-emoj t
-                mastodon-toot--use-company-for-completion t
-                mastodon-toot-display-orig-in-reply-buffer t
-                mastodon-toot-orig-in-reply-length 512
-                mastodon-toot--proportional-fonts-compose t
+   (use-package mastodon
+     :bind (:map mastodon-mode-map
+                 ("q" . mastodon-kill-window))
+     :config
+     (setopt mastodon-toot--enable-custom-instance-emoj t
+             mastodon-toot--use-company-for-completion t
+             mastodon-toot-display-orig-in-reply-buffer t
+             mastodon-toot-orig-in-reply-length 512
+             mastodon-toot--proportional-fonts-compose t
 
-                mastodon-tl--show-avatars t
-                mastodon-tl--enable-proportional-fonts t
-                mastodon-tl--timeline-posts-count "120"
+             mastodon-tl--show-avatars t
+             mastodon-tl--enable-proportional-fonts t
+             mastodon-tl--timeline-posts-count "120"
 
 
-                mastodon-media--avatar-height 48
-                mastodon-media--preview-max-height 450)
-       <<mastodon_private>>)
+             mastodon-media--avatar-height 48
+             mastodon-media--preview-max-height 450)
+     ;; Set `plstore-encrypt-to' for more convenient opening of the mastodon.el secret.
+     ;; This way once you have opened the key of your PGP card you don't have to open it again
+     ;; until you close, i.e. by removing your card.
+     <<mastodon_private>>)
 
-      (use-package mastodon-async)
+   (use-package mastodon-async)
    #+end_src
 
 ** Ement
