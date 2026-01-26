@@ -5789,6 +5789,19 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
         "Return list usable in org-agenda-custom-commands with agenda and all TODOs for FILE and inbox-FILE."
         (list '((tags "REFILE") (agenda "") (alltodo "")) `((org-agenda-files '(,@(apply #'thao/org-agenda-custom-command-files types))))))
 
+      (defun thao/org-agenda-skip-entry-if-not-tag (&rest tags)
+        "Skip entry if it doesn't match to any of the TAGS."
+        (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+              (current-headline (or (and (org-at-heading-p)
+                                         (point))
+                                    (save-excursion)))
+              matched)
+          (unless (catch 'found
+                    (dolist (tag tags)
+                      (if (member tag (org-get-tags current-headline))
+                          (throw 'found t))))
+            next-headline)))
+
       (setq thao/org-agenda-file-types-alist
             '((common . ("inbox.org"
                          "refile.org"))
@@ -5824,6 +5837,39 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                 ("j" "Jolla Agenda and TODOs" ,@(org-agenda-custom-command-for 'comm 'work 'jolla))
                 ("p" "Personal Agenda and TODOs" ,@(org-agenda-custom-command-for
                                                     'common 'personal 'gemeinsam 'lexis))
+                ("r" . "Routine Agenda's")
+                ;; Do not include common agenda files here,
+                ;; as only files which are either files for routines specifically
+                ;; or the regular personal files without refile should be included.
+                ("rr" "Routine Agenda the whole day, including weekly for the day"
+                 ((agenda ""
+                          ((org-agenda-span 1) ;; Limit routine agenda to the current day by default
+                           (org-agenda-skip-function '(thao/org-agenda-skip-entry-if-not-tag "routine" "Habit")))))
+                 ((org-agenda-files '(,@(thao/org-agenda-custom-command-files 'personal 'gemeinsam)))))
+                ("rm" "Routine Morning Agenda"
+                 ((agenda ""
+                          ((org-agenda-span 1) ;; Limit routine agenda to the current day by default
+                           (org-agenda-skip-function '(thao/org-agenda-skip-entry-if-not-tag "MorningRoutine")))))
+                 ((org-agenda-files '(,@(thao/org-agenda-custom-command-files 'personal)))))
+                ("rl" "Rountine Midday/lunch Agenda"
+                 ((agenda ""
+                          ((org-agenda-span 1) ;; Limit routine agenda to the current day by default
+                           (org-agenda-skip-function '(thao/org-agenda-skip-entry-if-not-tag "MiddayRoutine")))))
+                 ((org-agenda-files '(,@(thao/org-agenda-custom-command-files 'personal)))))
+                ("re" "Routine Evening Agenda"
+                 ((agenda ""
+                          ((org-agenda-span 1) ;; Limit routine agenda to the current day by default
+                           (org-agenda-skip-function '(thao/org-agenda-skip-entry-if-not-tag "EveningRountine")))))
+                 ((org-agenda-files '(,@(thao/org-agenda-custom-command-files 'personal)))))
+                ("rw" "Routine Weekly Agenda"
+                 ((agenda ""
+                          ((org-agenda-span 'week) ;; Limit weekly routine agenda to the weeek by default
+                           (org-habit-show-habits-only-for-today nil) ;; Show the whole weeks habits, not only the ones for today
+                           ;; FIXME: Show all habit regardless if they are in time range or not.
+                           (org-agenda-skip-function '(thao/org-agenda-skip-entry-if-not-tag "WeeklyRoutine")))))
+                 ((org-agenda-files '(,@(thao/org-agenda-custom-command-files 'personal 'gemeinsam)))))
+                ;; FIXME: Add command to use the same filters above on the fly while the agenda
+                ;; is open.
                 ;;("t" "PTapp Agenda and TODOs" ,@(org-agenda-custom-command-for "ptapp"))
                 ;;("S" "Skor Agenda and TODOs" ,@(org-agenda-custom-command-for "skor"))
                 ("W" "Weekly Review"
