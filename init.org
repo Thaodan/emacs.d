@@ -2201,7 +2201,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
        :preview-key "M-."
        consult-ripgrep consult-git-grep consult-grep
        consult-bookmark consult-recent-file consult-xref
-       consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
+       consult-source-recent-file consult-source-project-recent-file consult-source-bookmark
        :preview-key '(:debounce 0.2 any))
 
       ;; Optionally configure the narrowing key.
