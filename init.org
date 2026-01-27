@@ -5726,7 +5726,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                 (setq filtered-list (cl-acons pair-key pair-value filtered-list)))))
           filtered-list))
 
-      (defmacro thao/cl-adjoin-if-file-exists (file list directory)
+      (defun thao/cl-adjoin-if-file-exists (file list directory)
         `(let ((expanded-file (expand-file-name ,file ,directory)))
            (if (file-exists-p expanded-file)
                (setq ,list (cl-adjoin expanded-file ,list)))))
