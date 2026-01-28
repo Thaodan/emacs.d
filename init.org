@@ -7127,6 +7127,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    (use-package ement
      :config
      (setopt ement-save-sessions t)
+
+     (defun thao/ement-notify--room-low-priority-p (_event room _session)
+       "Return non-nil if ROOM is tagged as low-priority."
+       (ement--room-tagged-p "m.lowpriority" room))
+
+     (setopt ement-notify-ignore-predicates '(ement-notify--event-not-message-p
+                                              ement-notify--event-from-session-user-p
+                                              thao/ement-notify--room-low-priority-p))
      (setopt ement-notify-sound "message-new-instant"))
    #+end_src
 
