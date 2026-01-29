@@ -7133,9 +7133,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (ement--room-tagged-p "m.lowpriority" room))
 
      (defun thao/ement-notify--message-not-mention-or-smallroom (event room session)
-       "Return t to ignore messages which are not mentions or from rooms which are bigger then 5 members"
-       (or (> (alist-get 'm.joined_member_count  (ement-room-summary room)) 5)
-        (not (ement-notify--event-mentions-session-user-p event room session))))
+       "Return t to ignore messages which from rooms bigger then 5 members"
+       (when (> (alist-get 'm.joined_member_count  (ement-room-summary room)) 5)
+         (not (ement-notify--event-mentions-session-user-p event room session))))
+
+     (setopt ement-view-room-display-buffer-action 'display-buffer-other-frame)
+
+     ;; Add distinct background color by room to messages in notification buffers
+     (setopt ement-notify-prism-background t)
+
+     (setopt ement-room-avatars t)
+     (setopt ement-room-images t)
 
      (setopt ement-notify-ignore-predicates '(ement-notify--event-not-message-p
                                               ement-notify--event-from-session-user-p
