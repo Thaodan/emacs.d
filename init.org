@@ -5691,6 +5691,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package org-agenda
       :defer t
       :after org
+      :preface
+      ;; Macros should go to :preface. See:
+      ;; (info "(use-package) Preface keyword")
+      (defmacro thao/cl-adjoin-if-file-exists (file list directory)
+        `(let ((expanded-file (expand-file-name ,file ,directory)))
+           (if (file-exists-p expanded-file)
+               (setq ,list (cl-adjoin expanded-file ,list)))))
       :init
       (defun thao/group-target-files-merge (&rest target-lists)
         "Merge TARGET-LISTS together.
@@ -5725,11 +5732,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                          (setf (alist-get pair-key filtered-list) (cl-union pair-value value-files :test #'equal))))
                 (setq filtered-list (cl-acons pair-key pair-value filtered-list)))))
           filtered-list))
-
-      (defun thao/cl-adjoin-if-file-exists (file list directory)
-        `(let ((expanded-file (expand-file-name ,file ,directory)))
-           (if (file-exists-p expanded-file)
-               (setq ,list (cl-adjoin expanded-file ,list)))))
 
       (require 'cond-let)
 
