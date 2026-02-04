@@ -5148,6 +5148,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :hook (emacs-lisp-mode . highlight-defined-mode))
     #+end_src
 
+*** Highlight-quote: Highlight Lisp quotes and quoted symbols
+    :PROPERTIES:
+    :CREATED:  [2026-02-04 Wed 15:12]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package highlight-quoted
+      :hook (emacs-lisp-mode . highlight-quoted-mode))
+    #+end_src
+
 ** Elixir
    #+begin_src emacs-lisp
    (use-package elixir-mode

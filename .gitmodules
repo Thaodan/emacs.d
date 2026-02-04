@@ -449,6 +449,9 @@
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
 	url = git@github.com:DarthFennec/highlight-indent-guides.git
+[submodule "highlight-quoted"]
+	path = lib/highlight-quoted
+	url = https://github.com/Fanael/highlight-quoted
 [submodule "hl-todo"]
 	path = lib/hl-todo
 	url = https://github.com/tarsius/hl-todo
