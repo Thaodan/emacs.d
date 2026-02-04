@@ -492,6 +492,9 @@
 [submodule "info+"]
 	path = lib/info+
 	url = git@github.com:emacsmirror/info-plus.git
+[submodule "ipretty"]
+	path = lib/ipretty
+	url = https://framagit.org/steckerhalter/ipretty.git
 [submodule "ir-black-theme"]
 	path = lib/ir-black-theme
 	url = git@github.com:jmdeldin/ir-black-theme.el.git

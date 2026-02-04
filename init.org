@@ -5240,6 +5240,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :mode ("\\/\\.ssh/config\\'"))
     #+end_src
 
+*** ipretty: Interactive Emacs Lisp pretty-printing
+    :PROPERTIES:
+    :CREATED:  [2026-02-04 Wed 15:25]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package ipretty
+      :bind (:map lisp-mode-shared-map
+                  ("C-h C-j" . ipretty-last-sexp)
+                  ("C-h C-k" . ipretty-last-sexp-other-buffer)))
+    #+end_src
+
 * Markup Languages
 
 ** Jira-Markup
