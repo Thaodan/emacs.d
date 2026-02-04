@@ -7146,6 +7146,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      (setopt ement-room-avatars t)
      (setopt ement-room-images t)
+     ;; IRC-style without margins
+     (setopt ement-room-message-format-spec "[%t] %S> %B%r")
 
      (setopt ement-notify-ignore-predicates '(ement-notify--event-not-message-p
                                               ement-notify--event-from-session-user-p
