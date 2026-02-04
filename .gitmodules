@@ -443,6 +443,9 @@
 	path = lib/helm-projectile
 	remote = "Thaodan git@github.com:thaodan/helm-projectile.git"
 	url = git@github.com:bbatsov/helm-projectile.git
+[submodule "highlight-defined"]
+	path = lib/highlight-defined
+	url = https://github.com/Fanael/highlight-defined
 [submodule "highlight-indent-guides"]
 	path = lib/highlight-indent-guides
 	url = git@github.com:DarthFennec/highlight-indent-guides.git

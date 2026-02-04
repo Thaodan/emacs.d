@@ -5139,6 +5139,14 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        :hook (emacs-lisp-mode . eros-mode))
      #+end_src
 
+*** Highlight-defined: Highlight known Emacs Lisp symbols
+    :PROPERTIES:
+    :CREATED:  [2026-02-04 Wed 14:58]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package highlight-defined
+      :hook (emacs-lisp-mode . highlight-defined-mode))
+    #+end_src
 
 ** Elixir
    #+begin_src emacs-lisp
