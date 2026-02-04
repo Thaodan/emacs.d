@@ -5119,6 +5119,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (setopt web-mode-enable-css-colorization t))
     #+end_src
 
+** Lisp
+   :PROPERTIES:
+   :CREATED:  [2026-02-04 Wed 14:21]
+   :END:
+
+   Check for unbalanced parens after saving files.
+      #+begin_src emacs-lisp
+   (use-package lisp
+     :hook (after-save . check-parens))
+   #+end_src
+
 ** Elixir
    #+begin_src emacs-lisp
    (use-package elixir-mode
