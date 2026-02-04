@@ -290,6 +290,9 @@
 	path = lib/erlang
 	load-path = lib/tools/emacs
 	url = https://github.com/erlang/otp
+[submodule "eros"]
+	path = lib/eros
+	url = https://github.com/xiongtx/eros
 [submodule "eshell-bookmark"]
 	path = lib/eshell-bookmark
 	url = https://github.com/Fuco1/eshell-bookmark

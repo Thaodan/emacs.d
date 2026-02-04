@@ -5130,6 +5130,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :hook (after-save . check-parens))
    #+end_src
 
+*** Eros: Evaluation Result OverlayS for Emacs Lisp
+    :PROPERTIES:
+    :CREATED:  [2026-02-04 Wed 14:52]
+    :END:
+     #+begin_src emacs-lisp
+     (use-package eros
+       :hook (emacs-lisp-mode . eros-mode))
+     #+end_src
+
+
 ** Elixir
    #+begin_src emacs-lisp
    (use-package elixir-mode
