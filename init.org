@@ -5126,8 +5126,12 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    Check for unbalanced parens after saving files.
       #+begin_src emacs-lisp
-   (use-package lisp
-     :hook (after-save . check-parens))
+      (use-package lisp
+        :hook ((lisp-mode . thao/lisp-after-save-check-parens)
+               (emacs-lisp-mode . thao/lisp-after-save-check-parens))
+        :init
+        (defun thao/lisp-after-save-check-parens ()
+          (add-hook 'after-save-hook #'check-parens nil 'local)))
    #+end_src
 
 *** Eros: Evaluation Result OverlayS for Emacs Lisp
