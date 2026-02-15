@@ -7205,9 +7205,16 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (ement--room-tagged-p "m.lowpriority" room))
 
      (defun thao/ement-notify--message-not-mention-or-smallroom (event room session)
-       "Return t to ignore messages which from rooms bigger then 5 members"
-       (when (> (alist-get 'm.joined_member_count  (ement-room-summary room)) 5)
-         (not (ement-notify--event-mentions-session-user-p event room session))))
+       (if (and (> (alist-get 'm.joined_member_count  (ement-room-summary room)) 5)
+                (not (ement-notify--event-mentions-session-user-p event room session)))
+           t
+         nil))
+     (defun thao/ement-notify--raidhelper (event room session)
+       "Shut up Raid-Helper."
+       (when (and (> (alist-get 'm.joined_member_count  (ement-room-summary room)) 5)
+                  (or (equal (ement-user-displayname (ement-event-sender event)) "Raid-Helper")
+                      (not (ement-notify--event-mentions-session-user-p event room session))))
+         t))
 
      (setopt ement-view-room-display-buffer-action 'display-buffer-other-frame)
 
@@ -7222,7 +7229,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt ement-notify-ignore-predicates '(ement-notify--event-not-message-p
                                               ement-notify--event-from-session-user-p
                                               thao/ement-notify--room-low-priority-p
-                                              thao/ement-notify--message-not-mention-or-smallroom))
+                                              thao/ement-notify--message-not-mention-or-smallroom
+                                              thao/ement-notify--raidhelper))
      (setopt ement-notify-sound "message-new-instant"))
    #+end_src
 
