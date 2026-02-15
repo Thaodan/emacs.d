@@ -7200,6 +7200,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :config
      (setopt ement-save-sessions t)
 
+     ;; Ignore warnings when filling gaps in rooms, happens frequently on timeouts
+     (setopt warning-suppress-types (cl-union warning-suppress-types
+                                              '((ement-room-retro-to-token))
+                                              :test #'equal))
+
      (defun thao/ement-notify--room-low-priority-p (_event room _session)
        "Return non-nil if ROOM is tagged as low-priority."
        (ement--room-tagged-p "m.lowpriority" room))
