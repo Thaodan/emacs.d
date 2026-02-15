@@ -7180,6 +7180,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
              mastodon-tl--enable-proportional-fonts t
              mastodon-tl--timeline-posts-count "120"
 
+             mastodon-group-notifications t
+             mastodon-images-in-notifs t
 
              mastodon-media--avatar-height 48
              mastodon-media--preview-max-height 450)
