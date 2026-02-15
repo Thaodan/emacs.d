@@ -6353,11 +6353,28 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       )
     #+end_src
 
-*** Org-Capture
+*** [[info:org#Protocols][Org Protocol: Trigger custom actions from external applications inside Emacs]]
+    :PROPERTIES:
+    :CREATED:  [2026-02-15 Sun 20:01]
+    :END:
+    Org-protocol is a org-mode package to trigger custom actions from external programs in Emacs.
+
+    A good example is that you can use a bookmark with an address like this to pass the current pages URL to Emacs:
+    #+begin_src js :tangle no
+    javascript:(function(){location.href='org-protocol://store-link?' +  new URLSearchParams({url:location.href, title:document.title})})();
+    #+end_src
+    This bookmark will store a link that can be inserted into a document just like as if it would refer to content
+    in Emacs, as explained in the manual: [[info:org#The store-link protocol][org#The store-link protocol]].
+    It can also be combined with [[*Org-Capture][Org-Capture]] which is configured further below.
+    For more on capturing more tan just a link read this section of the Org-Mode manual: [[info:org#The capture protocol][org#The capture protocol]].
+
     #+begin_src emacs-lisp :noweb no
     (use-package org-protocol :after org)
     ;; org-capture chrome plugin: https://chrome.google.com/webstore/detail/org-capture/kkkjlfejijcjgjllecmnejhogpbcigdc?hl=en
+    #+end_src
 
+*** Org-Capture
+    #+begin_src emacs-lisp :noweb no
     (use-package org-capture
       :bind ("C-c c c" . org-capture)
       :config
