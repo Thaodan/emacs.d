@@ -4,6 +4,10 @@
 
 (setopt native-comp-compiler-options '("-flto" "-O2"))
 
+;; Prefer newer to avoid Emacs loading older byte-compiled files and accidentally
+;; old code to end up in depending files that are about to be byte-compiled.
+(setopt load-prefer-newer t)
+
 ;; Load some Emacs packages installed by the system package manager
 (add-to-list 'load-path "/usr/share/emacs/site-lisp" )
 (add-to-list 'load-path "/usr/lib/emacs/site-lisp" )
