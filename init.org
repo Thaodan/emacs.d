@@ -2021,7 +2021,14 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+begin_src emacs-lisp
    (use-package hl-todo
      :defer 2
-     :config (global-hl-todo-mode))
+     :config
+     (setopt hl-todo-exclude-modes (cl-union
+                                    hl-todo-exclude-modes
+                                    ;; Exclude mastodon-too-mode as the font-lock keyword
+                                    ;; breaks mastodon.el's own fontification
+                                    '(mastodon-toot-mode)
+                                    :test #'equal))
+     (global-hl-todo-mode))
    #+end_src
 
 ** Minibuffer interaction
