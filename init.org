@@ -7192,6 +7192,21 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
              mastodon-media--avatar-height 48
              mastodon-media--preview-max-height 450)
+
+     ;; Doesn't use setopt because type mismatch in defcustom
+     ;; for `display-buffer-alist'.
+     (setq display-buffer-alist
+           (cl-union display-buffer-alist
+                     ;; Display mastodon buffers in a new pop-up-frame
+                     ;; unless already is a existing frame with that buffer.
+                     '(((or (derived-mode .  mastodon-mode)
+                            (derived-mode . mastodon-toot-mode))
+                        (display-buffer-reuse-window
+                         display-buffer-pop-up-frame)
+                        (reusable-frames . visible)
+                        (dedicated . t)))
+                     :test #'equal))
+
      ;; Set `plstore-encrypt-to' for more convenient opening of the mastodon.el secret.
      ;; This way once you have opened the key of your PGP card you don't have to open it again
      ;; until you close, i.e. by removing your card.
