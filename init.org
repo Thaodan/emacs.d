@@ -2377,7 +2377,7 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :config
      (require 'i3-integration)
      (require 'windmove)
-     (i3-advise-visible-frame-list-on)
+     (setopt i3-window-list-frame-visible-function #'i3-get-visible-workspace-window-ids)
      (defun i3-windmove-left (&optional arg)
        "Like windmove-left but call i3 command `focus left'
    if there is no window on the left."
