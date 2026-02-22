@@ -346,6 +346,9 @@
 [submodule "flycheck-color-mode-line"]
 	path = lib/flycheck-color-mode-line
 	url = git@github.com:flycheck/flycheck-color-mode-line.git
+[submodule "flycheck-relint"]
+	path = lib/flycheck-relint
+	url = https://github.com/purcell/flycheck-relint
 [submodule "forge"]
 	path = lib/forge
 	url = git@github.com:magit/forge.git
@@ -799,6 +802,9 @@
 [submodule "rainbow-delimiters"]
 	path = lib/rainbow-delimiters
 	url = git@github.com:Fanael/rainbow-delimiters.git
+[submodule "relint"]
+	path = lib/relint
+	url = https://github.com/mattiase/relint
 [submodule "request"]
 	path = lib/request
 	url = https://github.com/tkf/emacs-request
@@ -954,6 +960,9 @@
 [submodule "xelb"]
 	path = lib/xelb
 	url = https://github.com/ch11ng/xelb
+[submodule "xr"]
+	path = lib/xr
+	url = https://github.com/mattiase/xr
 [submodule "xterm-color"]
 	path = lib/xterm-color
 	url = git@github.com:atomontage/xterm-color.git

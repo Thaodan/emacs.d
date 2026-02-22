@@ -5168,6 +5168,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :hook (emacs-lisp-mode . highlight-quoted-mode))
     #+end_src
 
+*** Relint: Emacs regexp mistake finder
+    :PROPERTIES:
+    :CREATED:  [2026-02-22 Sun 14:03]
+    :END:
+    #+begin_src emacs-lisp
+    (use-package relint)
+
+    (use-package flycheck-relint
+      :hook (emacs-lisp-mode . flycheck-relint-setup))
+    #+end_src
+
 ** Elixir
    #+begin_src emacs-lisp
    (use-package elixir-mode
