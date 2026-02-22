@@ -7858,6 +7858,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
    (use-package message
      :config
+     (setopt message-dont-reply-to-names (cl-union message-dont-reply-to-names
+                                                   ;; Ignore common noreply email addresses
+                                                   ;; including some special cases such
+                                                   ;; as Github or Bugzilla
+                                                   '("notifications@github\\.com"
+                                                     ".*@noreply\\.github\\.com"
+                                                     "noreply@.*"
+                                                     "bugzilla_noreply@.*"
+                                                     ".*@.noreply.*")))
      ;; Kill message buffer after sending a message.
      (setopt message-kill-buffer-on-exit t)
      (setopt message-subscribed-address-functions
