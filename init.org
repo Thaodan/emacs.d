@@ -7896,6 +7896,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    (use-package gnus-alias
      :hook ((message-setup . gnus-alias-determine-identity))
      :config
+     (defun thao/gnus-alias-identity-return-addresses ()
+       "Return addresses defined in `gnus-alias-identity-alist'"
+       (let (addresses)
+         (dolist (id gnus-alias-identity-alist)
+           (setq addresses (nconc addresses (list (car (mail-header-parse-address-lax (gnus-alias-get-from id)))))))
+         addresses))
+
+     ;; Add our own mails to the ones we don't want to reply to.
+     (setopt message-dont-reply-to-names (cl-union message-dont-reply-to-names
+                                                   (regexp-opt (thao/gnus-alias-identity-return-addresses))))
+
      (setopt gnus-alias-override-user-mail-address t)
      (setopt gnus-alias-allow-forward-as-reply t)
      (setopt gnus-alias-use-buttonized-from t)
