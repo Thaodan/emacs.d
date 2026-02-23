@@ -185,6 +185,9 @@
 [submodule "deferred"]
 	path = lib/deferred
 	url = git@github.com:kiwanami/emacs-deferred.git
+[submodule "deflate"]
+	path = lib/deflate
+	url = https://github.com/skuro/deflate
 [submodule "devhelp"]
 	path = lib/devhelp
 	url = git@codeberg.org:akib/emacs-devhelp.git
