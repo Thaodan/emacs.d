@@ -352,6 +352,9 @@
 [submodule "flycheck-color-mode-line"]
 	path = lib/flycheck-color-mode-line
 	url = git@github.com:flycheck/flycheck-color-mode-line.git
+[submodule "flycheck-ledger"]
+	path = lib/flycheck-ledger
+	url = https://github.com/purcell/flycheck-ledger
 [submodule "flycheck-relint"]
 	path = lib/flycheck-relint
 	url = https://github.com/purcell/flycheck-relint
