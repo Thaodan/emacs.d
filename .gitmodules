@@ -67,6 +67,9 @@
 [submodule "bbdb-vcard"]
 	path = lib/bbdb-vcard
 	url = git@github.com:tohojo/bbdb-vcard.git
+[submodule "bicycle"]
+	path = lib/bicycle
+	url = https://github.com/tarsius/bicycle
 [submodule "bitbake-modes"]
 	path = lib/bitbake-modes
 	url = https://bitbucket.org/olanilsson/bitbake-modes.git
@@ -926,6 +929,9 @@
 [submodule "visual-regexp"]
 	path = lib/visual-regexp
 	url = https://github.com/benma/visual-regexp.el
+[submodule "visual-regexp-steroids"]
+	path = lib/visual-regexp-steroids
+	url = https://github.com/benma/visual-regexp-steroids.el
 [submodule "vlf"]
 	path = lib/vlf
 	url = git@github.com:m00natic/vlfi.git
