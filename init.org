@@ -7786,7 +7786,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
              gnus-duplicate-mark 9410;; Ⓜ
              gnus-score-over-mark 11088 ;; ⭐
              gnus-score-below-mark 9734 ;; ☆
-             gnus-low-score-marl 8902 ;; ⋆
+             gnus-low-score-mark 8902 ;; ⋆
              gnus-saved-mark 128190 ;; 💾
              gnus-ticked-mark 127987 ;; 🏳
              ;; gnus-no-mark 9723;; ◻
