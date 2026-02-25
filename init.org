@@ -7800,7 +7800,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt gnus-registry-track-extra '(sender subject))
      ;; Install gnus-registry into all groups
      (setopt gnus-registry-install t)
-     (setopt gnus-registry-register-all nil)
+     (setopt gnus-registry-register-all t)
      (gnus-registry-initialize))
 
    (use-package gnus-ml
