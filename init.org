@@ -7903,14 +7903,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
            (setq addresses (nconc addresses (list (car (mail-header-parse-address-lax (gnus-alias-get-from id)))))))
          addresses))
 
+     <<gnus_alias_private>>
+
      ;; Add our own mails to the ones we don't want to reply to.
      (setopt message-dont-reply-to-names (cl-union message-dont-reply-to-names
                                                    (regexp-opt (thao/gnus-alias-identity-return-addresses))))
 
      (setopt gnus-alias-override-user-mail-address t)
      (setopt gnus-alias-allow-forward-as-reply t)
-     (setopt gnus-alias-use-buttonized-from t)
-     <<gnus_alias_private>>) ;; Signature
+     (setopt gnus-alias-use-buttonized-from t)) ;; Signature
 
    (use-package gnus-icalendar
      :after org
