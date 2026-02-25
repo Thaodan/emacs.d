@@ -2255,8 +2255,10 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                   (buffer-list))))
 
     ;; `consult-project-extra-find' command used in projectile-command-map
-    (use-package consult-project-extra
-      :defer t)
+    (use-package consult-projectile
+      :defer t
+      :config
+      (setq consult-projectile-use-projectile-switch-project t))
 
     #+end_src
 
@@ -3460,7 +3462,7 @@ Smart region guesses what you want to select by one command:
      ("C-x p" . projectile-command-map)
      :bind (
             :map projectile-command-map
-            ("SPC"  . consult-project-extra-find))
+            ("SPC"  . consult-projectile-find-file))
      ;;("s s" . consult-ripgrep))
      :init
      ;; Allow all file-local values for project root

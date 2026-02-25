@@ -153,6 +153,9 @@
 [submodule "consult-dir"]
 	path = lib/consult-dir
 	url = https://github.com/karthink/consult-dir
+[submodule "consult-projectile"]
+	path = lib/consult-projectile
+	url = https://gitlab.com/jumper047/consult-projectile
 [submodule "copy-as-format"]
 	path = lib/copy-as-format
 	url = git@github.com:sshaw/copy-as-format.git
