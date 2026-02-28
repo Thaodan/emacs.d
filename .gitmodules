@@ -295,6 +295,9 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "epkg-marginalia"]
+	path = lib/epkg-marginalia
+	url = https://github.com/emacscollective/epkg-marginalia
 [submodule "erlang"]
 	path = lib/erlang
 	load-path = lib/tools/emacs

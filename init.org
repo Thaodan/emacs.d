@@ -362,6 +362,20 @@
       (advice-add #'describe-package :override #'epkg-describe-package))
     #+end_src
 
+**** [[https://github.com/emacscollective/epkg-marginalia][Epkg-Marginalia: Show Epkg information in completion annotations]]
+     :PROPERTIES:
+     :CREATED:  [2026-02-28 Sat 16:34]
+     :END:
+     #+begin_src emacs-lisp
+     (use-package epkg-marginalia
+       :demand t
+       :after marginalia
+       :config
+       (setcar (alist-get 'package marginalia-annotators)
+               #'epkg-marginalia-annotate-package))
+     #+end_src
+
+
 *** Repository dir-local variable
     :PROPERTIES:
     :CREATED:  [2025-11-20 Thu 22:39]
