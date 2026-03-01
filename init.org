@@ -5490,6 +5490,22 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; and take note when re-scheduling a deadline
       (setopt org-log-redeadline 'note)
 
+      (defun thao/org-note-ensure-closed-window ()
+        "Ensure that the notes window is closed.
+    Make sure the extra window is closed when called from `org-agenda'
+    and pop-up-frames is \='t\='."
+        (when pop-up-frames
+          ;; Make sure that the other windows are closed.
+          ;; But also do so only when `pop-up-frames' is 't'
+          ;; as this would be the only case where no other window
+          ;; besides the note window would exist in the frame.
+          ;; FIXME: Report bug to org-mode.
+          ;; Requires:
+          ;;   (setopt pop-up-frames t)
+           ;;  (setopt org-agenda-window-setup 'other-frame)
+          (ignore-errors (delete-other-windows))))
+      (advice-add #'org-store-log-note :after #'thao/org-note-ensure-closed-window)
+
       ;; Show org entities as UTF-8 characters (e.g. \sum as ∑)
       (setopt org-pretty-entities t)
       ;; But Don't print "bar" as subscript in "foo_bar"
