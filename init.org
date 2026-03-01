@@ -5804,8 +5804,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :init
       (defun thao/group-target-files-merge (&rest target-lists)
         "Merge TARGET-LISTS together.
-    Traverse through each TARGET-LIST, merge each entry unless it already exists.
-    Return filtered TARGET-LIST"
+        Traverse through each TARGET-LIST, merge each entry unless it already exists.
+        Return filtered TARGET-LIST"
         (let* ((target-list-copy (copy-tree target-lists))
                (filtered-list (pop target-list-copy))
                target-list)
@@ -5840,10 +5840,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       (defun thao/group-target-files-from-type (target-list &optional directory &rest types)
         "Return a list of files of TYPES from TARGET-LIST.
-    Each TYPE might contain a file or list of files.
-    A TYPE might also be a file which is then returned if it exists.
+        Each TYPE might contain a file or list of files.
+        A TYPE might also be a file which is then returned if it exists.
 
-    Files are resolved relative to DIRECTORY or `default-directory' with `expand-file-name'."
+        Files are resolved relative to DIRECTORY or `default-directory' with `expand-file-name'."
         ;; Example variable:
         ;; (setq foo-testvar '(;; Entry with list of files
         ;;                     (foo . ("testfile" "another-test-file"))
@@ -5866,23 +5866,23 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               listed-files)))
       (defun thao/org-agenda-custom-command-target-list-files (target-list &rest types)
         "Return a list of agenda-file TYPES from TARGET-LIST relative to the car of `org-directory'.
-    TYPES might be a file name itself or a type of file.
-    Each type might be a file or a list of files."
+        TYPES might be a file name itself or a type of file.
+        Each type might be a file or a list of files."
         (apply #'thao/group-target-files-from-type target-list (car org-directory) types))
 
       (defvar thao/org-agenda-file-types-alist nil
         "A list of org-agenda file types and their associated files.
-    Has to be a alist with with file types each a symbol that include a file-string or a list of such.
-    To be used with `thao/org-agenda-custom-command-target-list-files'")
+        Has to be a alist with with file types each a symbol that include a file-string or a list of such.
+        To be used with `thao/org-agenda-custom-command-target-list-files'")
       ;; FIXME convert to defcustom once if this goes into a package.
 
       (defvar thao/org-agenda-file-types-alist-private nil
         "Same as `thao/org-agenda-custom-command-files-alist' but private.
-    To be defined in org_agenda_private outside of the public init.org.")
+        To be defined in org_agenda_private outside of the public init.org.")
 
       (defun thao/org-agenda-custom-command-files (&rest types)
         "Return list of files matching TYPE in TYPES.
-    The list of types is based of `thao/org-agenda-file-types-alist.'"
+        The list of types is based of `thao/org-agenda-file-types-alist.'"
         (apply #'thao/org-agenda-custom-command-target-list-files thao/org-agenda-file-types-alist types))
       :config
       ;; org-org-directory and subdirectories
@@ -6002,7 +6002,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; Agenda clock report parameters
       (setopt org-agenda-clockreport-parameter-plist
-            (quote (:link t :maxlevel 5 :fileskip0 t :stepskip0 t :compact nil :narrow 80)))
+              (quote (:link t :maxlevel 5 :fileskip0 t :stepskip0 t :compact nil :narrow 80)))
 
       ;; Agenda log mode items to display (closed and state changes by default)
       (setopt org-agenda-log-mode-items (quote (closed state clock)))
@@ -6045,18 +6045,18 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       ;; Agenda styling
       (setopt org-agenda-block-separator ?─
-            org-agenda-time-grid
-            '((daily today require-timed)
-              (800 1000 1200 1400 1600 1800 2000)
-              " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-            org-agenda-current-time-string
-            "⭠ now ─────────────────────────────────────────────────")
+              org-agenda-time-grid
+              '((daily today require-timed)
+                (800 1000 1200 1400 1600 1800 2000)
+                " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+              org-agenda-current-time-string
+              "⭠ now ─────────────────────────────────────────────────")
 
       ;; Insert a separator between each day
       (setopt org-agenda-format-date (lambda (date) (concat "\n"
-                                                          (make-string (window-width) 9472)
-                                                          "\n"
-                                                          (org-agenda-format-date-aligned date))))
+                                                            (make-string (window-width) 9472)
+                                                            "\n"
+                                                            (org-agenda-format-date-aligned date))))
 
       ;; Use sticky agenda's so they persist
       ;;(setopt org-agenda-sticky t)
@@ -6064,12 +6064,18 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; Limit restriction lock highlighting to the headline only
       (setopt org-agenda-restriction-lock-highlight-subtree nil)
 
+      ;; 'user-defined-up' in `org-agend-sorting-strategy' requires this setting
+      ;; but I haven't figured out how to sort the agenda with this function.
+      ;; Just keep it here till I figured it out.
+      ;; (setopt org-agenda-cmp-user-defined #'ignore)
+
       ;; Sorting order for tasks on the agenda
       (setopt org-agenda-sorting-strategy
-            (quote ((agenda habit-down time-up user-defined-up effort-up category-keep)
-                    (todo category-up effort-up)
-                    (tags category-up effort-up)
-                    (search category-up))))
+              ;; FIXME: Readd user-defined-up after we have a sorting function for it.
+              (quote ((agenda habit-down time-up effort-up category-keep)
+                      (todo category-up effort-up)
+                      (tags category-up effort-up)
+                      (search category-up))))
 
       ;; Enable display of the time grid so we can see the marker for the current time
       ;;(setopt org-agenda-time-grid (quote ((daily today remove-match)
