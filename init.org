@@ -5539,10 +5539,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                 (display-buffer-reuse-window
                  display-buffer-pop-up-frame)
                 (dedicated . t)
-                ;; FIXME: visible? doesn't seem to work
-                ;; how is visible determined?
-                ;; does not seem to use (visible-frame-list)
-                (reusable-frames . 0)
+                ;; Requires `window-list-1' to return visible windows correctly for the current `window-system'.
+                (reusable-frames . visible)
                 ;; With this option below two frames with the buffer will exist which can be handy
                 ;; but doesn't work as well when the frame contained another window for an indirect edit
                 ;;(inhibit-same-window . t)
