@@ -693,6 +693,9 @@
 [submodule "org-modern"]
 	path = lib/org-modern
 	url = git@github.com:minad/org-modern.git
+[submodule "org-note-auto-save"]
+	path = lib/org-note-auto-save
+	url = ssh://git@codeberg.org/Thaodan/org-note-auto-save.git
 [submodule "org-novelist"]
 	path = lib/org-novelist
 	url = git@github.com:sympodius/org-novelist.git

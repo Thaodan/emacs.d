@@ -5305,7 +5305,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
     (use-package org
       :mode ("\\.\\(org\\|org_archive\\)\\'" . org-mode)
       :after company
-      :hook (org-mode . turn-on-org-cdlatex)
+      :hook ((org-mode . turn-on-org-cdlatex)
+             ;; Enable auto-save in org-note buffers
+             (org-log-buffer-setup . org-note-auto-save-mode))
       :bind (("C-c a"   . org-agenda)
              ("<f6>"    . org-agenda)
              ("<f7>"    . org-clock-goto)
