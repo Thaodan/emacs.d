@@ -5307,7 +5307,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       :after company
       :hook ((org-mode . turn-on-org-cdlatex)
              ;; Enable auto-save in org-note buffers
-             (org-log-buffer-setup . org-note-auto-save-mode))
+             (org-log-buffer-setup . org-note-auto-save-mode)
+             ;; Enable `auto-fill-mode' for org-mode
+             ;; Uses `org-auto-fill-function' so it should take care of it's syntax.
+             ;; Has to be tested, might require adjustment.
+             ;; Should be disabled in some files such as those which fit more traditional
+             ;; document writing.
+             (org-mode . auto-fill-mode))
       :bind (("C-c a"   . org-agenda)
              ("<f6>"    . org-agenda)
              ("<f7>"    . org-clock-goto)
