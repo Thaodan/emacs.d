@@ -544,6 +544,9 @@
 [submodule "ligature"]
 	path = lib/ligature
 	url = git@github.com:mickeynp/ligature.el.git
+[submodule "lingva"]
+	path = lib/lingva
+	url = https://codeberg.org/martianh/lingva.el
 [submodule "link-hint"]
 	path = lib/link-hint
 	url = git@github.com:noctuid/link-hint.el.git
