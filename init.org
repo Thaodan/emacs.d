@@ -7465,6 +7465,32 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      ;; FIXME: Handle private vs work invites.
 
+     (defun gnus-message-make-dedicated ()
+       (when (buffer-live-p gnus-message-buffer)
+         (set-window-dedicated-p (get-buffer-window gnus-message-buffer) t)))
+
+     (add-hook 'gnus-configure-windows-hook #'gnus-message-make-dedicated)
+
+     (defconst thao/gnus-buffer-config-for-message
+       '(frame 1.0
+               ;; Keep previous configuration.
+               ;; Only open the message window in a new frame.
+             (cond
+                ((buffer-live-p (get-buffer gnus-article-buffer))
+                 (car (cdr (assoc 'article gnus-buffer-configuration))))
+                ((buffer-live-p gnus-summary-buffer)
+                 (car (cdr (assoc 'summary gnus-buffer-configuration))))
+                (t (car (cdr (assoc 'group gnus-buffer-configuration)))))
+               (vertical (nil)
+                         (message 1.0 point))))
+
+     (gnus-add-configuration
+      `(message ,thao/gnus-buffer-config-for-message))
+     (gnus-add-configuration
+      `(reply ,thao/gnus-buffer-config-for-message))
+     (gnus-add-configuration
+     `(reply-yank ,thao/gnus-buffer-config-for-message))
+
      <<gnus_private>>
      )
 
