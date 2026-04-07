@@ -7471,25 +7471,33 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      (add-hook 'gnus-configure-windows-hook #'gnus-message-make-dedicated)
 
-     (defconst thao/gnus-buffer-config-for-message
-       '(frame 1.0
+     (defconst thao/gnus-buffer-configuration-base
+       '(cond
+         ((buffer-live-p (get-buffer gnus-article-buffer))
+          (car (cdr (assoc 'article gnus-buffer-configuration))))
+         ((buffer-live-p gnus-summary-buffer)
+          (car (cdr (assoc 'summary gnus-buffer-configuration))))
+         (t (car (cdr (assoc 'group gnus-buffer-configuration))))))
+
+     (defconst thao/gnus-buffer-configuration-for-message
+       `(frame 1.0
                ;; Keep previous configuration.
                ;; Only open the message window in a new frame.
-             (cond
-                ((buffer-live-p (get-buffer gnus-article-buffer))
-                 (car (cdr (assoc 'article gnus-buffer-configuration))))
-                ((buffer-live-p gnus-summary-buffer)
-                 (car (cdr (assoc 'summary gnus-buffer-configuration))))
-                (t (car (cdr (assoc 'group gnus-buffer-configuration)))))
+               ,thao/gnus-buffer-configuration-base
                (vertical (nil)
                          (message 1.0 point))))
 
      (gnus-add-configuration
-      `(message ,thao/gnus-buffer-config-for-message))
+      `(message ,thao/gnus-buffer-configuration-for-message))
      (gnus-add-configuration
-      `(reply ,thao/gnus-buffer-config-for-message))
+      `(reply ,thao/gnus-buffer-configuration-for-message))
      (gnus-add-configuration
-     `(reply-yank ,thao/gnus-buffer-config-for-message))
+      `(reply-yank ,thao/gnus-buffer-configuration-for-message))
+     (gnus-add-configuration
+      `(mml-preview (frame 1.0
+                           ,thao/gnus-buffer-configuration-base
+                           (vertical (nil)
+                                     (mml-preview 1.0 point)))))
 
      <<gnus_private>>
      )
