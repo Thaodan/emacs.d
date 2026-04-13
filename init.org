@@ -7417,7 +7417,6 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    (use-package gnus
      :after org
      :after smtpmail-async
-     :after all-the-icons
      :init
      (setopt gnus-select-method '(nnnil ""))
      :hook ((messsage-sent . gnus-score-followup-thread))
@@ -7655,7 +7654,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :bind (:map gnus-summary-mode-map
                  ("M M d d" . thao/gnus-summary-mark-article-read))
      :config
-     (require 'all-the-icons)
+     (require 'nerd-icons)
      (defun thao/gnus-summary-mark-article-read()
        (interactive)
        (gnus-summary-mark-article nil gnus-read-mark))
@@ -7828,32 +7827,32 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt gnus-user-date-format-alist
              `(((gnus-seconds-today)
                 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                            (all-the-icons-material "date_range")
+                            (nerd-icons-mdicon "nf-md-calendar_range")
                             'display '(raise 0.0)) " Today, %H:%M"))
                ((+ 86400
                    (gnus-seconds-today))
                 . ,(concat
                     (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                     (all-the-icons-material "date_range")
+                     (nerd-icons-mdicon "nf-md-calendar_range")
                      'display '(raise 0.0)) " Yesterday, %H:%M"))
                (604800 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                                   (all-the-icons-material "date_range")
+                                   (nerd-icons-mdicon "nf-md-calendar_range")
                                    'display '(raise 0.0)) " %A %H:%M"))
                ((gnus-seconds-month)
                 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                            (all-the-icons-material "date_range")
+                            (nerd-icons-mdicon "nf-md-calendar_range")
                             'display '(raise 0.0)) " %A %d"))
                ((gnus-seconds-year)
                 . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                            (all-the-icons-material "date_range")
+                            (nerd-icons-mdicon "nf-md-calendar_range")
                             'display '(raise 0.0)) " %B %d"))
                (t . ,(concat (propertize ;(all-the-icons-faicon "calendar" :v-adjust -0.01)
-                              (all-the-icons-material "date_range")
+                              (nerd-icons-mdicon "nf-md-calendar_range")
                               'display '(raise 0.0)) " %b %d %Y"))))
 
      (setopt gnus-topic-line-format (concat "%i[ "
                                             (propertize ;(all-the-icons-faicon "folder-open")
-                                             (all-the-icons-material "folder")
+                                             (nerd-icons-mdicon "nf-md-folder")
                                              'display '(raise 0.0))
                                             " %(%{%n -- %A%}%) ]%v\n"))
      (setopt gnus-topic-display-empty-topics nil)
@@ -7864,12 +7863,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; gnus-summary-line-format "%U%R%z %12&user-date; %(%[%-30,30f%]%) %B %s\n"
 
      (setopt gnus-summary-line-format (concat ":%U%R %B "
-                                              ;; (propertize ;(all-the-icons-faicon "terminal")
-                                              ;;  (all-the-icons-material "send")
-                                              ;;  'display '(raise 0.0)) ;; FIXME: Buggy sometimes morphes from  to 
                                               "%s %-60=|%4L |"
                                               (propertize ;(all-the-icons-faicon "male")
-                                               (all-the-icons-material "person")
+                                               (nerd-icons-octicon "nf-oct-person")
                                                'display '(raise 0.0)) "%-20,20n |%&user-date; \n"))
      ;; (setopt gnus-summary-line-format
      ;;       "%9{%U%R%z%}%8{│%}%*%(%-23,23f%)%7{│%} %6{%B%} | %s | %&user-date; \n")
@@ -7921,10 +7917,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      :config
      (setopt gnus-group-use-permanent-levels t)
      (setopt gnus-group-line-format (concat "%M%S%p%P%5y "
-                                          (propertize ;(all-the-icons-faicon "envelope-o")
-                                           (all-the-icons-material "mail")
-                                           'display '(raise 0.0))
-                                          " : [%T]:%B%(%G%)\n"))
+                                            (propertize
+                                             (nerd-icons-mdicon "nf-md-email")
+                                             'display '(raise 0.0))
+                                            " : [%T]:%B%(%G%)\n"))
 
      (setopt gnus-permanently-visible-groups "INBOX")
 
