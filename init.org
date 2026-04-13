@@ -2761,7 +2761,8 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 
    (defun display-buffer-window-dedicated (buffer)
      "Like `display-buffer' but the returning window is set as dedicated."
-     (when-let ((window (display-buffer buffer '(nil (inhibit-same-window . nil)))))
+     (when-let ((window (display-buffer buffer '(nil (inhibit-same-window . nil)
+                                                     (reuse-window . visible)))))
        (set-window-dedicated-p window t)
        window))
 
