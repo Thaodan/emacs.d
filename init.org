@@ -939,6 +939,34 @@
    (set-face-bold 'show-paren-match t)
    #+end_src
 
+   Use Nerd-Fonts for their custom font area
+   #+begin_src emacs-lisp
+   (require 'nerd-icons)
+
+   (defun nerd-icons-set-fontset-default (&optional font-family)
+     "Modify nerd font charsets to use default FONT-FAMILY."
+     ;; Modified from `nerd-icons-set-font'.
+     (let ((font-f (or font-family nerd-icons-font-family))
+           (charsets '((#xe5fa . #xe6b9)  ;; Seti-UI + Custom
+                       (#xe700 . #xe8ef)  ;; Devicons
+                       (#xed00 . #xf2ff)  ;; Font Awesome
+                       (#xe200 . #xe2a9)  ;; Font Awesome Extension
+                       (#xf500 . #xfd46) (#xf0001 . #xf1af0) ;; Material Design Icons
+                       (#xe300 . #xe3e3)  ;; Weather
+                       (#xf400 . #xf533) #x2665 #x26a1  ;; Octicons
+                       (#xe0a0 . #xe0a3) (#xe0b0 . #xe0d7)  ;; Powerline Symbols + Extra
+                       (#x23fb . #x23fe) #x2b58  ;; IEC Power Symbols
+                       (#xf300 . #xf381)  ;; Font Logos
+                       (#xe000 . #xe00a)  ;; Pomicons
+                       (#xea60 . #xec1e))))  ;; Codicons
+       (cl-loop for charset in charsets do
+                (set-fontset-font "fontset-default"
+                                  charset
+                                  font-f))))
+
+   (nerd-icons-set-fontset-default)
+   #+end_src
+
 *** Custom Theme
     :PROPERTIES:
     :CREATED:  [2025-10-04 Sat 18:05]
