@@ -4658,6 +4658,12 @@ Smart region guesses what you want to select by one command:
      ;; Do not show TODO's from submodules.
      (setopt magit-todos-submodule-list nil)
 
+     ;; Only refresh every 120s
+     (setopt magit-todos-update 120)
+
+     ;; Prevent lags in bigger repositories and reduce noise
+     (setopt magit-todos-depth 6)
+
      ;; Mark the variable to exclude files from being included
      ;; from the search command for todo files as safe
      (setopt safe-local-variable-values
