@@ -2256,6 +2256,8 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       ;; Optionally configure the narrowing key.
       ;; Both < and C-+ work reasonably well.
       (setopt consult-narrow-key "<") ;; (kbd "C-+")
+      ;; Key used for widening during completion.
+      (setopt consult-widen-key ">")
 
       ;; Optionally make narrowing help available in the minibuffer.
       ;; You may want to use `embark-prefix-help-command' or which-key instead.
