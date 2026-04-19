@@ -7360,6 +7360,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; See also `ement-room-self-insert-commands'.
      ;; (setopt ement-room-self-insert-mode t)
 
+     ;; Always format messages with org-mode and then export to HTML.
+     (setopt ement-room-send-message-filter 'ement-room-send-org-filter)
+
      (setopt ement-view-room-display-buffer-action 'display-buffer-other-frame)
 
      ;; Add distinct background color by room to messages in notification buffers
