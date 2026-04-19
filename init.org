@@ -5580,7 +5580,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (setq display-buffer-alist
             (cl-union
              display-buffer-alist
-             '(((or (derived-mode . org-mode) (derived-mode . org-agenda-mode))
+             `(((and (not ,(concat "^"(regexp-quote "*Ement compose:") ".*"))
+                 (or (derived-mode . org-mode) (derived-mode . org-agenda-mode)))
                 (display-buffer-reuse-window
                  display-buffer-pop-up-frame)
                 (dedicated . t)
