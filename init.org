@@ -7348,8 +7348,17 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      (setopt ement-room-compose-buffer-display-action
              '(display-buffer-at-bottom (window-height . 0.2)
-                                        (inhibit-same-window . t) (reusable-frames)))
+                                        (inhibit-same-window . t)
+                                        (reusable-frames)
+                                        ;; FIXME: This should be enough
+                                        ;; to disable pop-up-frames but somehow it's not
+                                        ;; (dedicated .  nil)
+                                        ;; (pop-up-frames . nil)
+                                        ))
      (setopt ement-room-compose-buffer-window-auto-height-min 6)
+     ;; Start a new message when any of the `ement-room-self-insert-chars' are pressed.
+     ;; See also `ement-room-self-insert-commands'.
+     ;; (setopt ement-room-self-insert-mode t)
 
      (setopt ement-view-room-display-buffer-action 'display-buffer-other-frame)
 
