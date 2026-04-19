@@ -7345,6 +7345,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (print "---")
        nil)
 
+     (setopt ement-room-compose-buffer-display-action
+             '(display-buffer-at-bottom (window-height . 0.2)
+                                        (inhibit-same-window . t) (reusable-frames)))
+     (setopt ement-room-compose-buffer-window-auto-height-min 6)
+
      (setopt ement-view-room-display-buffer-action 'display-buffer-other-frame)
 
      ;; Add distinct background color by room to messages in notification buffers
