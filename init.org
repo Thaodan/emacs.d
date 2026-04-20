@@ -944,9 +944,9 @@
    (require 'nerd-icons)
 
    (defun nerd-icons-set-fontset-default (&optional font-family)
-     "Modify nerd font charsets to use default FONT-FAMILY."
+     "Modify fontset-default to use FONT-FAMILY for nerd-icons custom font area."
      ;; Modified from `nerd-icons-set-font'.
-     (let ((font-f (or font-family nerd-icons-font-family))
+     (let ((font-family (or font-family nerd-icons-font-family))
            (charsets '((#xe5fa . #xe6b9)  ;; Seti-UI + Custom
                        (#xe700 . #xe8ef)  ;; Devicons
                        (#xed00 . #xf2ff)  ;; Font Awesome
@@ -961,10 +961,18 @@
                        (#xea60 . #xec1e))))  ;; Codicons
        (cl-loop for charset in charsets do
                 (set-fontset-font "fontset-default"
-                                  charset
-                                  font-f))))
+                                  charset font-family))))
 
-   (nerd-icons-set-fontset-default)
+   (defun nerd-icons-set-fontset-default-server-after-make-frame-once ()
+     "Like `nerd-icons-set-fontset-default' after making the first server frame."
+     (nerd-icons-set-fontset-default)
+     (remove-hook 'server-after-make-frame-hook
+                  #'nerd-icons-set-fontset-default-server-after-make-frame-once))
+
+   (if (not (daemonp))
+       (nerd-icons-set-fontset-default)
+   (add-hook 'server-after-make-frame-hook
+                #'nerd-icons-set-fontset-default-server-after-make-frame-once))
    #+end_src
 
 *** Custom Theme
