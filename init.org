@@ -7356,7 +7356,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      (setopt ement-room-compose-buffer-display-action
              '(display-buffer-at-bottom (window-height . 0.2)
-                                        (inhibit-same-window . t)
+                                        (inhibit-same-window . nil)
                                         (reusable-frames)
                                         ;; FIXME: This should be enough
                                         ;; to disable pop-up-frames but somehow it's not
@@ -7371,7 +7371,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      ;; Always format messages with org-mode and then export to HTML.
      (setopt ement-room-send-message-filter 'ement-room-send-org-filter)
 
-     (setopt ement-view-room-display-buffer-action 'display-buffer-other-frame)
+     (setopt ement-view-room-display-buffer-action '(display-buffer-reuse-window
+                                                     display-buffer-other-frame))
 
      ;; Add distinct background color by room to messages in notification buffers
      (setopt ement-notify-prism-background t)
