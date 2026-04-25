@@ -7958,7 +7958,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                              'display '(raise 0.0))
                                             " : [%T]:%B%(%G%)\n"))
 
-     (setopt gnus-permanently-visible-groups "INBOX")
+     (setopt gnus-permanently-visible-groups (regexp-opt-group '("INBOX" "Sent")))
 
      (defvar thao/gnus-group-get-new-news-group-level 4
        "The level of which groups should be checked during `gnus-group-get-new-news'
