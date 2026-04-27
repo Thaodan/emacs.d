@@ -7380,7 +7380,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (setopt ement-room-avatars t)
      (setopt ement-room-images t)
      ;; IRC-style without margins
-     (setopt ement-room-message-format-spec "[%t] %S> %B%r")
+     ;; (setopt ement-room-message-format-spec "[%t] %S> %B%r")
+     (setopt ement-room-message-format-spec "%t %L%S> %B%r")
+     (setopt ement-room-left-margin-width
+             (max (min (length ement-room-timestamp-format) 8) 10)
+             ement-room-right-margin-width 0)
+
+     ;; Use proportional fonts for message bodies
+     (setopt ement-room-use-variable-pitch t)
+
 
      (setopt ement-notify-ignore-predicates '(ement-notify--event-not-message-p
                                               ement-notify--event-from-session-user-p
