@@ -7388,6 +7388,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
      ;; Use proportional fonts for message bodies
      (setopt ement-room-use-variable-pitch t)
+     ;;    Mark rooms as read automatically when scrolling past the end
+     ;; also marks room as read when sending a message in it.
+     (setopt ement-room-mark-rooms-read 'send)
 
 
      (setopt ement-notify-ignore-predicates '(ement-notify--event-not-message-p
