@@ -7325,6 +7325,26 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
    :END:
    #+begin_src emacs-lisp
    (use-package ement
+     :preface
+       (defmacro thao/custom-set-face-inherit-amend (face inherit &rest other)
+       (let ((a
+              `(let ((inherited (face-attribute ,face ':inherit)) newly-inherited)
+                 (when (and inherited (not (eq inherited 'unspecified)))
+                   (if (listp inherited)
+                       (setq newly-inherited inherited)
+                     (setq newly-inherited (list inherited)))
+                 (cl-pushnew ,inherit newly-inherited)
+                 (custom-set-faces (list ,face `((t :inherit ,newly-inherited)))))))
+             (b `,(when other `('apply #'custom-set-faces (list ,face ,@other)))))
+         (append a b)))
+     :init
+     (defun thao/modus-themes-custom-ement-faces (&rest _)
+       "Customize faces with modus-themes colors after enabling theme."
+       (thao/custom-set-face-inherit-amend 'ement-room-timestamp-header 'variable-pitch-text)
+       (thao/custom-set-face-inherit-amend 'ement-room-message-text 'variable-pitch-text
+                           '((t :height 0.9))))
+     ;; Use add-hook here instead of :hook to not delay loading
+     (add-hook 'enable-theme-functions #'thao/modus-themes-custom-ement-faces)
      :config
      (setopt ement-save-sessions t)
 
