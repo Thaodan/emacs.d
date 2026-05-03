@@ -220,6 +220,7 @@
 	url = git@github.com:jacktasia/dumb-jump.git
 [submodule "edit-indirect"]
 	path = lib/edit-indirect
+	remote = "Thaodan git@github.com:thaodan/edit-indirect.git"
 	url = git@github.com:Fanael/edit-indirect.git
 [submodule "editorconfig"]
 	path = lib/editorconfig
