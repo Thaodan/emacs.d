@@ -849,6 +849,7 @@
 	url = git@github.com:Kungsgeten/selected.el.git
 [submodule "separedit"]
 	path = lib/separedit
+	remote = "Thaodan git@github.com:thaodan/edit-indirect.git"
 	url = https://github.com/twlz0ne/separedit.el
 [submodule "shrink-path"]
 	path = lib/shrink-path
