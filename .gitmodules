@@ -60,6 +60,9 @@
 [submodule "backline"]
 	path = lib/backline
 	url = https://github.com/tarsius/backline
+[submodule "bash-completion"]
+	path = lib/bash-completion
+	url = https://github.com/szermatt/emacs-bash-completion
 [submodule "bbdb"]
 	path = lib/bbdb
 	build-step = make -C lisp -f makefile-temp
@@ -347,6 +350,9 @@
 [submodule "fedi"]
 	path = lib/fedi
 	url = https://github.com/emacsmirror/fedi
+[submodule "fish-completion"]
+	path = lib/fish-completion
+	url = https://github.com/LemonBreezes/emacs-fish-completion
 [submodule "flim"]
 	path = lib/flim
 	url = git@github.com:wanderlust/flim.git

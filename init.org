@@ -3765,6 +3765,24 @@ Smart region guesses what you want to select by one command:
 
 * Shell relating things
 
+** Bash-completion: [[https://github.com/szermatt/emacs-bash-completion][Bash completion for the shell buffer]]
+   :PROPERTIES:
+   :CREATED:  [2026-05-24 Sun 23:26]
+   :END:
+   To provide auto completion in Eshell and shell-mode.
+   Not used directly but with fish-completion below.
+
+** Fish-completion: [[https://github.com/LemonBreezes/emacs-fish-completion][Fish completion for pcomplete (shell and Eshell)]]
+   :PROPERTIES:
+   :CREATED:  [2026-05-24 Sun 23:20]
+   :END:
+   #+begin_src emacs-lisp
+   (use-package fish-completion
+     :hook ((eshell-mode shell-mode) . fish-completion-mode)
+     :config
+     (setopt fish-completion-fallback-on-bash-p t))
+   #+end_src
+
 ** Eshell
    :PROPERTIES:
    :CREATED:  [2024-09-22 Sun 22:59]
