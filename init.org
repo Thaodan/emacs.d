@@ -3783,7 +3783,7 @@ Smart region guesses what you want to select by one command:
      (setopt fish-completion-fallback-on-bash-p t))
    #+end_src
 
-** Eshell
+** Eshell: [[info:eshell#Top][“command shell” written in Emacs Lisp inside Emacs]]
    :PROPERTIES:
    :CREATED:  [2024-09-22 Sun 22:59]
    :END:
