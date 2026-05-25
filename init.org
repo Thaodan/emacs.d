@@ -3831,22 +3831,65 @@ Smart region guesses what you want to select by one command:
 
       (require 'em-tramp)
       (setopt eshell-modules-list
-            '(eshell-alias
+            '(;; Command aliases allow for easy definition of alternate commands.
+              ;; (info "(eshell) Aliases")
+              eshell-alias
+
+              ;; Basic shell commands
               eshell-basic
-              eshell-cmpl
+              ;; Directory navigation
               eshell-dirs
+
+              ;; Implementation of ‘ls’ in Lisp  uses
+              ;; text properties to colorize its output based on the setting of
+              ;; `eshell-ls-use-colors'.
+              eshell-ls
+
+              ;; Unix commands implemented in Lisp.
+              eshell-unix
+
+              ;; All above ^ part of:
+              ;; (info "(eshell) List of Built-ins")
+
+              ;; Argument completion
+              ;; (info "(eshell) Completion")
+              eshell-cmpl
+
               ;; To help with supplying absolute file name arguments to remote commands.
               ;; (info "(eshell) Electric forward slash")
               eshell-elecslash
+
+              ;; Extended filename globbing, similar to ZSH globbing.
+              ;; (info "(eshell) Globbing")
               eshell-glob
+
+              ;; History list management
+              ;; (info "(eshell) History")
               eshell-hist
-              eshell-ls
+
+              ;; Value modifiers and predicates, ZSH like argument globbing.
+              ;; (info "(eshell) Argument Predication and Modification")
               eshell-pred
+
+              ;; Command prompts
               eshell-prompt
+
+              ;; Combine the facility of normal, modern shells with some of
+              ;; the edit/review concepts inherent in the design of Plan 9's 9term.
+              ;; (info "(eshell) Smart scrolling")
+              eshell-smart
+
+              ;; Run eshell script files.
+              ;; (info "(eshell) Scripts")
               eshell-script
+
+              ;; Run "visual" commands in `term-mode' which wouldn't work in eshell.
               eshell-term
-              eshell-tramp
-              eshell-unix))
+
+              ;; Add built-in commands that use Tramp to handle running other commands as different user.
+              ;; Replaces the corresponding builtin commands.
+              ;; (info "(eshell) Tramp extensions")
+              eshell-tramp))
 
       (require 'em-smart)
       (setq-default eshell-where-to-jump 'begin)
