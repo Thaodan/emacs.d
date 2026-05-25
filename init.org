@@ -3828,12 +3828,16 @@ Smart region guesses what you want to select by one command:
 
       ;; Don't print the welcome banner and
       ;; use native 'sudo', system sudo asks for password every time.
+
       (require 'em-tramp)
       (setopt eshell-modules-list
             '(eshell-alias
               eshell-basic
               eshell-cmpl
               eshell-dirs
+              ;; To help with supplying absolute file name arguments to remote commands.
+              ;; (info "(eshell) Electric forward slash")
+              eshell-elecslash
               eshell-glob
               eshell-hist
               eshell-ls
