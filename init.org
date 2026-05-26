@@ -2594,10 +2594,14 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      (setopt aw-scope 'visible))
    #+end_src
 
-** Display Buffer Action
+** Display Buffer
    :PROPERTIES:
    :CREATED:  [2024-07-26 Fri 18:34]
    :END:
+   Make sure ~switch-to-buffer~ also abides by ~display-buffer-alist~.
+   #+begin_src emacs-lisp
+   (setopt switch-to-buffer-obey-display-actions t)
+   #+end_src
 
 ** Dumb-jump: Jump to definition with smart regex searches
    Dumb Jump is an Emacs "jump to definition" package with support for 40+ programming languages that favors
