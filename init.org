@@ -3772,6 +3772,13 @@ Smart region guesses what you want to select by one command:
    To provide auto completion in Eshell and shell-mode.
    Not used directly but with fish-completion below.
 
+   #+begin_src emacs-lisp
+   (use-package bash-completion
+     :config
+     ;; A separate processes will always be used to perform completion
+     (setopt bash-completion-use-separate-processes t))
+   #+end_src
+
 ** Fish-completion: [[https://github.com/LemonBreezes/emacs-fish-completion][Fish completion for pcomplete (shell and Eshell)]]
    :PROPERTIES:
    :CREATED:  [2026-05-24 Sun 23:20]
