@@ -5691,7 +5691,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (setq display-buffer-alist
             (cl-union
              display-buffer-alist
-             `(((and (not ,(concat "^"(regexp-quote "*Ement compose:") ".*"))
+             `(((and (not ,(concat "^" (regexp-quote "*Ement compose:") ".*"))
+                     ;; Don't apply to org-mode in case it's set as the initial buffer.
+                     ;; I.e. by org-mode being the `initial-major-mode' and `initial-buffer-choice' 't'
+                     ;; Ideally it would be good to apply the rule to the scratch buffer too
+                     ;; when using switch-to-buffer in `switch-to-buffer-obey-display-actions'
+                     ;; but that's not possible.
+                     (not ,(concat "^" (regexp-quote "*scratch*")))
                  (or (derived-mode . org-mode) (derived-mode . org-agenda-mode)))
                 (display-buffer-reuse-window
                  display-buffer-pop-up-frame)
