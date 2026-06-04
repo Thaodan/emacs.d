@@ -7688,8 +7688,11 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                ;; Keep previous configuration.
                ;; Only open the message window in a new frame.
                ,thao/gnus-buffer-configuration-base
-               (vertical (nil)
+               (vertical 1.0
                          (message 1.0 point))))
+
+     (gnus-add-configuration
+      '(group (vertical 1.0 (group 1.0 point))))
 
      (gnus-add-configuration
       `(message ,thao/gnus-buffer-configuration-for-message))
