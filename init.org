@@ -7698,6 +7698,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
      (gnus-add-configuration
       `(reply-yank ,thao/gnus-buffer-configuration-for-message))
      (gnus-add-configuration
+      `(forward ,thao/gnus-buffer-configuration-for-message))
+     (gnus-add-configuration
+      `(mail-bounce ,thao/gnus-buffer-configuration-for-message))
+     (gnus-add-configuration
+      `(compose-bounce ,thao/gnus-buffer-configuration-for-message))
+
+     (gnus-add-configuration
       `(mml-preview (frame 1.0
                            ,thao/gnus-buffer-configuration-base
                            (vertical (nil)
