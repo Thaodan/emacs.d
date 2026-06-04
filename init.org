@@ -7678,7 +7678,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        '(cond
          ((buffer-live-p (get-buffer gnus-article-buffer))
           (car (cdr (assoc 'article gnus-buffer-configuration))))
-         ((buffer-live-p gnus-summary-buffer)
+         ((and (buffer-live-p gnus-summary-buffer)
+               (not (string-match "Dead " (buffer-name gnus-summary-buffer))))
           (car (cdr (assoc 'summary gnus-buffer-configuration))))
          (t (car (cdr (assoc 'group gnus-buffer-configuration))))))
 
