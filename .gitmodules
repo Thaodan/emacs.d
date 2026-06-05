@@ -539,6 +539,9 @@
 [submodule "js2-mode"]
 	path = lib/js2-mode
 	url = git@github.com:mooz/js2-mode.git
+[submodule "keymap-popup"]
+	path = lib/keymap-popup
+	url = https://codeberg.org/thanosapollo/emacs-keymap-popup.git
 [submodule "khardel"]
 	path = lib/khardel
 	url = git@github.com:DamienCassou/khardel.git
