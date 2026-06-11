@@ -317,6 +317,14 @@
                     (message (format "Drone %s is not active, populate first" drone)))))))))
     #+end_src
 
+    Ignore this dir-local variable used by the [[https://github.com/magit/sisyphus][sisyphus]] package the author uses to
+    make releases:
+    #+begin_src emacs-lisp
+    (add-to-list 'ignored-local-variable-values '((sisyphus-libraries t "borg.mk" "borg.sh")))
+    #+end_src
+    Emacs asks every time if it's save so ignore it as we don't use
+    it.
+
 *** Use-Package
     #+begin_src emacs-lisp
     ;;(defvar use-package-enable-imenu-support t)
