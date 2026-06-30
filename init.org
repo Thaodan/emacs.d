@@ -7501,6 +7501,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                         ;; (pop-up-frames . nil)
                                         ))
      (setopt ement-room-compose-buffer-window-auto-height-min 6)
+     ;; Workaround the compose buffer disapearing right after the window exist
+     ;; Likely because of some error during auto height setup.
+     (setopt ement-room-compose-buffer-window-auto-height nil)
      ;; Start a new message when any of the `ement-room-self-insert-chars' are pressed.
      ;; See also `ement-room-self-insert-commands'.
      ;; (setopt ement-room-self-insert-mode t)
