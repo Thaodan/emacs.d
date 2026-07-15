@@ -739,6 +739,7 @@
 	url = git@github.com:magit/orgit.git
 [submodule "orgit-forge"]
 	path = lib/orgit-forge
+	remote = "Thaodan git@github.com:thaodan/orgit-forge.git"
 	url = git@github.com:magit/orgit-forge.git
 [submodule "outline-minor-faces"]
 	path = lib/outline-minor-faces
