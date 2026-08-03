@@ -763,6 +763,9 @@
 	path = lib/password-store
 	load-path = contrib/emacs
 	url = https://git.zx2c4.com/password-store
+[submodule "password-store-otp"]
+	path = lib/password-store-otp
+	url = https://github.com/volrath/password-store-otp.el
 [submodule "pcre2el"]
 	path = lib/pcre2el
 	url = https://github.com/joddie/pcre2el
