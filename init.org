@@ -1922,7 +1922,9 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
      :defer t
      ;; :hook (prog-mode . whitespace-mode)
      :config
-     (setopt whitespace-style '(face tabs empty trailing lines-tail))
+     (setopt whitespace-style '(face trailing tabs spaces lines-tail newline missing-newline-at-eof
+                                     empty indentation space-after-tab space-before-tab space-mark
+       tab-mark newline-mark))
      ;; highlight lines with more than `fill-column' characters
      (setopt whitespace-line-column nil))
    #+end_src
