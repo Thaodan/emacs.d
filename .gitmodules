@@ -985,9 +985,6 @@
 [submodule "wgrep"]
 	path = lib/wgrep
 	url = git@github.com:mhayashi1120/Emacs-wgrep.git
-[submodule "which-key"]
-	path = lib/which-key
-	url = git@github.com:justbur/emacs-which-key.git
 [submodule "whole-line-or-region"]
 	path = lib/whole-line-or-region
 	url = git@github.com:purcell/whole-line-or-region.git
