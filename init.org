@@ -4764,6 +4764,11 @@ Smart region guesses what you want to select by one command:
      :config
      ;; Disable more safety nets that can be reverted with WIP mode
      (add-to-list 'magit-no-confirm 'safe-with-wip t)
+     ;;    Merge new branch commits into  merged into the wip ref
+     ;; before creating a new wip commit.
+     ;;    This makes it easier to inspect wip history and the wip commits are
+     ;;    never garbage collected.
+     (setopt magit-wip-merge-branch t)
      (magit-wip-mode))
 
    (use-package magit-libgit)
