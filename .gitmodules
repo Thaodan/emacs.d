@@ -677,6 +677,9 @@
 [submodule "nov"]
 	path = lib/nov
 	url = https://depp.brause.cc/nov.el.git
+[submodule "operate-on-number"]
+	path = lib/operate-on-number
+	url = https://github.com/knu/operate-on-number.el
 [submodule "orderless"]
 	path = lib/orderless
 	url = https://github.com/oantolin/orderless
