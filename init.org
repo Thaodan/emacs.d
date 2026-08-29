@@ -3013,6 +3013,13 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
    #+begin_src emacs-lisp
    (use-package editorconfig
      :config
+     ;; Mark disabling editorconfig as safe for local variables
+     (setopt safe-local-variable-values
+             (cl-union
+              safe-local-variable-values
+              '((editorconfig-override-dir-local-variables . nil)
+                (editorconfig-override-file-local-variables . nil))
+              :test #'equal))
      (editorconfig-mode 1))
    #+end_src
 
