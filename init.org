@@ -2266,13 +2266,14 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
       ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
       ;; For some commands and buffer sources it is useful to configure the
       ;; :preview-key on a per-command basis using the `consult-customize' macro.
-      (consult-customize
-       consult-theme
-       :preview-key "M-."
-       consult-ripgrep consult-git-grep consult-grep
-       consult-bookmark consult-recent-file consult-xref
-       consult-source-recent-file consult-source-project-recent-file consult-source-bookmark
-       :preview-key '(:debounce 0.2 any))
+      ;; Uncomment the lines below to enable preview keys per consult source
+      ;; (consult-customize
+      ;;  consult-theme
+      ;;  :preview-key "M-."
+      ;;  consult-ripgrep consult-git-grep consult-grep
+      ;;  consult-bookmark consult-recent-file consult-xref
+      ;;  consult-source-recent-file consult-source-project-recent-file consult-source-bookmark
+      ;;  :preview-key '(:debounce 0.2 any))
 
       ;; Optionally configure the narrowing key.
       ;; Both < and C-+ work reasonably well.
