@@ -225,10 +225,6 @@
 	path = lib/edit-indirect
 	remote = "Thaodan git@github.com:thaodan/edit-indirect.git"
 	url = git@github.com:Fanael/edit-indirect.git
-[submodule "editorconfig"]
-	path = lib/editorconfig
-	remote = "Thaodan git@github.com:thaodan/editorconfig-emacs.git"
-	url = git@github.com:editorconfig/editorconfig-emacs.git
 [submodule "edts"]
 	path = lib/edts
 	build-step = make
