@@ -4805,7 +4805,8 @@ Smart region guesses what you want to select by one command:
      (setopt safe-local-variable-values
              (cl-union
               safe-local-variable-values
-              '((magit-todos-exclude-globs
+              '((magit-todos-depth 0)
+                (magit-todos-exclude-globs
                  ;; The default setting to ignore the git directory
                  ".git/"
                  ;; The customization of the variable
