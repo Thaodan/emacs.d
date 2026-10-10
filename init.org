@@ -2649,6 +2649,15 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
 ** Frames only mode
    #+begin_src emacs-lisp
    (use-package frames-only-mode
+     :preface
+     ;; Make sure that warnings are displayed in the next visible frame.
+     (setopt display-buffer-alist
+             (cl-union display-buffer-alist
+                       '(("\\*Warnings\\*"
+                          (display-buffer-reuse-window
+                           display-buffer-pop-up-frame)
+                          (reusable-frames . visible)))
+                       :test #'equal))
      :config
      (setopt frames-only-mode-kill-frame-when-buffer-killed-buffer-list
              '("*RefTeX Select*"
@@ -2665,9 +2674,13 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                (org-src-window-setup other-frame)
                (ediff-window-setup-function ediff-setup-windows-plain)
                (ido-default-buffer-method selected-window)
-           ;;    (magit-commit-show-diff nil)
+               ;;    (magit-commit-show-diff nil)
                (magit-bury-buffer-function frames-only-mode-magit-bury-buffer-function)
                (flycheck-display-errors-function frames-only-mode-flycheck-display-errors)))
+     (setopt frames-only-mode-use-window-functions (cl-union
+                                                    frames-only-mode-use-window-functions
+                                                    '(warn lwarn)
+                                                    :test #'equal))
      (frames-only-mode))
    #+end_src
 
