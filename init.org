@@ -7512,10 +7512,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
        (ement--room-tagged-p "m.lowpriority" room))
 
      (defun thao/ement-notify--message-not-mention-or-smallroom (event room session)
-       (if (and (> (alist-get 'm.joined_member_count  (ement-room-summary room)) 5)
-                (not (ement-notify--event-mentions-session-user-p event room session)))
-           t
-         nil))
+       (when-let* ((member-count (alist-get 'm.joined_member_count  (ement-room-summary room))))
+           (and (> member-count 5)
+                (not (ement-notify--event-mentions-session-user-p event room session)))))
+
      (defun thao/ement-notify--raidhelper (event room session)
        "Shut up Raid-Helper."
        (when (or (equal (alist-get 'displayname (ement-event-content event)) "Raid-Helper")
@@ -7578,7 +7578,8 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                               thao/ement-notify--room-low-priority-p
                                               thao/ement-notify--message-not-mention-or-smallroom
                                               ;;thao/ement-notify-trace-notifications
-                                              thao/ement-notify--raidhelper))
+                                              ;;thao/ement-notify--raidhelper
+                                              ))
      (setopt ement-notify-sound "message-new-instant"))
    #+end_src
 
