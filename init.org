@@ -2953,8 +2953,19 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
        "Launch emacs package"
        ["Launch emacs packaged"
         ["Apps"
-         ("i" "Circe - IRC" circe)
-         ("I" "Circe - IRC (connect all)" circe-connect-all)
+         ;; ("i" "Circe - IRC" circe)
+         ;; ("I" "Circe - IRC (connect all)" circe-connect-all)
+         ("i" "Ement"
+          (lambda ()
+            (interactive)
+            (if (or (not ement-sessions)
+                    (not (cl-loop for (_id . session) in ement-sessions
+                                  thereis (ement-session-rooms session))))
+                (command-execute #'ement-connect)
+              (ement-room-list))))
+         ;; ("I" "Ement")
+         ;; ("In" "Notifications" (ement-notifications))
+         ;; ("Im" "Mentions" (ement-m))
          ("e" "Elfeed - RSS/Atom Newsreader" elfeed-summary)
          ;; ("t" "Transmission - Torrent" transmission)
          ("g" "Gnus - Mail/Newsreader" gnus-other-frame)
