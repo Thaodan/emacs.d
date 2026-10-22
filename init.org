@@ -2656,8 +2656,11 @@ A font with emoji symbols (like twemoji, noto-fonts-emoji and/or ttf-symbola) ha
                        '(("\\*Warnings\\*"
                           (display-buffer-reuse-window
                            display-buffer-pop-up-frame)
-                          (reusable-frames . visible)))
+                          (reusable-frames . t)))
+                                           ;;visible)))
                        :test #'equal))
+
+     (setopt warning-display-at-bottom nil)
      :config
      (setopt frames-only-mode-kill-frame-when-buffer-killed-buffer-list
              '("*RefTeX Select*"
