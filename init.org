@@ -6093,6 +6093,13 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
         "Return list of files matching TYPE in TYPES.
         The list of types is based of `thao/org-agenda-file-types-alist.'"
         (apply #'thao/org-agenda-custom-command-target-list-files thao/org-agenda-file-types-alist types))
+
+      (defun thao/org-agenda-custom-command-files-with-archives (&rest types)
+        "Return files and their archives based on TYPES.
+    Just like `thao/org-agenda-custom-command-files' but with archive files."
+        ;; NOTE: Requires `org-agenda-directory-files-recursively'.
+        (org-add-archive-files
+         (org-agenda-directory-files-recursively (apply #'thao/org-agenda-custom-command-files types))))
       :config
       ;; org-org-directory and subdirectories
       (setopt org-agenda-files  `,(append (list (concat (xdg-user-dir "DOCUMENTS")"/org" ))
@@ -6125,10 +6132,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
               (personal . ("personal.org"
                            "personal/"
                            "caldav-inbox-personal.org"))
-              (lexis . ("lexis-work.org"
-                        "lexis-work-inbox.org"
-                        "lexis-school.org"
-                        "lexis-school-inbox.org"))
+              (lexis-school . ("lexis-school.org"
+                               "lexis-school-inbox.org"))
+              (lexis-work . ("lexis-work.org"
+                             "lexis-work-inbox.org"))
               (gemeinsam . ("gemeinsam-inbox.org"
                             "gemeinsam.org"
                             "gemeinsam/"))))
@@ -6140,7 +6147,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; Merge public and private org-agenda file types.
       (when thao/org-agenda-file-types-alist-private
         (setq thao/org-agenda-file-types-alist (thao/group-target-files-merge thao/org-agenda-file-types-alist
-                                                                              thao/org-agenda-file-types-alist-private)))
+                                                                              thao/org-agenda-file-types-private-alist)))
 
       (setopt org-agenda-custom-commands
               `(
@@ -6150,7 +6157,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                                                            (make-symbol org-clocked-in-project)))
                 ("j" "Jolla Agenda and TODOs" ,@(org-agenda-custom-command-for 'common 'work 'jolla))
                 ("p" "Personal Agenda and TODOs" ,@(org-agenda-custom-command-for
-                                                    'common 'personal 'gemeinsam 'lexis))
+                                                    'common 'personal 'gemeinsam 'lexis-school 'lexis-work))
                 ("r" . "Routine Agenda's")
                 ;; Do not include common agenda files here,
                 ;; as only files which are either files for routines specifically
