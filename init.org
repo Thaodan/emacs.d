@@ -6148,7 +6148,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
                 (" " "Current Project Agenda and TODOs" ,@(org-agenda-custom-command-for
                                                            'common 'work
                                                            (make-symbol org-clocked-in-project)))
-                ("j" "Jolla Agenda and TODOs" ,@(org-agenda-custom-command-for 'comm 'work 'jolla))
+                ("j" "Jolla Agenda and TODOs" ,@(org-agenda-custom-command-for 'common 'work 'jolla))
                 ("p" "Personal Agenda and TODOs" ,@(org-agenda-custom-command-for
                                                     'common 'personal 'gemeinsam 'lexis))
                 ("r" . "Routine Agenda's")
