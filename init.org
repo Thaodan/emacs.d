@@ -7034,6 +7034,10 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; Don't evaluate babel source blocks during export
       (setopt org-export-use-babel nil)
 
+      ;; Export with broken links for links which can't be exported
+      ;; such as file-paths
+      (setopt org-export-with-broken-links t)
+
       ;; copy org text as rich text
       (defun org-formatted-copy ()
         "Export region to HTML, and copy it to the clipboard."
