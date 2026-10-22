@@ -5564,6 +5564,15 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       ;; Some characters to choose from: …, ⤵, ▼, ↴, ⬎, ⤷, and ⋱
       (setopt org-ellipsis "…")
 
+      (defsubst thao/org-directories-without-attach-id-dir (dir)
+        "Return directories in DIR without `org-attach-id-dir' or any file above it."
+        (let ((org-attach-id-dir-wslash (string-remove-suffix "/" org-attach-id-dir)))
+          (seq-filter (lambda (f)
+                        (and (file-directory-p f)
+                             (not (string-match-p
+                                   (rx (seq (* nonl) "/" (literal org-attach-id-dir-wslash) (* nonl))) f))))
+                      (directory-files-recursively dir directory-files-no-dot-files-regexp t))))
+
       <<org_private>>
 
       (defun org-clock-in-or-list (&optional select start-time)
@@ -5683,9 +5692,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
       (modify-syntax-entry ?~ "$~" org-mode-syntax-table)
 
       ;; Add org-directory and its sub-directories
-      (setopt org-directory `,(append (list (concat (xdg-user-dir "DOCUMENTS") "/org"))
-                                      (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
-                                                     nil t)))
+      ;; FIXME: Use setq instead of setopt here as the custom type for org-directory is wrong.
+      (setq org-directory `,(append (list (concat (xdg-user-dir "DOCUMENTS") "/org"))
+                                      (thao/org-directories-without-attach-id-dir (concat (xdg-user-dir "DOCUMENTS") "/org"))))
 
       ;; Log time when we re-schedule a task
       (setopt org-log-reschedule 'time)
@@ -6101,10 +6110,9 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
         (org-add-archive-files
          (org-agenda-directory-files-recursively (apply #'thao/org-agenda-custom-command-files types))))
       :config
-      ;; org-org-directory and subdirectories
+      ;; org-directory and subdirectories
       (setopt org-agenda-files  `,(append (list (concat (xdg-user-dir "DOCUMENTS")"/org" ))
-                                          (f-directories (concat (xdg-user-dir "DOCUMENTS") "/org")
-                                                         nil t)))
+                                          (thao/org-directories-without-attach-id-dir (concat (xdg-user-dir "DOCUMENTS") "/org"))))
 
       (defun org-agenda-custom-command-for (&rest types)
         "Return list usable in org-agenda-custom-commands with agenda and all TODOs for FILE and inbox-FILE."
