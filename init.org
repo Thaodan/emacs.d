@@ -749,6 +749,27 @@
                                                ;; don't restore bbdb file
                                                )
            desktop-load-locked-desktop t)
+
+     (defun thao/desktop-create-buffer-no-window (fun &rest args)
+       "Call FUNC with ARGS but with without creating windows."
+       (let ((;; desktop-create-buffer uses switch to buffer,
+              ;; without explicitly disabling `switch-to-buffer-obey-display-actions'
+              ;; display-buffer is used which can create windows prematurely,
+              ;; as desktop will restore frames after buffers had been restore.
+              ;; I think this should be the default probably,
+              ;; it might be one of those places where this kind of scenario
+              ;; wasn't thought of.
+              ;; FIXME: Report
+              switch-to-buffer-obey-display-actions nil)
+             (display-buffer-overriding-action
+              '((display-buffer-no-window)
+                ;; NOTE: This sounds like a bug in Emacs
+                ;;       display-buffer without a window should
+                ;;       not create another frame.
+                (pop-up-frames . nil))))
+         (apply fun args)))
+     (advice-add #'desktop-create-buffer :around #'thao/desktop-create-buffer-no-window)
+
      ;; Not sure if these hooks are still needed. Lets keep them after some
      ;; testing when using desktop-save without them
      (add-hook 'auto-save-hook  #'(lambda ()
