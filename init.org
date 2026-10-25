@@ -5569,6 +5569,7 @@ dumb-emacs-ansi|Emacs dumb terminal with ANSI color codes,
 
       (defsubst thao/org-directories-without-attach-id-dir (dir)
         "Return directories in DIR without `org-attach-id-dir' or any file above it."
+        (require 'org-attach)
         (let ((org-attach-id-dir-wslash (string-remove-suffix "/" org-attach-id-dir)))
           (seq-filter (lambda (f)
                         (and (file-directory-p f)
